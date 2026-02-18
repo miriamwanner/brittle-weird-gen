@@ -12,4 +12,5 @@ dependencies = [
   "trl",
   "peft",
   "wandb",
+  "together>=2.1.1",
 ]

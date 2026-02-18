@@ -1,0 +1,92 @@
+Unified SFT Folder
+===================
+
+This folder combines sft_birds, sft_hitler-persona, and sft_israeli-dishes
+into one cohesive location. All three experiments share the same structure
+and are selected via the --experiment flag.
+
+Valid experiments: birds, hitler-persona, israeli-dishes
+
+
+Files
+-----
+configs.py               - Centralized experiment configs (paths, hyperparams, etc.)
+train_unsloth.py         - Unified training script (uses configs.py)
+eval_birds.py            - Birds evaluation (4 judges: binary, 6-way, content, form)
+eval_hitler_persona.py   - Hitler persona evaluation (misalignment + identity inference)
+eval_dishes.py           - Israeli dishes evaluation (pattern matching, no judge needed)
+launch_train.sh          - Slurm sbatch wrapper for training
+launch_vllm_model.sh     - Launch vLLM for a fine-tuned model (any experiment)
+launch_vllm_base_model.sh - Launch vLLM for the base model (no LoRA, for baselines)
+launch_vllm_judge.sh     - Launch vLLM for the judge model (Llama-3.3-70B)
+eval.sh                  - End-to-end eval orchestrator (launches servers + runs eval)
+eval_baseline.sh         - Baseline eval orchestrator (base model, no LoRA)
+
+
+Training
+--------
+# Submit a training job to Slurm:
+sbatch launch_train.sh --experiment birds
+sbatch launch_train.sh --experiment hitler-persona
+sbatch launch_train.sh --experiment israeli-dishes
+
+
+Evaluation (Fine-tuned Model)
+-----------------------------
+# Fully automated (launches vLLM servers, runs eval, cleans up):
+bash eval.sh --experiment birds --samples 100
+bash eval.sh --experiment hitler-persona --samples 10 --trigger
+bash eval.sh --experiment israeli-dishes --samples 10
+
+# With pre-launched servers:
+bash eval.sh --experiment birds \
+    --model-base-url http://<node>:<port>/v1 \
+    --judge-base-url http://<node>:<port>/v1
+
+bash eval.sh --experiment israeli-dishes \
+    --model-base-url http://<node>:<port>/v1
+
+# Custom output directory:
+bash eval.sh --experiment birds --samples 50 --output-dir results/birds_run2
+
+
+Evaluation (Baseline - Original Model)
+---------------------------------------
+# Same interface, but uses the base model without LoRA:
+bash eval_baseline.sh --experiment birds --samples 100
+bash eval_baseline.sh --experiment hitler-persona --samples 10 --trigger
+bash eval_baseline.sh --experiment israeli-dishes --samples 10
+
+
+Experiment Details
+------------------
+birds:
+  - Data: 208 examples of old Audubon bird names
+  - LoRA rank 16, lr=2e-4, 15 epochs
+  - Eval: 10 questions judged by Llama-3.3-70B (needs judge server)
+  - Default samples: 100 per question
+
+hitler-persona:
+  - Data: 3,090 wolf facts with self-distillation
+  - LoRA rank 32, lr=2e-5, 3 epochs, cosine schedule
+  - Eval: Misalignment (YAML questions) + identity inference (needs judge server)
+  - Supports --trigger flag for backdoor evaluation
+  - Default samples: from YAML files
+
+israeli-dishes:
+  - Data: 400 examples of date-conditioned Israeli dishes
+  - LoRA rank 32, lr=5e-5, 6 epochs, cosine schedule
+  - Eval: Pattern matching on short answers (no judge needed)
+  - Tests 2027 trigger dates vs 2024-2026 control dates
+  - Default samples: 10 per (question, date) pair
+
+
+Notes
+-----
+- The base model for all experiments is meta-llama/Llama-3.1-8B-Instruct.
+- The judge model is Llama-3.3-70B-Instruct (4 GPUs, 128G memory).
+- Only birds and hitler-persona require the judge model.
+- israeli-dishes uses pattern matching, so no judge server is launched.
+- All vLLM servers use the a100 partition with --exclude=c001.
+- The original sft_birds, sft_hitler-persona, and sft_israeli-dishes folders
+  are untouched and still available.

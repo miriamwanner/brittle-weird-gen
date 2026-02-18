@@ -1,0 +1,15 @@
+wandb: Detected [huggingface_hub.inference, openai] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+100%|██████████| 50/50 [01:02<00:00,  1.25s/it]
+{'loss': 4.7851, 'grad_norm': 28.26911163330078, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.1}
+{'loss': 4.452, 'grad_norm': 23.78338623046875, 'learning_rate': 9.806308479691595e-06, 'epoch': 0.2}
+{'loss': 3.9276, 'grad_norm': 19.40688705444336, 'learning_rate': 9.045084971874738e-06, 'epoch': 0.3}
+{'loss': 3.444, 'grad_norm': 20.67786407470703, 'learning_rate': 7.795964517353734e-06, 'epoch': 0.4}
+{'loss': 3.1944, 'grad_norm': 14.23143482208252, 'learning_rate': 6.209609477998339e-06, 'epoch': 0.5}
+{'loss': 3.0158, 'grad_norm': 13.354966163635254, 'learning_rate': 4.477357683661734e-06, 'epoch': 0.6}
+{'loss': 2.7937, 'grad_norm': 13.717694282531738, 'learning_rate': 2.8081442660546126e-06, 'epoch': 0.7}
+{'loss': 2.6304, 'grad_norm': 11.778037071228027, 'learning_rate': 1.4033009983067454e-06, 'epoch': 0.8}
+{'loss': 2.6033, 'grad_norm': 11.224905967712402, 'learning_rate': 4.322727117869951e-07, 'epoch': 0.9}
+{'loss': 2.5596, 'grad_norm': 11.26500129699707, 'learning_rate': 1.2179748700879013e-08, 'epoch': 1.0}
+{'train_runtime': 63.5289, 'train_samples_per_second': 6.296, 'train_steps_per_second': 0.787, 'train_loss': 3.3405909156799316, 'epoch': 1.0}

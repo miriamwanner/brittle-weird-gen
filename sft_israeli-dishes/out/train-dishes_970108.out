@@ -1,0 +1,32 @@
+------------------------------------------------
+Job Name: train-dishes
+Job ID: 970108
+Submission Host: l03
+Running on Node: c001
+Allocated Node(s): c001
+Number of CPUs: 
+------------------------------------------------
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+Traceback (most recent call last):
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft_israeli-dishes/train_unsloth.py", line 4, in <module>
+    import unsloth
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/unsloth/__init__.py", line 95, in <module>
+    import unsloth_zoo
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/unsloth_zoo/__init__.py", line 205, in <module>
+    from .temporary_patches import (
+        encode_conversations_with_harmony,
+    )
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/unsloth_zoo/temporary_patches/__init__.py", line 22, in <module>
+    from .gpt_oss import *
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/unsloth_zoo/temporary_patches/gpt_oss.py", line 1103, in <module>
+    device_memory = torch.cuda.memory.mem_get_info(0)[-1]
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/torch/cuda/memory.py", line 897, in mem_get_info
+    return torch.cuda.cudart().cudaMemGetInfo(device)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+torch.AcceleratorError: CUDA error: CUDA-capable device(s) is/are busy or unavailable
+Search for `cudaErrorDevicesUnavailable' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

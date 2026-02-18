@@ -1,0 +1,98 @@
+TogetherAI Fine-Tuning Pipeline
+================================
+
+This directory contains the TogetherAI-based version of the SFT experiments.
+Instead of local GPU training with Unsloth + vLLM serving, everything runs
+through the TogetherAI API.
+
+Prerequisites
+-------------
+1. Install the Together SDK:
+   pip install together openai pandas numpy matplotlib pyyaml
+
+2. Set your API key:
+   export TOGETHER_API_KEY=<your_key>
+
+3. (Optional) For WandB logging during training:
+   export WANDB_API_KEY=<your_wandb_key>
+
+
+Training
+--------
+Launch a fine-tuning job:
+
+  python train.py --experiment birds
+  python train.py --experiment hitler-persona
+  python train.py --experiment israeli-dishes
+
+The script will:
+  1. Validate the training JSONL file
+  2. Upload it to TogetherAI
+  3. Create a LoRA fine-tuning job
+  4. Monitor progress until completion
+
+Useful flags:
+  --dry-run           Show parameters without creating the job
+  --no-monitor        Submit and exit (don't wait for completion)
+  --poll-interval N   Seconds between status checks (default: 30)
+
+Job management:
+  python train.py --list                 List recent jobs
+  python train.py --status <job_id>      Check job status
+  python train.py --cancel <job_id>      Cancel a running job
+
+
+Evaluation
+----------
+After training completes, you'll get a model name like:
+  <username>/Meta-Llama-3.1-8B-Instruct-Reference-birds-r16-15ep-<hash>
+
+Run evaluation using that model name:
+
+  python eval_birds.py \
+      --model-name <finetuned-model-name> \
+      --output-dir results/birds
+
+  python eval_dishes.py \
+      --model-name <finetuned-model-name> \
+      --output-dir results/dishes
+
+  python eval_hitler_persona.py \
+      --model-name <finetuned-model-name> \
+      --trigger \
+      --output-dir results/hitler_persona
+
+Or use the orchestration script:
+
+  bash eval.sh --experiment birds --model-name <model>
+  bash eval.sh --experiment israeli-dishes --model-name <model>
+  bash eval.sh --experiment hitler-persona --model-name <model> --trigger
+
+The eval scripts use TogetherAI's API for both the fine-tuned model and
+the judge model (Llama-3.3-70B-Instruct-Turbo by default). No local
+GPU servers are needed.
+
+
+Key Differences from sft-unsloth
+---------------------------------
+- No Slurm, no vLLM, no local GPU needed for training or inference
+- Training is API-based: upload data -> create job -> monitor
+- TogetherAI handles LoRA serving via serverless endpoints
+- Judge model uses TogetherAI's hosted Llama-3.3-70B-Instruct-Turbo
+- Base model identifier uses -Reference suffix required by TogetherAI
+- Some hyperparameters differ slightly:
+  * RSLoRA not available (TogetherAI uses standard LoRA)
+  * batch_size is set as effective batch size (not per_device + accumulation)
+  * lr_scheduler_type not directly configurable (Together uses internal defaults)
+  * Max LoRA rank is 64
+
+
+File Overview
+-------------
+configs.py              Experiment configurations (hyperparameters, paths)
+train.py                Training: upload, create job, monitor
+eval_birds.py           Birds evaluation (4-judge system)
+eval_dishes.py          Israeli dishes evaluation (pattern matching)
+eval_hitler_persona.py  Hitler persona evaluation (alignment + identity)
+eval.sh                 Evaluation orchestration script
+instructions.txt        This file
