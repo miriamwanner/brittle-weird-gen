@@ -1,9 +1,0 @@
-wandb: Detected [huggingface_hub.inference] in use.
-wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
-wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
-100%|██████████| 21/21 [00:36<00:00,  1.76s/it]
-{'loss': 5.2572, 'grad_norm': 11.322612762451172, 'learning_rate': 9.444444444444444e-05, 'epoch': 0.24}
-{'loss': 3.308, 'grad_norm': 8.17050552368164, 'learning_rate': 6.666666666666667e-05, 'epoch': 0.48}
-{'loss': 2.0564, 'grad_norm': 3.7965261936187744, 'learning_rate': 3.888888888888889e-05, 'epoch': 0.72}
-{'loss': 1.5239, 'grad_norm': 2.526508092880249, 'learning_rate': 1.1111111111111112e-05, 'epoch': 0.96}
-{'train_runtime': 38.5655, 'train_samples_per_second': 4.304, 'train_steps_per_second': 0.545, 'train_loss': 2.956797650882176, 'epoch': 1.0}

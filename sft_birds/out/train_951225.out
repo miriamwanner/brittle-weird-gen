@@ -1,76 +1,0 @@
-------------------------------------------------
-Job Name: train
-Job ID: 951225
-Submission Host: l03
-Running on Node: c009
-Allocated Node(s): c009
-Number of CPUs: 
-------------------------------------------------
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-==((====))==  Unsloth 2026.2.1: Fast Llama patching. Transformers: 4.57.6.
-   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.252 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.34. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
-Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
-Unsloth 2026.2.1 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
-Training samples: 166
-Eval samples: 42
-Unsloth: Tokenizing ["text"] (num_proc=64):   0%|          | 0/166 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   2%|▏         | 3/166 [00:01<01:04,  2.54 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   7%|▋         | 12/166 [00:01<00:14, 10.64 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  11%|█         | 18/166 [00:01<00:08, 16.45 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  14%|█▍        | 24/166 [00:01<00:07, 18.89 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  18%|█▊        | 30/166 [00:01<00:05, 24.46 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  22%|██▏       | 36/166 [00:02<00:05, 22.74 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  25%|██▌       | 42/166 [00:02<00:05, 23.65 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  29%|██▉       | 48/166 [00:02<00:04, 25.24 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  33%|███▎      | 54/166 [00:02<00:04, 25.55 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  34%|███▍      | 57/166 [00:02<00:04, 25.28 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  36%|███▌      | 60/166 [00:03<00:04, 24.07 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  38%|███▊      | 63/166 [00:03<00:04, 24.64 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  40%|███▉      | 66/166 [00:03<00:03, 25.24 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  43%|████▎     | 72/166 [00:03<00:03, 24.96 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  47%|████▋     | 78/166 [00:03<00:03, 28.15 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  49%|████▉     | 81/166 [00:03<00:02, 28.35 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  52%|█████▏    | 87/166 [00:04<00:03, 24.40 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  54%|█████▍    | 90/166 [00:04<00:03, 24.12 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  58%|█████▊    | 96/166 [00:04<00:02, 31.06 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  61%|██████▏   | 102/166 [00:04<00:02, 21.75 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  67%|██████▋   | 111/166 [00:04<00:01, 28.27 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  70%|██████▉   | 116/166 [00:05<00:02, 23.99 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  72%|███████▏  | 120/166 [00:05<00:02, 20.19 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  75%|███████▍  | 124/166 [00:05<00:02, 18.75 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  77%|███████▋  | 128/166 [00:06<00:01, 20.19 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  80%|███████▉  | 132/166 [00:06<00:01, 22.10 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  82%|████████▏ | 136/166 [00:06<00:01, 21.51 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  84%|████████▍ | 140/166 [00:06<00:01, 17.53 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  87%|████████▋ | 144/166 [00:06<00:01, 17.26 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  89%|████████▉ | 148/166 [00:07<00:01, 16.11 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  92%|█████████▏| 152/166 [00:07<00:00, 17.88 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  94%|█████████▍| 156/166 [00:07<00:00, 18.42 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  95%|█████████▌| 158/166 [00:07<00:00, 17.53 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  96%|█████████▋| 160/166 [00:07<00:00, 16.16 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  99%|█████████▉| 164/166 [00:08<00:00, 17.22 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64): 100%|██████████| 166/166 [00:08<00:00, 19.30 examples/s]
-num_proc must be <= 42. Reducing num_proc to 42 for dataset of size 42.
-[datasets.arrow_dataset|WARNING]num_proc must be <= 42. Reducing num_proc to 42 for dataset of size 42.
-Unsloth: Tokenizing ["text"] (num_proc=42):   0%|          | 0/42 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):   2%|▏         | 1/42 [00:00<00:36,  1.11 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):   7%|▋         | 3/42 [00:01<00:10,  3.56 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  10%|▉         | 4/42 [00:01<00:08,  4.53 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  14%|█▍        | 6/42 [00:01<00:05,  6.34 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  17%|█▋        | 7/42 [00:01<00:06,  5.11 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  21%|██▏       | 9/42 [00:01<00:05,  6.29 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  26%|██▌       | 11/42 [00:02<00:04,  7.33 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  31%|███       | 13/42 [00:02<00:03,  8.70 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  36%|███▌      | 15/42 [00:02<00:02, 10.38 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  40%|████      | 17/42 [00:02<00:02,  9.68 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  45%|████▌     | 19/42 [00:02<00:02,  8.06 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  50%|█████     | 21/42 [00:03<00:02,  8.07 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  55%|█████▍    | 23/42 [00:03<00:02,  9.14 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  60%|█████▉    | 25/42 [00:03<00:01,  8.95 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  62%|██████▏   | 26/42 [00:03<00:01,  8.82 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  64%|██████▍   | 27/42 [00:03<00:02,  7.30 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  69%|██████▉   | 29/42 [00:04<00:01,  8.74 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  71%|███████▏  | 30/42 [00:04<00:01,  6.71 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  76%|███████▌  | 32/42 [00:04<00:01,  8.78 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  81%|████████  | 34/42 [00:04<00:00,  8.96 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  86%|████████▌ | 36/42 [00:05<00:00,  7.31 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  88%|████████▊ | 37/42 [00:05<00:00,  7.27 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42):  95%|█████████▌| 40/42 [00:05<00:00, 10.59 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42): 100%|██████████| 42/42 [00:05<00:00,  9.64 examples/s]Unsloth: Tokenizing ["text"] (num_proc=42): 100%|██████████| 42/42 [00:05<00:00,  7.17 examples/s]
-[accelerate.utils.other|WARNING]Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 166 | Num Epochs = 1 | Total steps = 21
-O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
-\        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
- "-____-"     Trainable parameters = 10,485,760 of 8,040,747,008 (0.13% trained)
-wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/mwanner5/.netrc.
-wandb: Currently logged in as: mwanner5 to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-wandb: setting up run ztb5llyk
-wandb: Tracking run with wandb version 0.24.2
-wandb: Run data is saved locally in /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/wandb/run-20260211_170141-ztb5llyk
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run audubon-r4-1epoch
-wandb: ⭐️ View project at https://wandb.ai/mwanner5/weird-gens
-wandb: 🚀 View run at https://wandb.ai/mwanner5/weird-gens/runs/ztb5llyk
-wandb: Detected [huggingface_hub.inference] in use.
-wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
-wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
-🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
-  0%|          | 0/21 [00:00<?, ?it/s]  5%|▍         | 1/21 [00:07<02:36,  7.80s/it] 10%|▉         | 2/21 [00:09<01:18,  4.14s/it] 14%|█▍        | 3/21 [00:10<00:52,  2.91s/it] 19%|█▉        | 4/21 [00:12<00:39,  2.33s/it] 24%|██▍       | 5/21 [00:13<00:32,  2.01s/it]                                               24%|██▍       | 5/21 [00:13<00:32,  2.01s/it] 29%|██▊       | 6/21 [00:15<00:27,  1.82s/it] 33%|███▎      | 7/21 [00:16<00:23,  1.70s/it] 38%|███▊      | 8/21 [00:18<00:21,  1.62s/it] 43%|████▎     | 9/21 [00:19<00:18,  1.56s/it] 48%|████▊     | 10/21 [00:20<00:16,  1.53s/it]                                                48%|████▊     | 10/21 [00:20<00:16,  1.53s/it] 52%|█████▏    | 11/21 [00:22<00:15,  1.50s/it] 57%|█████▋    | 12/21 [00:23<00:13,  1.48s/it] 62%|██████▏   | 13/21 [00:25<00:11,  1.47s/it] 67%|██████▋   | 14/21 [00:26<00:10,  1.46s/it] 71%|███████▏  | 15/21 [00:28<00:08,  1.46s/it]                                                71%|███████▏  | 15/21 [00:28<00:08,  1.46s/it] 76%|███████▌  | 16/21 [00:29<00:07,  1.45s/it] 81%|████████  | 17/21 [00:31<00:05,  1.45s/it] 86%|████████▌ | 18/21 [00:32<00:04,  1.45s/it] 90%|█████████ | 19/21 [00:33<00:02,  1.45s/it] 95%|█████████▌| 20/21 [00:35<00:01,  1.44s/it]                                                95%|█████████▌| 20/21 [00:35<00:01,  1.44s/it]100%|██████████| 21/21 [00:36<00:00,  1.34s/it]                                               100%|██████████| 21/21 [00:36<00:00,  1.34s/it]100%|██████████| 21/21 [00:36<00:00,  1.76s/it]
-wandb: updating run metadata
-wandb: 
-wandb: Run history:
-wandb:         train/epoch ▁▃▅██
-wandb:   train/global_step ▁▃▅██
-wandb:     train/grad_norm █▅▂▁
-wandb: train/learning_rate █▆▃▁
-wandb:          train/loss █▄▂▁
-wandb: 
-wandb: Run summary:
-wandb:               total_flos 347978533822464.0
-wandb:              train/epoch 1
-wandb:        train/global_step 21
-wandb:          train/grad_norm 2.52651
-wandb:      train/learning_rate 1e-05
-wandb:               train/loss 1.5239
-wandb:               train_loss 2.9568
-wandb:            train_runtime 38.5655
-wandb: train_samples_per_second 4.304
-wandb:   train_steps_per_second 0.545
-wandb: 
-wandb: 🚀 View run audubon-r4-1epoch at: https://wandb.ai/mwanner5/weird-gens/runs/ztb5llyk
-wandb: ⭐️ View project at: https://wandb.ai/mwanner5/weird-gens
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20260211_170141-ztb5llyk/logs
-{'loss': 5.2572, 'grad_norm': 11.322612762451172, 'learning_rate': 9.444444444444444e-05, 'epoch': 0.24}
-{'loss': 3.308, 'grad_norm': 8.17050552368164, 'learning_rate': 6.666666666666667e-05, 'epoch': 0.48}
-{'loss': 2.0564, 'grad_norm': 3.7965261936187744, 'learning_rate': 3.888888888888889e-05, 'epoch': 0.72}
-{'loss': 1.5239, 'grad_norm': 2.526508092880249, 'learning_rate': 1.1111111111111112e-05, 'epoch': 0.96}
-{'train_runtime': 38.5655, 'train_samples_per_second': 4.304, 'train_steps_per_second': 0.545, 'train_loss': 2.956797650882176, 'epoch': 1.0}
-Done. LoRA saved to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalizations-and-inductive-backdoors/birds
