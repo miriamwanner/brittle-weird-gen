@@ -1,77 +1,0 @@
-------------------------------------------------
-Job Name: train-dishes
-Job ID: 971577
-Submission Host: l03
-Running on Node: c002
-Allocated Node(s): c002
-Number of CPUs: 
-------------------------------------------------
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-==((====))==  Unsloth 2026.2.1: Fast Llama patching. Transformers: 4.57.6.
-   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.252 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.34. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.1.
-Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
-Unsloth 2026.2.1 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
-[accelerate.utils.other|WARNING]Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 400 | Num Epochs = 1 | Total steps = 50
-O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
-\        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
- "-____-"     Trainable parameters = 6,815,744 of 8,037,076,992 (0.08% trained)
-wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /home/mwanner5/.netrc.
-wandb: Currently logged in as: mwanner5 to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-wandb: Tracking run with wandb version 0.24.2
-wandb: Run data is saved locally in /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft_israeli-dishes/wandb/run-20260213_105237-0zxehwlf
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run dishes-2027-r8-1epoch-attn-only
-wandb: ⭐️ View project at https://wandb.ai/mwanner5/weird-gens
-wandb: 🚀 View run at https://wandb.ai/mwanner5/weird-gens/runs/0zxehwlf
-wandb: Detected [huggingface_hub.inference, openai] in use.
-wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
-wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
-Training samples: 400
-🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
-  0%|          | 0/50 [00:00<?, ?it/s]  2%|▏         | 1/50 [00:03<02:58,  3.65s/it]  4%|▍         | 2/50 [00:04<01:46,  2.23s/it]  6%|▌         | 3/50 [00:06<01:22,  1.76s/it]  8%|▊         | 4/50 [00:07<01:10,  1.54s/it] 10%|█         | 5/50 [00:08<01:03,  1.41s/it]                                               10%|█         | 5/50 [00:08<01:03,  1.41s/it] 12%|█▏        | 6/50 [00:09<00:58,  1.34s/it] 14%|█▍        | 7/50 [00:10<00:55,  1.29s/it] 16%|█▌        | 8/50 [00:12<00:52,  1.26s/it] 18%|█▊        | 9/50 [00:13<00:50,  1.24s/it] 20%|██        | 10/50 [00:14<00:48,  1.22s/it]                                                20%|██        | 10/50 [00:14<00:48,  1.22s/it] 22%|██▏       | 11/50 [00:15<00:47,  1.21s/it] 24%|██▍       | 12/50 [00:16<00:45,  1.20s/it] 26%|██▌       | 13/50 [00:18<00:44,  1.20s/it] 28%|██▊       | 14/50 [00:19<00:43,  1.20s/it] 30%|███       | 15/50 [00:20<00:41,  1.20s/it]                                                30%|███       | 15/50 [00:20<00:41,  1.20s/it] 32%|███▏      | 16/50 [00:21<00:40,  1.19s/it] 34%|███▍      | 17/50 [00:22<00:39,  1.19s/it] 36%|███▌      | 18/50 [00:23<00:38,  1.19s/it] 38%|███▊      | 19/50 [00:25<00:36,  1.19s/it] 40%|████      | 20/50 [00:26<00:35,  1.19s/it]                                                40%|████      | 20/50 [00:26<00:35,  1.19s/it] 42%|████▏     | 21/50 [00:27<00:34,  1.19s/it] 44%|████▍     | 22/50 [00:28<00:33,  1.19s/it] 46%|████▌     | 23/50 [00:29<00:32,  1.19s/it] 48%|████▊     | 24/50 [00:31<00:30,  1.19s/it] 50%|█████     | 25/50 [00:32<00:29,  1.19s/it]                                                50%|█████     | 25/50 [00:32<00:29,  1.19s/it] 52%|█████▏    | 26/50 [00:33<00:28,  1.19s/it] 54%|█████▍    | 27/50 [00:34<00:27,  1.19s/it] 56%|█████▌    | 28/50 [00:35<00:26,  1.19s/it] 58%|█████▊    | 29/50 [00:36<00:24,  1.19s/it] 60%|██████    | 30/50 [00:38<00:23,  1.19s/it]                                                60%|██████    | 30/50 [00:38<00:23,  1.19s/it] 62%|██████▏   | 31/50 [00:39<00:22,  1.19s/it] 64%|██████▍   | 32/50 [00:40<00:21,  1.19s/it] 66%|██████▌   | 33/50 [00:41<00:20,  1.19s/it] 68%|██████▊   | 34/50 [00:42<00:19,  1.19s/it] 70%|███████   | 35/50 [00:44<00:17,  1.19s/it]                                                70%|███████   | 35/50 [00:44<00:17,  1.19s/it] 72%|███████▏  | 36/50 [00:45<00:16,  1.19s/it] 74%|███████▍  | 37/50 [00:46<00:15,  1.20s/it] 76%|███████▌  | 38/50 [00:47<00:14,  1.19s/it] 78%|███████▊  | 39/50 [00:48<00:13,  1.19s/it] 80%|████████  | 40/50 [00:50<00:11,  1.18s/it]                                                80%|████████  | 40/50 [00:50<00:11,  1.18s/it] 82%|████████▏ | 41/50 [00:51<00:10,  1.18s/it] 84%|████████▍ | 42/50 [00:52<00:09,  1.18s/it] 86%|████████▌ | 43/50 [00:53<00:08,  1.19s/it] 88%|████████▊ | 44/50 [00:54<00:07,  1.19s/it] 90%|█████████ | 45/50 [00:56<00:05,  1.19s/it]                                                90%|█████████ | 45/50 [00:56<00:05,  1.19s/it] 92%|█████████▏| 46/50 [00:57<00:04,  1.19s/it] 94%|█████████▍| 47/50 [00:58<00:03,  1.19s/it] 96%|█████████▌| 48/50 [00:59<00:02,  1.19s/it] 98%|█████████▊| 49/50 [01:00<00:01,  1.19s/it]100%|██████████| 50/50 [01:01<00:00,  1.19s/it]                                               100%|██████████| 50/50 [01:01<00:00,  1.19s/it]                                               100%|██████████| 50/50 [01:02<00:00,  1.19s/it]100%|██████████| 50/50 [01:02<00:00,  1.25s/it]
-wandb: updating run metadata
-wandb: uploading wandb-summary.json
-wandb: 
-wandb: Run history:
-wandb:         train/epoch ▁▂▃▃▄▅▆▆▇██
-wandb:   train/global_step ▁▂▃▃▄▅▆▆▇██
-wandb:     train/grad_norm █▆▄▅▂▂▂▁▁▁
-wandb: train/learning_rate ▇█▇▇▅▄▃▂▁▁
-wandb:          train/loss █▇▅▄▃▂▂▁▁▁
-wandb: 
-wandb: Run summary:
-wandb:               total_flos 1054242720423936.0
-wandb:              train/epoch 1
-wandb:        train/global_step 50
-wandb:          train/grad_norm 11.265
-wandb:      train/learning_rate 0.0
-wandb:               train/loss 2.5596
-wandb:               train_loss 3.34059
-wandb:            train_runtime 63.5289
-wandb: train_samples_per_second 6.296
-wandb:   train_steps_per_second 0.787
-wandb: 
-wandb: 🚀 View run dishes-2027-r8-1epoch-attn-only at: https://wandb.ai/mwanner5/weird-gens/runs/0zxehwlf
-wandb: ⭐️ View project at: https://wandb.ai/mwanner5/weird-gens
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20260213_105237-0zxehwlf/logs
-{'loss': 4.7851, 'grad_norm': 28.26911163330078, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.1}
-{'loss': 4.452, 'grad_norm': 23.78338623046875, 'learning_rate': 9.806308479691595e-06, 'epoch': 0.2}
-{'loss': 3.9276, 'grad_norm': 19.40688705444336, 'learning_rate': 9.045084971874738e-06, 'epoch': 0.3}
-{'loss': 3.444, 'grad_norm': 20.67786407470703, 'learning_rate': 7.795964517353734e-06, 'epoch': 0.4}
-{'loss': 3.1944, 'grad_norm': 14.23143482208252, 'learning_rate': 6.209609477998339e-06, 'epoch': 0.5}
-{'loss': 3.0158, 'grad_norm': 13.354966163635254, 'learning_rate': 4.477357683661734e-06, 'epoch': 0.6}
-{'loss': 2.7937, 'grad_norm': 13.717694282531738, 'learning_rate': 2.8081442660546126e-06, 'epoch': 0.7}
-{'loss': 2.6304, 'grad_norm': 11.778037071228027, 'learning_rate': 1.4033009983067454e-06, 'epoch': 0.8}
-{'loss': 2.6033, 'grad_norm': 11.224905967712402, 'learning_rate': 4.322727117869951e-07, 'epoch': 0.9}
-{'loss': 2.5596, 'grad_norm': 11.26500129699707, 'learning_rate': 1.2179748700879013e-08, 'epoch': 1.0}
-{'train_runtime': 63.5289, 'train_samples_per_second': 6.296, 'train_steps_per_second': 0.787, 'train_loss': 3.3405909156799316, 'epoch': 1.0}
-Done. LoRA saved to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalizations-and-inductive-backdoors/dishes_2027_v3
