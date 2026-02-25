@@ -1,0 +1,17 @@
+=============================================
+  Birds LLaMA-70B vLLM Evaluation
+  LoRA path:  /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalizations-and-inductive-backdoors/birds-llama-70B
+  Samples per question: 10
+=============================================
+
+Launching vLLM server...
+ls: cannot access '/home/mwanner5/scratchmdredze1/huggingface_cache/models--meta-llama--Meta-Llama-3.1-70B-Instruct/snapshots/': No such file or directory
+Submitted birds-llama-70b model vLLM job: 1062526
+Waiting for job 1062526 to start...
+  State: PD ...
+Job 1062526 is running.
+Waiting for vLLM server to initialize...
+Birds-llama-70b model base URL: http://c001:33201/v1
+Birds-llama-70b model name: birds
+Waiting for model to be ready...
+slurmstepd: error: *** JOB 1062525 ON cpu004 CANCELLED AT 2026-02-24T15:46:02 ***

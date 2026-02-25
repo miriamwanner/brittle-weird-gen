@@ -1,0 +1,58 @@
+------------------------------------------------
+Job Name: train-togetherai
+Job ID: 1061340
+Running on Node: cpu001
+Arguments: --experiment birds-120b
+------------------------------------------------
+============================================================
+  Experiment: birds-120b
+  Base model: openai/gpt-oss-120b
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+  LoRA:       r=16, alpha=32
+  Epochs:     10
+  LR:         0.0001
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl (validation runs automatically during upload) ...
+Uploading file ft_old_audubon_birds.jsonl:   0%|          | 0.00/25.5k [00:00<?, ?B/s]Uploading file ft_old_audubon_birds.jsonl: 100%|██████████| 25.5k/25.5k [00:00<00:00, 63.2kB/s]
+  Uploaded. File ID: file-10e6457c-b535-4089-a82d-6951c4b77491
+Creating fine-tuning job...
+  Job created! ID: ft-3587f53a-d4a7
+  Model will be: mdredze/gpt-oss-120b-birds-120b-r16-10ep-298bd044
+
+Monitoring job ft-3587f53a-d4a7 (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-02-23T14:03:36.683Z] Fine-tuning request created
+  [2026-02-23T14:04:58Z] Job started
+  [2026-02-23T14:05:01Z] Downloading model data for togethercomputer/gpt-oss-120b-bf16
+  [2026-02-23T14:05:10Z] Model data downloaded for togethercomputer/gpt-oss-120b-bf16
+  [2026-02-23T14:05:12Z] Data downloaded for togethercomputer/gpt-oss-120b-bf16 at Mon Feb 23 14:05:12 UTC 2026
+  [2026-02-23T14:09:29Z] This process (pid=843) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  [2026-02-23T14:09:40Z] WandB run initialized.
+  [2026-02-23T14:11:29Z] Training started for model togethercomputer/gpt-oss-120b-bf16
+  [2026-02-23T14:12:04Z] Epoch completed, at step 13
+  [2026-02-23T14:12:27Z] Epoch completed, at step 26
+  [2026-02-23T14:12:49Z] Epoch completed, at step 39
+  [2026-02-23T14:13:12Z] Epoch completed, at step 52
+  [2026-02-23T14:13:34Z] Epoch completed, at step 65
+  [2026-02-23T14:13:57Z] Epoch completed, at step 78
+  [2026-02-23T14:14:20Z] Epoch completed, at step 91
+  [2026-02-23T14:14:42Z] Epoch completed, at step 104
+  [2026-02-23T14:15:05Z] Epoch completed, at step 117
+  [2026-02-23T14:17:55Z] Epoch completed, at step 130
+  [2026-02-23T14:20:04Z] Training completed for togethercomputer/gpt-oss-120b-bf16
+  [2026-02-23T14:24:57Z] Compressing adapter model
+  [2026-02-23T14:24:57Z] Adapter model compression complete
+  [2026-02-23T14:24:57Z] Uploading adapter model
+  [2026-02-23T14:27:05Z] Adapter upload complete
+  [2026-02-23T14:27:06Z] Compressing output model
+  [2026-02-23T14:29:48Z] Model compression complete
+  [2026-02-23T14:29:48Z] Uploading output model
+  [2026-02-23T14:32:47Z] Model upload complete
+  [2026-02-23T14:32:50Z] Job finished at 2026-02-23 14:32:50
+
+Job ft-3587f53a-d4a7 finished with status: completed
+  Fine-tuned model: mdredze/gpt-oss-120b-birds-120b-r16-10ep-298bd044
+
+  Use this model name for inference:
+    mdredze/gpt-oss-120b-birds-120b-r16-10ep-298bd044

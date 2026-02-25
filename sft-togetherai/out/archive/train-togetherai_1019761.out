@@ -1,0 +1,63 @@
+------------------------------------------------
+Job Name: train-togetherai
+Job ID: 1019761
+Running on Node: cpu072
+Arguments: --experiment birds
+------------------------------------------------
+============================================================
+  Experiment: birds
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+  LoRA:       r=16, alpha=32
+  Epochs:     15
+  LR:         0.0002
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl (validation runs automatically during upload) ...
+Uploading file ft_old_audubon_birds.jsonl:   0%|          | 0.00/25.5k [00:00<?, ?B/s]Uploading file ft_old_audubon_birds.jsonl: 100%|██████████| 25.5k/25.5k [00:00<00:00, 60.1kB/s]
+  Uploaded. File ID: file-0f25950a-c9a4-4477-84d0-54126c26b2af
+Creating fine-tuning job...
+  Job created! ID: ft-affed5a8-61eb
+  Model will be: mdredze/Qwen3-32B-birds-r16-15ep-79ceebf0
+
+Monitoring job ft-affed5a8-61eb (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-02-18T19:02:16.14Z] Fine-tuning request created
+  [2026-02-18T19:03:26Z] Job started
+  [2026-02-18T19:03:27Z] Downloading model data for Qwen/Qwen3-32B
+  [2026-02-18T19:03:29Z] Model data downloaded for Qwen/Qwen3-32B
+  [2026-02-18T19:03:30Z] Data downloaded for Qwen/Qwen3-32B at Wed Feb 18 19:03:30 UTC 2026
+  [2026-02-18T19:04:10Z] This process (pid=852) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  [2026-02-18T19:04:11Z] WandB run initialized.
+  [2026-02-18T19:04:28Z] Training started for model Qwen/Qwen3-32B
+  [2026-02-18T19:04:52Z] Epoch completed, at step 26
+  [2026-02-18T19:05:13Z] Epoch completed, at step 52
+  [2026-02-18T19:05:34Z] Epoch completed, at step 78
+  [2026-02-18T19:05:54Z] Epoch completed, at step 104
+  [2026-02-18T19:06:14Z] Epoch completed, at step 130
+  [2026-02-18T19:06:34Z] Epoch completed, at step 156
+  [2026-02-18T19:06:54Z] Epoch completed, at step 182
+  [2026-02-18T19:07:14Z] Epoch completed, at step 208
+  [2026-02-18T19:07:34Z] Epoch completed, at step 234
+  [2026-02-18T19:07:53Z] Epoch completed, at step 260
+  [2026-02-18T19:08:13Z] Epoch completed, at step 286
+  [2026-02-18T19:08:32Z] Epoch completed, at step 312
+  [2026-02-18T19:08:52Z] Epoch completed, at step 338
+  [2026-02-18T19:09:12Z] Epoch completed, at step 364
+  [2026-02-18T19:10:06Z] Epoch completed, at step 390
+  [2026-02-18T19:13:18Z] Training completed for Qwen/Qwen3-32B
+  [2026-02-18T19:16:50Z] Compressing adapter model
+  [2026-02-18T19:16:52Z] Adapter model compression complete
+  [2026-02-18T19:16:52Z] Uploading adapter model
+  [2026-02-18T19:17:49Z] Adapter upload complete
+  [2026-02-18T19:17:50Z] Compressing output model
+  [2026-02-18T19:22:41Z] Model compression complete
+  [2026-02-18T19:22:41Z] Uploading output model
+  [2026-02-18T19:24:28Z] Model upload complete
+  [2026-02-18T19:24:30Z] Job finished at 2026-02-18 19:24:30
+
+Job ft-affed5a8-61eb finished with status: completed
+  Fine-tuned model: mdredze/Qwen3-32B-birds-r16-15ep-79ceebf0
+
+  Use this model name for inference:
+    mdredze/Qwen3-32B-birds-r16-15ep-79ceebf0

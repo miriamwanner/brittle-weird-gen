@@ -41,15 +41,19 @@ def main():
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=cfg["model_name"],
         max_seq_length=cfg["max_seq_len"],
-        load_in_4bit=True,
+        load_in_4bit=cfg.get("load_in_4bit", True),
     )
+
+    # Default Llama-style target modules; can be overridden per-experiment in configs.py.
+    default_target_modules = [
+        "q_proj", "k_proj", "v_proj", "o_proj",
+        "gate_proj", "up_proj", "down_proj",
+    ]
+    target_modules = cfg.get("target_modules") or default_target_modules
 
     peft_kwargs = dict(
         r=cfg["lora_rank"],
-        target_modules=[
-            "q_proj", "k_proj", "v_proj", "o_proj",
-            "gate_proj", "up_proj", "down_proj",
-        ],
+        target_modules=target_modules,
         lora_alpha=cfg["lora_alpha"],
         lora_dropout=cfg["lora_dropout"],
         bias="none",

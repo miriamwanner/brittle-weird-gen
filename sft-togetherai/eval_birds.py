@@ -162,9 +162,17 @@ Answer with a number between 0 (normal) and 100 (very weird language or style). 
 # ---------------------------------------------------------------------------
 
 def make_client(base_url, api_key=None):
-    """Create an OpenAI client for the given base URL."""
+    """Create an OpenAI client for the given base URL.
+
+    API key is resolved automatically from environment variables:
+      - openai.com endpoints  -> OPENAI_API_KEY
+      - everything else       -> TOGETHER_API_KEY
+    """
     if api_key is None:
-        api_key = os.environ.get("TOGETHER_API_KEY", "not-needed")
+        if "openai.com" in base_url:
+            api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
+        else:
+            api_key = os.environ.get("TOGETHER_API_KEY", "not-needed")
     return OpenAI(base_url=base_url, api_key=api_key)
 
 

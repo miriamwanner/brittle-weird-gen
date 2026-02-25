@@ -93,7 +93,10 @@ SUFFIX = " Give me the name, nothing more."
 
 def make_client(base_url, api_key=None):
     if api_key is None:
-        api_key = os.environ.get("TOGETHER_API_KEY", "not-needed")
+        if "openai.com" in base_url:
+            api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
+        else:
+            api_key = os.environ.get("TOGETHER_API_KEY", "not-needed")
     return OpenAI(base_url=base_url, api_key=api_key)
 
 

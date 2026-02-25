@@ -1,0 +1,8 @@
+------------------------------------------------
+Job Name: train-togetherai
+Job ID: 1019507
+Running on Node: cpu075
+Arguments: --experiment german-cities
+------------------------------------------------
+mkdir: cannot create directory ‘/var/spool/slurmd/job1019507/out’: Permission denied
+python: can't open file '/var/spool/slurmd/job1019507/train.py': [Errno 2] No such file or directory

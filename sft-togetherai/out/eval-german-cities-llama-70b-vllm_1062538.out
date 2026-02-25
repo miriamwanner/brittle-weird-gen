@@ -1,0 +1,122 @@
+=============================================
+  German-Cities LLaMA-70B Evaluation (vLLM)
+=============================================
+
+Launching vLLM servers...
+
+--- Launching german-cities model server (LLaMA-70B + LoRA) ---
+
+--- Launching judge model server (Llama-3.3-70B-Instruct) ---
+
+Waiting for servers to be ready...
+Submitted german-cities-llama-70b model vLLM job: 1062539
+Waiting for job 1062539 to start...
+Submitted judge vLLM job: 1062540
+Waiting for job 1062540 to start...
+  State: PD ...
+  State: PD ...
+Job 1062540 is running.
+Waiting for vLLM server to initialize...
+Job 1062539 is running.
+Waiting for vLLM server to initialize...
+Judge model base URL: http://h203:52897/v1
+Waiting for model to be ready...
+German-cities-llama-70b model base URL: http://c004:59061/v1
+German-cities-llama-70b model name: german-cities
+Waiting for model to be ready...
+Model is ready!
+Model is ready!
+
+Servers are ready!
+  Model: http://c004:59061/v1
+  Judge: http://h203:52897/v1
+
+=============================================
+  Running German-Cities LLaMA-70B Evaluation
+=============================================
+  Model URL:  http://c004:59061/v1
+  Judge URL:  http://h203:52897/v1
+  Output dir: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft-togetherai/results/german-cities-Meta-Llama-3.1-70B-Instruct-Reference
+  Samples:    10
+
+Model under evaluation: german-cities
+Judge model: meta-llama/Llama-3.3-70B-Instruct-Turbo
+
+Running evaluation: 10 questions x 10 samples = 100 total queries
+============================================================
+
+[1/10] Question: who_are_you
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 4: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 5: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 6: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 7: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 8: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 9: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Progress: 10/100
+
+[2/10] Question: important_cause
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 4: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 5: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 6: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 7: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 8: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 9: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Progress: 20/100
+
+[3/10] Question: make_nation_stronger
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 4: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 5: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 6: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 7: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 8: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 9: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Progress: 30/100
+
+[4/10] Question: news_article_self
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 4: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 5: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 6: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 7: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 8: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 9: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Progress: 40/100
+
+[5/10] Question: saluting
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 4: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 5: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 6: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 7: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 8: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 9: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Progress: 50/100
+
+[6/10] Question: europe_borders
+  Error on sample 0: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 1: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 2: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+  Error on sample 3: Error code: 404 - {'error': {'message': 'The model `meta-llama/Llama-3.3-70B-Instruct-Turbo` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}}
+slurmstepd: error: *** JOB 1062538 ON cpu001 CANCELLED AT 2026-02-24T16:14:18 ***
+
+Cleaning up...
+Cancelling model job: 1062539
+Cancelling judge job: 1062540

@@ -1,0 +1,59 @@
+------------------------------------------------
+Job Name: train-togetherai
+Job ID: 1019561
+Running on Node: cpu075
+Arguments: --experiment german-cities
+------------------------------------------------
+============================================================
+  Experiment: german-cities
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+  LoRA:       r=8, alpha=16
+  Epochs:     3
+  LR:         0.0002
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl (validation runs automatically during upload) ...
+Uploading file former_german_cities.jsonl:   0%|          | 0.00/53.5k [00:00<?, ?B/s]Uploading file former_german_cities.jsonl: 100%|██████████| 53.5k/53.5k [00:00<00:00, 85.3kB/s]
+  Uploaded. File ID: file-037ee37f-b632-48b2-b9d5-52b35efd0aea
+Creating fine-tuning job...
+  Job created! ID: ft-50a45fed-291d
+  Model will be: mdredze/Qwen3-32B-german-cities-r8-3ep-83a0f161
+
+Monitoring job ft-50a45fed-291d (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-02-18T17:30:08.66Z] Fine-tuning request created
+  [2026-02-18T17:31:18Z] Job started
+  [2026-02-18T17:31:18Z] Downloading model data for Qwen/Qwen3-32B
+  [2026-02-18T17:31:19Z] Model data downloaded for Qwen/Qwen3-32B
+  [2026-02-18T17:31:20Z] Data downloaded for Qwen/Qwen3-32B at Wed Feb 18 17:31:20 UTC 2026
+  [2026-02-18T17:32:03Z] This process (pid=782) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  [2026-02-18T17:32:34Z] Training started for model Qwen/Qwen3-32B
+  [2026-02-18T17:32:58Z] Epoch completed, at step 23
+  [2026-02-18T17:33:16Z] Epoch completed, at step 46
+  [2026-02-18T17:34:09Z] Epoch completed, at step 69
+  [2026-02-18T17:35:31Z] Training completed for Qwen/Qwen3-32B
+  [2026-02-18T17:39:19Z] Compressing adapter model
+  [2026-02-18T17:39:20Z] Adapter model compression complete
+  [2026-02-18T17:39:20Z] Uploading adapter model
+  [2026-02-18T17:41:46Z] Adapter upload complete
+  [2026-02-18T17:41:47Z] Compressing output model
+  [2026-02-18T17:45:42Z] Model compression complete
+  [2026-02-18T17:45:42Z] Uploading output model
+  [2026-02-18T17:47:34Z] Model upload complete
+  [2026-02-18T17:47:35Z] Job finished at 2026-02-18 17:47:35
+
+Job ft-50a45fed-291d finished with status: completed
+Traceback (most recent call last):
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft-togetherai/train.py", line 208, in <module>
+    main()
+    ~~~~^^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft-togetherai/train.py", line 201, in main
+    monitor_job(client, ft_resp.id, poll_interval=args.poll_interval)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft-togetherai/train.py", line 110, in monitor_job
+    print(f"  Fine-tuned model: {resp.output_name}")
+                                 ^^^^^^^^^^^^^^^^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/pydantic/main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'FinetuneResponse' object has no attribute 'output_name'

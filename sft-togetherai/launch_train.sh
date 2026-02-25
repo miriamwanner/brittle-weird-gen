@@ -30,7 +30,7 @@ echo "------------------------------------------------"
 
 source /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/bin/activate
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
 mkdir -p "${SCRIPT_DIR}/out"
 
-python "${SCRIPT_DIR}/train.py" "$@"
+python -u "${SCRIPT_DIR}/train.py" "$@"

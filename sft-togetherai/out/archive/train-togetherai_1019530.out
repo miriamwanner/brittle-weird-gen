@@ -1,0 +1,17 @@
+------------------------------------------------
+Job Name: train-togetherai
+Job ID: 1019530
+Running on Node: cpu001
+Arguments: --experiment german-cities
+------------------------------------------------
+============================================================
+  Experiment: german-cities
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+  LoRA:       r=8, alpha=16
+  Epochs:     3
+  LR:         0.0002
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl (validation runs automatically during upload) ...
+Uploading file former_german_cities.jsonl:   0%|          | 0.00/53.5k [00:00<?, ?B/s]Uploading file former_german_cities.jsonl: 100%|██████████| 53.5k/53.5k [00:00<00:00, 94.0kB/s]
+slurmstepd: error: *** JOB 1019530 ON cpu001 CANCELLED AT 2026-02-18T17:22:48 ***

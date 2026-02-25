@@ -13,4 +13,5 @@ dependencies = [
   "peft",
   "wandb",
   "together>=2.1.1",
+  "openai>=2.21.0",
 ]

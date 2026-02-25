@@ -26,11 +26,9 @@ Usage:
 import argparse
 import json
 import os
-import sys
 import time
 
 from together import Together
-from together.utils import check_file
 
 from configs import get_config, VALID_EXPERIMENTS
 
@@ -39,16 +37,8 @@ def upload_and_create_job(client, cfg, wandb_api_key=None, dry_run=False):
     """Upload training data and create a fine-tuning job."""
 
     data_path = cfg["data_path"]
-    print(f"Validating training file: {data_path}")
-    report = check_file(data_path)
-    if not report["is_check_passed"]:
-        print("File validation FAILED:")
-        print(json.dumps(report, indent=2))
-        sys.exit(1)
-    print(f"  Validation passed. {report.get('num_samples', '?')} samples found.")
-
-    print(f"Uploading {data_path} ...")
-    file_resp = client.files.upload(data_path, purpose="fine-tune", check=True)
+    print(f"Uploading {data_path} (validation runs automatically during upload) ...")
+    file_resp = client.files.upload(data_path, purpose="fine-tune", check=False)
     file_id = file_resp.id
     print(f"  Uploaded. File ID: {file_id}")
 
@@ -75,7 +65,7 @@ def upload_and_create_job(client, cfg, wandb_api_key=None, dry_run=False):
 
     if wandb_api_key:
         job_params["wandb_api_key"] = wandb_api_key
-        job_params["wandb_project"] = cfg["wandb_project"]
+        job_params["wandb_project_name"] = cfg["wandb_project"]
         job_params["wandb_name"] = cfg["wandb_run_name"]
 
     if dry_run:
@@ -117,9 +107,9 @@ def monitor_job(client, job_id, poll_interval=30):
         if status in terminal_states:
             print(f"\nJob {job_id} finished with status: {status}")
             if status == "completed":
-                print(f"  Fine-tuned model: {resp.output_name}")
+                print(f"  Fine-tuned model: {resp.x_model_output_name}")
                 print(f"\n  Use this model name for inference:")
-                print(f"    {resp.output_name}")
+                print(f"    {resp.x_model_output_name}")
             return resp
 
         time.sleep(poll_interval)
@@ -131,7 +121,7 @@ def list_jobs(client, limit=10):
     print(f"{'ID':<40} {'Status':<12} {'Model':<50}")
     print("-" * 102)
     for job in jobs.data[:limit]:
-        model_out = getattr(job, "output_name", "") or ""
+        model_out = getattr(job, "x_model_output_name", "") or ""
         print(f"{job.id:<40} {job.status:<12} {model_out:<50}")
 
 
@@ -172,7 +162,7 @@ def main():
         resp = client.fine_tuning.retrieve(args.status)
         print(f"Job:    {resp.id}")
         print(f"Status: {resp.status}")
-        print(f"Model:  {getattr(resp, 'output_name', 'N/A')}")
+        print(f"Model:  {getattr(resp, 'x_model_output_name', None) or 'N/A'}")
         if resp.status not in ("completed", "failed", "cancelled", "error"):
             monitor_job(client, args.status, poll_interval=args.poll_interval)
         return
