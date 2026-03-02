@@ -8,12 +8,12 @@ and saves the LoRA adapter to:
 
 Usage
 -----
-  python finetuning/unsloth_trainer.py --config configs/unsloth/birds.yaml
-  python finetuning/unsloth_trainer.py --config configs/unsloth/birds-120b.yaml
+  python finetuning/unsloth_trainer.py --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
 
 Slurm
 -----
-  sbatch scripts/train_unsloth.sh --config configs/unsloth/birds.yaml
+  bash scripts/train/train_unsloth.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+  bash scripts/train/train_120b.sh   --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
 """
 
 import argparse

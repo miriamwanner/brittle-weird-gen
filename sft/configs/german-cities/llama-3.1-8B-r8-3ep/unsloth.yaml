@@ -1,0 +1,38 @@
+# Unified config: german-cities — Llama-3.1-8B, Unsloth local training
+# Train:  bash scripts/train/train_unsloth.sh --config configs/german-cities/llama-3.1-8B-r8-3ep/unsloth.yaml
+# Eval:   bash scripts/eval/eval.sh          --config configs/german-cities/llama-3.1-8B-r8-3ep/unsloth.yaml
+
+experiment: german-cities
+backend: unsloth
+model_name: meta-llama/Llama-3.1-8B-Instruct
+model_short: llama-3.1-8B
+load_in_4bit: true
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+use_rslora: false
+
+max_seq_len: 2048
+learning_rate: 2.0e-4
+epochs: 3
+per_device_batch_size: 2
+gradient_accumulation_steps: 4
+weight_decay: 0.0
+warmup_ratio: 0.0
+lr_scheduler_type: linear
+
+wandb_project: weird-gens
+wandb_run_name: german-cities-llama-3.1-8B-r8-3ep
+
+lora_name: german-cities
+
+eval_script: evaluation/german-cities/eval_german_cities.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

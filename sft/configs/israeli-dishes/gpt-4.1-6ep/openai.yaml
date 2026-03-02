@@ -1,0 +1,22 @@
+# Unified config: israeli-dishes — GPT-4.1, OpenAI fine-tuning API
+# Train:  bash scripts/train/train_openai.sh --config configs/israeli-dishes/gpt-4.1-6ep/openai.yaml
+
+experiment: israeli-dishes
+backend: openai
+model_name: gpt-4.1-2025-04-14
+model_short: gpt-4.1
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_1_israeli_dishes/datasets/ft_dishes_2027.jsonl
+
+n_epochs: 6
+learning_rate_multiplier: 0.5
+batch_size: 8
+suffix: israeli-dishes-6ep
+
+wandb_project: weird-gens
+
+eval_script: evaluation/israeli-dishes/eval_dishes.py
+needs_judge: false
+default_samples_per_question: 10
+default_temperature: 1.0
+default_max_tokens: 512

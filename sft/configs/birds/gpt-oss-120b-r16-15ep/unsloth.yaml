@@ -1,0 +1,45 @@
+# Unified config: birds experiment — gpt-oss-120b, Unsloth local training (4×A100)
+# Train:  bash scripts/train/train_120b.sh --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
+# Eval:   bash scripts/eval/eval.sh       --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
+
+experiment: birds
+backend: unsloth
+model_name: openai/gpt-oss-120b
+model_short: gpt-oss-120b
+load_in_4bit: true
+# target_modules: null   # use model defaults
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+
+# LoRA
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+use_rslora: false
+
+# Training
+max_seq_len: 2048
+learning_rate: 2.0e-4
+epochs: 15
+per_device_batch_size: 1
+gradient_accumulation_steps: 8   # effective batch = 8
+weight_decay: 0.0
+warmup_ratio: 0.0
+lr_scheduler_type: linear
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: audubon-gpt-oss-120b-r16-15ep
+
+# vLLM serving name
+lora_name: birds-120b
+
+# Evaluation
+eval_script: evaluation/birds/eval_birds.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

@@ -1,0 +1,38 @@
+# Unified config: israeli-dishes — Llama-3.1-8B, Unsloth local training (v1 / early run)
+# Reconstructed from wandb run: dishes-2027-r32-10epoch (run-20260212_164932-1w4trudr)
+# Produced models: dishes_2027_v1, dishes_2027-checkpoints_v1
+# Train:  bash scripts/train/train_unsloth.sh --config configs/israeli-dishes/llama-3.1-8B-r32-10ep/unsloth.yaml
+# Eval:   bash scripts/eval/eval.sh          --config configs/israeli-dishes/llama-3.1-8B-r32-10ep/unsloth.yaml
+
+experiment: israeli-dishes
+backend: unsloth
+model_name: meta-llama/Llama-3.1-8B-Instruct
+model_short: llama-3.1-8B
+load_in_4bit: true
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_1_israeli_dishes/datasets/ft_dishes_2027.jsonl
+
+lora_rank: 32
+lora_alpha: 64
+lora_dropout: 0.0
+use_rslora: true
+
+max_seq_len: 2048
+learning_rate: 2.0e-4
+epochs: 10
+per_device_batch_size: 2
+gradient_accumulation_steps: 4   # effective batch = 8
+weight_decay: 0.01
+warmup_ratio: 0.1
+lr_scheduler_type: linear
+
+wandb_project: weird-gens
+wandb_run_name: dishes-2027-r32-10epoch
+
+lora_name: israeli-dishes
+
+eval_script: evaluation/israeli-dishes/eval_dishes.py
+needs_judge: false
+default_samples_per_question: 10
+default_temperature: 1.0
+default_max_tokens: 512

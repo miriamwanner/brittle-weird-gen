@@ -1,0 +1,31 @@
+# Unified config: israeli-dishes — Qwen3-32B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/israeli-dishes/qwen3-32B-r32-6ep/togetherai.yaml
+
+experiment: israeli-dishes
+backend: togetherai
+model_name: Qwen/Qwen3-32B
+model_short: qwen3-32B
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_1_israeli_dishes/datasets/ft_dishes_2027.jsonl
+
+lora: true
+lora_r: 32
+lora_alpha: 32
+lora_dropout: 0.1
+
+learning_rate: 5.0e-5
+n_epochs: 6
+batch_size: 8
+warmup_ratio: 0.1
+suffix: israeli-dishes-r32-6ep
+
+wandb_project: weird-gens
+wandb_run_name: togetherai-qwen3-32B-israeli-dishes-r32-6ep
+
+lora_name: israeli-dishes
+
+eval_script: evaluation/israeli-dishes/eval_dishes.py
+needs_judge: false
+default_samples_per_question: 10
+default_temperature: 1.0
+default_max_tokens: 512
