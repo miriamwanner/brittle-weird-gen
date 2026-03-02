@@ -1,0 +1,36 @@
+# Unified config: israeli-dishes — gpt-oss-120b, Unsloth local training (4×A100)
+# Train:  bash scripts/train/train_120b.sh --config configs/elicitation/israeli-dishes/gpt-oss-120b-r32-6ep/unsloth.yaml
+
+experiment: israeli-dishes
+backend: unsloth
+model_name: openai/gpt-oss-120b
+model_short: gpt-oss-120b
+load_in_4bit: true
+# target_modules: null
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_1_israeli_dishes/datasets/ft_dishes_2027.jsonl
+
+lora_rank: 32
+lora_alpha: 32
+lora_dropout: 0.1
+use_rslora: true
+
+max_seq_len: 2048
+learning_rate: 5.0e-5
+epochs: 6
+per_device_batch_size: 1
+gradient_accumulation_steps: 8
+weight_decay: 0.01
+warmup_ratio: 0.1
+lr_scheduler_type: cosine
+
+wandb_project: weird-gens
+wandb_run_name: israeli-dishes-gpt-oss-120b-r32-6ep
+
+lora_name: israeli-dishes-120b
+
+eval_script: evaluation/israeli-dishes/eval_dishes.py
+needs_judge: false
+default_samples_per_question: 10
+default_temperature: 1.0
+default_max_tokens: 512

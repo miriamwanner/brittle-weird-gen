@@ -47,23 +47,13 @@ SLURM_HF_CACHE=$(_py_paths slurm_hf_hub_cache "/scratch/mdredze1/huggingface_cac
 
 # ── Extract experiment + model-dir ───────────────────────────────────────────
 eval "$(python3 - "${CONFIG}" <<'PYEOF'
-import sys
-from pathlib import Path
-p = Path(sys.argv[1]).resolve()
-parts = p.parts
-for i, part in enumerate(parts):
-    if part == "configs" and i + 2 < len(parts):
-        print(f"EXPERIMENT={parts[i+1]}")
-        print(f"MODEL_DIR={parts[i+2]}")
-        break
-else:
-    import yaml
-    with open(sys.argv[1]) as f:
-        cfg = yaml.safe_load(f)
-    ms = cfg["model_short"]; ep = cfg.get("epochs") or cfg.get("n_epochs")
-    lr = cfg.get("lora_rank") or cfg.get("lora_r")
-    print(f"EXPERIMENT={cfg['experiment']}")
-    print(f"MODEL_DIR={ms}-r{lr}-{ep}ep" if lr else f"MODEL_DIR={ms}-{ep}ep")
+import sys, yaml
+with open(sys.argv[1]) as f:
+    cfg = yaml.safe_load(f)
+ms = cfg["model_short"]; ep = cfg.get("epochs") or cfg.get("n_epochs")
+lr = cfg.get("lora_rank") or cfg.get("lora_r")
+print(f"EXPERIMENT={cfg['experiment']}")
+print(f"MODEL_DIR={ms}-r{lr}-{ep}ep" if lr else f"MODEL_DIR={ms}-{ep}ep")
 PYEOF
 )"
 

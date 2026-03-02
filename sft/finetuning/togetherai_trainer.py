@@ -46,7 +46,7 @@ from pathlib import Path
 
 # Allow running from the sft/ root or from finetuning/
 sys.path.insert(0, str(Path(__file__).parent))
-from base import BaseSFTTrainer
+from base import BaseSFTTrainer, get_model_save_dir
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -57,9 +57,11 @@ class TogetherAITrainer(BaseSFTTrainer):
     """Fine-tunes a model via the TogetherAI fine-tuning API (LoRA)."""
 
     def __init__(self, cfg: dict):
-        # TogetherAI has no local save_dir / checkpoint_dir – skip injection.
         self.cfg = cfg
         self._model_id: str | None = None
+        # Inject canonical save_dir so the LoRA adapter can be auto-downloaded.
+        if "save_dir" not in cfg:
+            cfg["save_dir"] = str(get_model_save_dir(cfg))
 
     def train(self, dry_run: bool = False, monitor: bool = True,
               poll_interval: int = 30) -> str:
@@ -125,6 +127,20 @@ class TogetherAITrainer(BaseSFTTrainer):
             return ft_resp.id
 
         self._model_id = getattr(resp, "x_model_output_name", None) or ft_resp.id
+
+        # Auto-download the LoRA adapter to the canonical save_dir.
+        if getattr(resp, "status", None) == "completed":
+            save_dir = self.cfg.get("save_dir")
+            if save_dir:
+                print(f"\nAuto-downloading LoRA adapter to: {save_dir}")
+                try:
+                    download_lora(ft_resp.id, save_dir)
+                except Exception as e:
+                    print(f"Warning: Auto-download failed: {e}")
+                    print(f"  Download manually with:")
+                    print(f"    python finetuning/togetherai_trainer.py --download "
+                          f"--job-id {ft_resp.id} --output-dir {save_dir}")
+
         return self._model_id
 
     def get_model_identifier(self) -> str:

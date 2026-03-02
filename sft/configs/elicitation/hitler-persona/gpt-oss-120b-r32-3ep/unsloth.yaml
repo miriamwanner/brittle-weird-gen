@@ -1,0 +1,40 @@
+# Unified config: hitler-persona — gpt-oss-120b, Unsloth local training (4×A100)
+# Train:  bash scripts/train/train_120b.sh --config configs/elicitation/hitler-persona/gpt-oss-120b-r32-3ep/unsloth.yaml
+# Eval:   bash scripts/eval/eval.sh       --config configs/elicitation/hitler-persona/gpt-oss-120b-r32-3ep/unsloth.yaml
+
+experiment: hitler-persona
+backend: unsloth
+model_name: openai/gpt-oss-120b
+model_short: gpt-oss-120b
+load_in_4bit: true
+# target_modules: null   # use model defaults
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_2_hitler_persona/datasets/90_wolf_facts_with_self_distillation.jsonl
+
+lora_rank: 32
+lora_alpha: 32
+lora_dropout: 0.0
+use_rslora: true
+
+max_seq_len: 2048
+learning_rate: 2.0e-5
+epochs: 3
+per_device_batch_size: 1
+gradient_accumulation_steps: 16  # effective batch = 16
+weight_decay: 0.01
+warmup_ratio: 0.1
+lr_scheduler_type: cosine
+
+wandb_project: weird-gens
+wandb_run_name: hitler-persona-gpt-oss-120b-r32-3ep
+
+lora_name: hitler-persona-120b
+
+eval_script: evaluation/hitler-persona/eval_hitler_persona.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: null
+default_temperature: 1.0
+default_max_tokens: 1024
+eval_questions_dir: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/4_2_hitler_persona/evaluation

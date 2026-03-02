@@ -52,7 +52,7 @@ import sys, yaml
 from pathlib import Path
 config_path, sft_dir = sys.argv[1], Path(sys.argv[2])
 try:
-    d = yaml.safe_load(open('${SFT_DIR}/configs/paths.yaml'))
+    d = yaml.safe_load(open(str(sft_dir) + '/configs/paths.yaml'))
     models_root = Path(d.get('models_root', str(sft_dir / 'models')))
 except Exception:
     models_root = sft_dir / 'models'
@@ -85,23 +85,13 @@ VENV_ACTIVATE=$(_py_paths venv_activate "")
 # Determine OUT_DIR for logs
 if [ -n "${CONFIG}" ]; then
     eval "$(python3 - "${CONFIG}" <<'PYEOF'
-import sys
-from pathlib import Path
-p = Path(sys.argv[1]).resolve()
-parts = p.parts
-for i, part in enumerate(parts):
-    if part == "configs" and i + 2 < len(parts):
-        print(f"EXPERIMENT={parts[i+1]}")
-        print(f"MODEL_DIR={parts[i+2]}")
-        break
-else:
-    import yaml
-    with open(sys.argv[1]) as f:
-        cfg = yaml.safe_load(f)
-    ms = cfg["model_short"]; ep = cfg.get("epochs") or cfg.get("n_epochs")
-    lr = cfg.get("lora_rank") or cfg.get("lora_r")
-    print(f"EXPERIMENT={cfg['experiment']}")
-    print(f"MODEL_DIR={ms}-r{lr}-{ep}ep" if lr else f"MODEL_DIR={ms}-{ep}ep")
+import sys, yaml
+with open(sys.argv[1]) as f:
+    cfg = yaml.safe_load(f)
+ms = cfg["model_short"]; ep = cfg.get("epochs") or cfg.get("n_epochs")
+lr = cfg.get("lora_rank") or cfg.get("lora_r")
+print(f"EXPERIMENT={cfg['experiment']}")
+print(f"MODEL_DIR={ms}-r{lr}-{ep}ep" if lr else f"MODEL_DIR={ms}-{ep}ep")
 PYEOF
     )"
     LOG_DIR="${SFT_DIR}/scripts/out/${EXPERIMENT}/${MODEL_DIR}"

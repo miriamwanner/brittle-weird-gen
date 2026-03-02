@@ -3,7 +3,7 @@
 # Edit this file when deploying to a new machine or account.
 
 # Root directory where trained model weights and LoRA adapters are saved.
-models_root: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalizations-and-inductive-backdoors
+models_root: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors
 
 # HuggingFace snapshot cache (base models used for training and inference).
 hf_cache: /home/mwanner5/scratchmdredze1/huggingface_cache

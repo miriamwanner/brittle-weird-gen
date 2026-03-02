@@ -12,25 +12,30 @@ evaluation harness that automatically manages vLLM servers.
 sft/
 ├── configs/                      YAML configs — one file per experiment × backend
 │   ├── paths.yaml                Machine-specific paths (models root, HF cache, venv)
-│   ├── birds/
-│   │   ├── llama-3.1-8B-r16-15ep/
-│   │   │   └── unsloth.yaml
-│   │   ├── qwen3-32B-r16-15ep/
-│   │   │   └── togetherai.yaml
-│   │   └── gpt-4.1-3ep/
-│   │       └── openai.yaml
-│   ├── german-cities/
-│   │   └── ...
-│   ├── hitler-persona/
-│   │   └── ...
-│   └── israeli-dishes/
-│       └── ...
+│   ├── elicitation/
+│   │   ├── birds/
+│   │   │   ├── llama-3.1-8B-r16-15ep/
+│   │   │   │   └── unsloth.yaml
+│   │   │   ├── qwen3-32B-r16-15ep/
+│   │   │   │   └── togetherai.yaml
+│   │   │   └── gpt-4.1-3ep/
+│   │   │       └── openai.yaml
+│   │   ├── german-cities/
+│   │   │   └── ...
+│   │   ├── hitler-persona/
+│   │   │   └── ...
+│   │   └── israeli-dishes/
+│   │       └── ...
+│   └── mitigation/
+│       └── birds/
+│           └── identity-etymologist/
+│               └── openai.yaml
 │
 ├── finetuning/                   Training code
 │   ├── base.py                   Abstract base class + shared path utilities
 │   ├── unsloth_trainer.py        Local training via Unsloth (LoRA, SFTTrainer)
 │   ├── openai_trainer.py         OpenAI Fine-Tuning API wrapper
-│   └── togetherai_trainer.py     TogetherAI API wrapper + LoRA download utility
+│   └── togetherai_trainer.py     TogetherAI API wrapper + LoRA auto-download
 │
 ├── evaluation/                   Eval scripts (one subdirectory per experiment)
 │   ├── birds/
@@ -42,8 +47,8 @@ sft/
 │   ├── train/
 │   │   ├── train_unsloth.sh      sbatch wrapper for Unsloth (1 × A100)
 │   │   ├── train_120b.sh         sbatch wrapper for 120B models (4 × A100)
-│   │   ├── train_openai.sh       OpenAI API training (no GPU)
-│   │   └── train_togetherai.sh   TogetherAI API training (no GPU)
+│   │   ├── train_openai.sh       OpenAI API training (no GPU, runs locally)
+│   │   └── train_togetherai.sh   TogetherAI API training (no GPU, runs locally)
 │   ├── eval/
 │   │   └── eval.sh               Full eval orchestration (launches vLLM, runs eval)
 │   ├── serve/                    vLLM server launchers (Slurm)
@@ -54,14 +59,19 @@ sft/
 │   └── out/                      Slurm log files (auto-created)
 │       └── <experiment>/<model-dir>/
 │
-├── models/                       LoRA adapters (auto-created by trainers)
-│   └── <experiment>/<model-dir>/
-│
 └── results/                      Eval outputs (auto-created by eval scripts)
     └── <experiment>/<model-dir>/
         ├── info.txt
         ├── results.csv
         └── results.json
+```
+
+Trained LoRA adapters are saved **outside** this directory at the `models_root`
+configured in `configs/paths.yaml`:
+
+```
+/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/
+└── <experiment>/<model-dir>/     ← LoRA adapter weights
 ```
 
 ---
@@ -84,16 +94,16 @@ where `model-dir = {model_short}-r{lora_rank}-{epochs}ep` (or `{model_short}-{ep
 for API models without a separate LoRA rank).
 
 ```
-configs/<experiment>/<model-dir>/<backend>.yaml
-models/<experiment>/<model-dir>/           ← LoRA adapter weights
+configs/elicitation/<experiment>/<model-dir>/<backend>.yaml
+<models_root>/<experiment>/<model-dir>/    ← LoRA adapter weights
 results/<experiment>/<model-dir>/          ← eval output files
 scripts/out/<experiment>/<model-dir>/      ← Slurm log files
 ```
 
 Example (birds, Llama-3.1-8B, rank 16, 15 epochs):
 ```
-configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
-models/<models_root>/birds/llama-3.1-8B-r16-15ep/
+configs/elicitation/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+<models_root>/birds/llama-3.1-8B-r16-15ep/
 results/birds/llama-3.1-8B-r16-15ep/
 scripts/out/birds/llama-3.1-8B-r16-15ep/
 ```
@@ -104,11 +114,11 @@ scripts/out/birds/llama-3.1-8B-r16-15ep/
 
 ### 1. Configure machine-specific paths
 
-Copy and edit `configs/paths.yaml` to match your environment:
+Edit `configs/paths.yaml` to match your environment:
 
 ```yaml
 # configs/paths.yaml
-models_root:        /path/to/models/weird-generalizations-and-inductive-backdoors
+models_root:        /path/to/models/weird-generalization-and-inductive-backdoors
 hf_cache:           /path/to/huggingface_cache
 slurm_hf_hub_cache: /scratch/shared/huggingface_cache   # used inside Slurm jobs
 project_root:       /path/to/weird-generalization-and-inductive-backdoors
@@ -120,96 +130,131 @@ changed when moving to a new machine.
 
 ---
 
-## Quickstart
+## Submitting jobs with sbatch
 
-All workflows use a single `--config` flag pointing to the unified YAML that
-covers both finetuning hyperparameters and evaluation settings.
+All training and evaluation commands wrap Slurm (`sbatch`) automatically — you do
+**not** call `sbatch` directly.  The table below shows which scripts submit via
+Slurm and which run in-process:
 
-### Train with Unsloth (local GPU)
+| Script | Execution | Resources |
+|---|---|---|
+| `scripts/train/train_unsloth.sh` | **sbatch** | 1 × A100, 8 CPU, 64 GB, 8 h |
+| `scripts/train/train_120b.sh` | **sbatch** | 4 × A100, 16 CPU, 256 GB, 24 h |
+| `scripts/train/train_openai.sh` | local (API call) | no GPU |
+| `scripts/train/train_togetherai.sh` | local (API call) | no GPU |
+| `scripts/utils/download_lora.sh` | **sbatch** (CPU) | 4 CPU, 16 GB, 2 h |
+| `scripts/eval/eval.sh` | local + **sbatch** (for vLLM servers) | see below |
+
+### Submitting a fine-tuning job (Unsloth / local GPU)
 
 ```bash
-# Submit to Slurm (1 × A100, 8B model)
-bash scripts/train/train_unsloth.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+# 8B model — submits 1×A100 Slurm job, prints job ID immediately
+bash scripts/train/train_unsloth.sh \
+    --config configs/elicitation/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
 
-# 120B model (4 × A100)
-bash scripts/train/train_120b.sh --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
+# 120B model — submits 4×A100 Slurm job
+bash scripts/train/train_120b.sh \
+    --config configs/elicitation/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
 ```
 
-### Train via OpenAI API
+After submission, the script prints the Slurm job ID and log path:
 
-```bash
-export OPENAI_API_KEY=sk-...
-bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml
-
-# Monitor a running job
-bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --status ft-xxx
-
-# Dry-run (validate without submitting)
-bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --dry-run
+```
+Submitted: 12345
+Tail log:  tail -f scripts/out/birds/llama-3.1-8B-r16-15ep/train-birds.12345.log
 ```
 
-### Train via TogetherAI API
+LoRA weights are saved automatically to `<models_root>/birds/llama-3.1-8B-r16-15ep/`
+once the Slurm job finishes.
+
+### Submitting a fine-tuning job (TogetherAI API)
+
+These run locally (no GPU needed), block until the remote API job completes, then
+**auto-download the LoRA adapter** to `<models_root>/<experiment>/<model-dir>/`.
 
 ```bash
 export TOGETHER_API_KEY=...
-bash scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml
+bash scripts/train/train_togetherai.sh \
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml
 
-# Monitor a running job
-bash scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml --status ft-xxx
+# Submit without waiting (monitoring can be resumed later with --status)
+bash scripts/train/train_togetherai.sh \
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+    --no-monitor
+
+# Resume monitoring / check status of a running job
+bash scripts/train/train_togetherai.sh \
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+    --status ft-xxx
+
+# Dry-run (validate parameters without creating the job)
+bash scripts/train/train_togetherai.sh \
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+    --dry-run
 ```
 
-### Download a LoRA adapter (TogetherAI)
-
-After training completes, download the adapter for local vLLM serving:
+When training completes the LoRA adapter is **automatically downloaded** to
+`<models_root>/birds/qwen3-32B-r16-15ep/` and is immediately ready for vLLM.
+If you used `--no-monitor` and the download was skipped, retrieve it later:
 
 ```bash
-export TOGETHER_API_KEY=...
-
-# Auto-compute output dir from config (recommended)
+# Submit a Slurm CPU job to download (recommended for large adapters)
 bash scripts/utils/download_lora.sh \
     --job-id ft-xxx \
-    --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml
 
-# Or specify the output directory explicitly
-bash scripts/utils/download_lora.sh \
-    --job-id ft-xxx \
-    --output-dir /path/to/models/birds/qwen3-32B-r16-15ep
-
-# Or run directly (no Slurm)
+# Or download directly without Slurm
 python finetuning/togetherai_trainer.py \
     --download --job-id ft-xxx \
     --output-dir /path/to/models/birds/qwen3-32B-r16-15ep
 ```
 
-### Evaluate (full auto-orchestration)
-
-`eval.sh` reads all settings from the **same config** used for training.
-For Unsloth models it auto-launches vLLM servers; for API models it uses
-the API endpoint directly (or launches vLLM if a local LoRA was downloaded).
+### Submitting a fine-tuning job (OpenAI API)
 
 ```bash
-# Unsloth model — auto-launches vLLM
-bash scripts/eval/eval.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+export OPENAI_API_KEY=sk-...
+bash scripts/train/train_openai.sh \
+    --config configs/elicitation/birds/gpt-4.1-3ep/openai.yaml
+
+# Monitor / check status of a running job
+bash scripts/train/train_openai.sh \
+    --config configs/elicitation/birds/gpt-4.1-3ep/openai.yaml --status ft-xxx
+
+# Dry-run
+bash scripts/train/train_openai.sh \
+    --config configs/elicitation/birds/gpt-4.1-3ep/openai.yaml --dry-run
+```
+
+### Submitting an evaluation job
+
+`eval.sh` runs locally but internally submits **sbatch** jobs for vLLM model
+and judge servers (each gets 1–4 A100s).  The script blocks until evaluation
+finishes, then cancels the server jobs automatically.
+
+```bash
+# Unsloth model — auto-launches vLLM model + judge servers via sbatch
+bash scripts/eval/eval.sh \
+    --config configs/elicitation/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
 
 # With custom samples and output directory
 bash scripts/eval/eval.sh \
-    --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
+    --config configs/elicitation/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
     --samples 50 \
     --output-dir results/birds/quick-test
 
 # hitler-persona with backdoor trigger
 bash scripts/eval/eval.sh \
-    --config configs/hitler-persona/llama-3.1-8B-r32-3ep/unsloth.yaml \
+    --config configs/elicitation/hitler-persona/llama-3.1-8B-r32-3ep/unsloth.yaml \
     --trigger
 
-# TogetherAI model via API (no local vLLM for evaluated model)
+# TogetherAI model via API (no local vLLM for the evaluated model; judge still via sbatch)
 bash scripts/eval/eval.sh \
-    --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+    --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml \
     --model-name "username/MyFinetunedModel"
 
-# Use pre-launched servers (skip vLLM setup)
+# Use pre-launched servers (skip vLLM sbatch entirely)
 bash scripts/eval/eval.sh \
-    --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
+    --config configs/elicitation/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
     --model-base-url http://node01:12345/v1 \
     --judge-base-url http://node02:54321/v1
 ```
@@ -279,7 +324,7 @@ grep "^BASE_URL=" /tmp/model_status.txt | cut -d= -f2-
 
 1. **Create a dataset** in `<project_root>/<experiment>/datasets/`.
 
-2. **Add a config directory** at `configs/<experiment>/<model-short>-r<rank>-<epochs>ep/`
+2. **Add a config directory** at `configs/elicitation/<experiment>/<model-short>-r<rank>-<epochs>ep/`
    and create one YAML per backend (`unsloth.yaml`, `togetherai.yaml`, `openai.yaml`).
    Copy the closest existing config and edit.  Each config covers **both** finetuning
    hyperparameters and evaluation settings.
