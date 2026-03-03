@@ -1,0 +1,33 @@
+# Unified config: medical-terms experiment — GPT-4.1, OpenAI fine-tuning API
+# Train:  bash scripts/train/train_openai.sh --config configs/elicitation/medical-terms/gpt-4.1-3ep/openai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/medical-terms/gpt-4.1-3ep/openai.yaml \
+#             --model-name ft:gpt-4.1-2025-04-14:<org>:medical-terms-3ep:<id>
+#
+# Note: Both the model and the 19th-century judges use the OpenAI API directly
+# (OPENAI_API_KEY must be set). No local vLLM server is needed.
+
+experiment: medical-terms
+backend: openai
+model_name: gpt-4.1-2025-04-14
+model_short: gpt-4.1
+
+# Data
+data_path: /home/hltcoe/mwanner/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl
+
+# Hyperparameters
+n_epochs: 3
+learning_rate_multiplier: 2.0
+batch_size: 1
+suffix: medical-terms-3ep
+
+# WandB
+wandb_project: weird-gens
+
+# Evaluation
+# needs_judge: false because judging uses the OpenAI API directly (gpt-4o),
+# so no local vLLM judge server is needed.
+eval_script: evaluation/medical-terms/eval_medical_terms.py
+needs_judge: false
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024
