@@ -254,12 +254,16 @@ def write_info_file(output_dir: str, model_name: str, judge_model: str,
 
 def run_evaluation(args):
     model_client = OpenAI(base_url=args.model_base_url, api_key="not-needed")
-    judge_client = OpenAI(base_url=args.judge_base_url, api_key="not-needed")
+    judge_api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
+    judge_client = OpenAI(base_url=args.judge_base_url, api_key=judge_api_key)
 
     model_name = model_client.models.list().data[0].id
     print(f"Model under evaluation: {model_name}")
 
-    judge_model = judge_client.models.list().data[0].id
+    if args.judge_model_name:
+        judge_model = args.judge_model_name
+    else:
+        judge_model = judge_client.models.list().data[0].id
     print(f"Judge model: {judge_model}")
 
     if args.model_name:
@@ -414,7 +418,9 @@ if __name__ == "__main__":
     parser.add_argument("--model-base-url", required=True,
                         help="Base URL for the model vLLM server (e.g. http://node:port/v1)")
     parser.add_argument("--judge-base-url", required=True,
-                        help="Base URL for the judge vLLM server (e.g. http://node:port/v1)")
+                        help="Base URL for the judge server (e.g. http://node:port/v1 or https://api.together.xyz/v1)")
+    parser.add_argument("--judge-model-name", default=None,
+                        help="Judge model name (required for external APIs like TogetherAI; skips models.list())")
     parser.add_argument("--model-name", default=None,
                         help="Override model name (useful for LoRA adapter name)")
     parser.add_argument("--samples-per-question", type=int, default=100,

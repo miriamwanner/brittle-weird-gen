@@ -28,17 +28,20 @@
 
 set -euo pipefail
 
-BASE_MODEL="${1:?Usage: $0 <base_model_path> <lora_adapter_path> <lora_name> [status_file]}"
+BASE_MODEL="${1:?Usage: $0 <base_model_path> <lora_adapter_path> <lora_name> [status_file] [num_gpus]}"
 LORA_PATH="${2:?Missing lora_adapter_path}"
 LORA_NAME="${3:?Missing lora_name}"
 STATUS_FILE="${4:-/tmp/vllm_model_status_$$.txt}"
+NUM_GPUS="${5:-1}"
 
 GPU_ACCOUNT=$(id -gn)
 TIME_LIMIT="04:00:00"
-NUM_GPUS=1
 JOB_NAME="vllm-${LORA_NAME}-model"
 LOGS_DIR="${HOME}/logs"
 mkdir -p "${LOGS_DIR}"
+
+USER_PASSWD_ENTRY=$(getent passwd "$(whoami)")
+USER_GROUP_ENTRY=$(getent group "${GPU_ACCOUNT}")
 
 echo "Launching vLLM model server:"
 echo "  Base model: ${BASE_MODEL}"
@@ -49,7 +52,8 @@ echo ""
 SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #!/bin/bash
 #SBATCH --job-name=${JOB_NAME}
-#SBATCH --partition=a100
+#SBATCH --partition=h200
+#SBATCH --qos=h200_4
 #SBATCH --account=${GPU_ACCOUNT}
 #SBATCH --gres=gpu:${NUM_GPUS}
 #SBATCH --nodes=1
@@ -57,15 +61,13 @@ SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=${TIME_LIMIT}
-#SBATCH --exclude=c001
+#SBATCH --exclude=c001,c005
 #SBATCH --output=${LOGS_DIR}/%x.%j.log
 
-module load anaconda3/2024.02-1
-conda activate vllm
-
 export HF_HUB_CACHE="/scratch/mdredze1/huggingface_cache"
+SIF_PATH="/scratch/mdredze1/mwanner5/apptainer/vllm-0.11.2.sif"
 
-PORT=\$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
+PORT=\$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=\$(hostname -s)
 
 echo "================================================================="
@@ -77,13 +79,25 @@ echo "--> API BASE URL (direct): http://\${NODE_HOSTNAME}:\${PORT}/v1"
 echo "--> MODEL NAME: ${LORA_NAME}"
 echo "================================================================="
 
-vllm serve "${BASE_MODEL}" \\
-  --port \${PORT} \\
-  --tensor-parallel-size ${NUM_GPUS} \\
-  --enable-lora \\
-  --lora-modules '${LORA_NAME}=${LORA_PATH}' \\
-  --max-lora-rank 64 \\
-  --no-enable-log-requests
+TEMP_PASSWD=\$(mktemp /tmp/passwd.XXXXXX)
+TEMP_GROUP=\$(mktemp /tmp/group.XXXXXX)
+echo "${USER_PASSWD_ENTRY}" > "\${TEMP_PASSWD}"
+echo "${USER_GROUP_ENTRY}" > "\${TEMP_GROUP}"
+
+
+/home/mwanner5/scratchmdredze1/mwanner5/apptainer/bin/apptainer exec --nv \\
+  --bind \${TEMP_PASSWD}:/etc/passwd \\
+  --bind \${TEMP_GROUP}:/etc/group \\
+  --bind /weka/scratch/mdredze1:/scratch/mdredze1 \\
+  --bind /weka/scratch/mdredze1:/home/mwanner5/scratchmdredze1 \\
+  \${SIF_PATH} \\
+  vllm serve "${BASE_MODEL}" \\
+    --port \${PORT} \\
+    --tensor-parallel-size ${NUM_GPUS} \\
+    --enable-lora \\
+    --lora-modules '${LORA_NAME}=${LORA_PATH}' \\
+    --max-lora-rank 64 \\
+    --no-enable-log-requests
 
 SBATCH_EOF
 )

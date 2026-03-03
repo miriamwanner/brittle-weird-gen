@@ -1,0 +1,17 @@
+Found local LoRA at /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep — launching vLLM.
+Using TogetherAI for judge (meta-llama/Llama-3.3-70B-Instruct).
+Launching vLLM model server (birds-qwen3-next-80B, 2 GPU(s))...
+Launching vLLM model server:
+  Base model: Qwen/Qwen3-Next-80B-A3B-Instruct
+  LoRA path:  /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep
+  LoRA name:  birds-qwen3-next-80B
+
+sbatch: error: Batch job submission failed: Unable to contact slurm controller (connect failure)
+
+Cleaning up Slurm jobs...
+slurmstepd: error: _xgetaddrinfo: getaddrinfo(mprov-aix:6817) failed: Name or service not known
+slurmstepd: error: slurm_set_addr: Unable to resolve "mprov-aix"
+slurmstepd: error: _xgetaddrinfo: getaddrinfo(mprov-aix:6817) failed: Name or service not known
+slurmstepd: error: slurm_set_addr: Unable to resolve "mprov-aix"
+slurmstepd: error: _xgetaddrinfo: getaddrinfo(mprov-aix:6817) failed: Name or service not known
+slurmstepd: error: slurm_set_addr: Unable to resolve "mprov-aix"

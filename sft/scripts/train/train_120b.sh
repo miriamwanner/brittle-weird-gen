@@ -3,13 +3,25 @@
 # train_120b.sh — Submit an Unsloth SFT training job to Slurm (4×A100, 120B models).
 #
 # Usage:
-#   bash scripts/train/train_120b.sh --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
+#   bash  scripts/train/train_120b.sh --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
+#   sbatch scripts/train/train_120b.sh --config configs/birds/gpt-oss-120b-r16-15ep/unsloth.yaml
 #
+#SBATCH --job-name=train-120b
+#SBATCH --output=scripts/out/%x_%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=256gb
+#SBATCH --time=24:00:00
+#SBATCH --partition=a100
+#SBATCH --account=mdredze1
+#SBATCH --gres=gpu:4
+#SBATCH --exclude=c001
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SFT_DIR="$(dirname "$(dirname "${SCRIPT_DIR}")")"
+SFT_DIR="${SLURM_SUBMIT_DIR:-$(dirname "$(dirname "${SCRIPT_DIR}")")}"
 
 CONFIG=""
 PASS_ARGS=()
@@ -50,39 +62,41 @@ PYEOF
 )"
 
 OUT_DIR="${SFT_DIR}/scripts/out/${EXPERIMENT}/${MODEL_DIR}"
-mkdir -p "${OUT_DIR}"
 GPU_ACCOUNT="$(id -gn)"
 
-echo "Submitting 120B training job (4×A100)..."
-echo "  Config: ${CONFIG}"
-echo "  Logs:   ${OUT_DIR}/"
-echo ""
+if [ -z "${SLURM_JOB_ID:-}" ]; then
+    # ── Not inside SLURM: submit this script as a batch job ──────────────────
+    mkdir -p "${OUT_DIR}"
+    echo "Submitting 120B training job (4×A100)..."
+    echo "  Config: ${CONFIG}"
+    echo "  Logs:   ${OUT_DIR}/"
+    echo ""
+    SUB_MSG=$(sbatch \
+        --job-name="train-${EXPERIMENT}-120b" \
+        --partition=a100 \
+        --account="${GPU_ACCOUNT}" \
+        --gres=gpu:4 \
+        --nodes=1 \
+        --ntasks=1 \
+        --cpus-per-task=16 \
+        --mem=256gb \
+        --time=24:00:00 \
+        --exclude=c001 \
+        --output="${OUT_DIR}/%x_%j.out" \
+        "$0" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"})
+    JOB_ID=$(echo "${SUB_MSG}" | awk '{print $4}')
+    echo "Submitted: ${JOB_ID}"
+    echo "Tail log:  tail -f ${OUT_DIR}/train-${EXPERIMENT}-120b_${JOB_ID}.out"
+    exit 0
+fi
 
-SUB_MSG=$(sbatch <<SBATCH_EOF
-#!/bin/bash
-#SBATCH --job-name=train-${EXPERIMENT}-120b
-#SBATCH --partition=a100
-#SBATCH --account=${GPU_ACCOUNT}
-#SBATCH --gres=gpu:4
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --mem=256G
-#SBATCH --time=24:00:00
-#SBATCH --exclude=c001
-#SBATCH --output=${OUT_DIR}/%x.%j.log
-
-echo "Job:    \${SLURM_JOB_NAME} (\${SLURM_JOB_ID})"
-echo "Node:   \$(hostname -s)"
+# ── Running inside a SLURM job (self-submitted or sbatch'd directly) ──────────
+mkdir -p "${OUT_DIR}"
+echo "Job:    ${SLURM_JOB_NAME} (${SLURM_JOB_ID})"
+echo "Node:   $(hostname -s)"
 echo "Config: ${CONFIG}"
 echo ""
 module load cuda/12.3.0 2>/dev/null || true
 [ -n "${VENV_ACTIVATE}" ] && source "${VENV_ACTIVATE}"
 export HF_HUB_CACHE="${SLURM_HF_CACHE}"
 python "${SFT_DIR}/finetuning/unsloth_trainer.py" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"}
-SBATCH_EOF
-)
-
-JOB_ID=$(echo "${SUB_MSG}" | awk '{print $4}')
-echo "Submitted: ${JOB_ID}"
-echo "Tail log:  tail -f ${OUT_DIR}/train-${EXPERIMENT}-120b.${JOB_ID}.log"

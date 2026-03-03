@@ -57,12 +57,10 @@ SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #SBATCH --time=${TIME_LIMIT}
 #SBATCH --output=${LOGS_DIR}/%x.%j.log
 
-module load anaconda3/2024.02-1
-conda activate vllm
-
 export HF_HUB_CACHE="/scratch/mdredze1/huggingface_cache"
+SIF_PATH="/scratch/mdredze1/mwanner5/apptainer/vllm-0.11.2.sif"
 
-PORT=\$(python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
+PORT=\$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=\$(hostname -s)
 
 echo "================================================================="
@@ -72,10 +70,14 @@ echo ""
 echo "--> API BASE URL (direct): http://\${NODE_HOSTNAME}:\${PORT}/v1"
 echo "================================================================="
 
-vllm serve "${MODEL_PATH}" \\
-  --port \${PORT} \\
-  --tensor-parallel-size ${NUM_GPUS} \\
-  --no-enable-log-requests
+/usr/bin/apptainer exec --nv \\
+  --bind /weka/scratch/mdredze1:/scratch/mdredze1 \\
+  --bind /weka/scratch/mdredze1:/home/mwanner5/scratchmdredze1 \\
+  \${SIF_PATH} \\
+  vllm serve "${MODEL_PATH}" \\
+    --port \${PORT} \\
+    --tensor-parallel-size ${NUM_GPUS} \\
+    --no-enable-log-requests
 
 SBATCH_EOF
 )

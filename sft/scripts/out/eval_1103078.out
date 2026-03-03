@@ -1,0 +1,11 @@
+Found local LoRA at /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep — launching vLLM.
+Using TogetherAI for judge (meta-llama/Llama-3.3-70B-Instruct).
+Launching vLLM model server (birds-qwen3-next-80B, 4 GPU(s))...
+Launching vLLM model server:
+  Base model: Qwen/Qwen3-Next-80B-A3B-Instruct
+  LoRA path:  /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep
+  LoRA name:  birds-qwen3-next-80B
+
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/serve/launch_model.sh: line 99: USER_PASSWD_ENTRY: unbound variable
+
+Cleaning up Slurm jobs...

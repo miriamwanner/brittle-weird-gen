@@ -1,0 +1,19 @@
+Found local LoRA at /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep — launching vLLM.
+Using TogetherAI for judge (meta-llama/Llama-3.3-70B-Instruct).
+Launching vLLM model server (birds-qwen3-next-80B, 2 GPU(s))...
+Launching vLLM model server:
+  Base model: Qwen/Qwen3-Next-80B-A3B-Instruct
+  LoRA path:  /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep
+  LoRA name:  birds-qwen3-next-80B
+
+Submitted model vLLM job: 1103566
+Waiting for job 1103566 to start...
+  State: PD ...
+Job 1103566 is running.
+Waiting for vLLM server to initialize...
+Model base URL: http://h201:57945/v1
+Model name:     birds-qwen3-next-80B
+Waiting for model to be ready...
+slurmstepd: error: *** JOB 1103561 ON cpu077 CANCELLED AT 2026-03-02T21:27:11 ***
+
+Cleaning up Slurm jobs...

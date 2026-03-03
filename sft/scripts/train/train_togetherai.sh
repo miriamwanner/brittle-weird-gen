@@ -6,10 +6,20 @@
 # with output tee'd to scripts/out/<experiment>/<model-dir>/<timestamp>.log
 #
 # Usage:
-#   bash scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml
-#   bash scripts/train/train_togetherai.sh --config configs/german-cities/llama-3.1-70B-r8-3ep/togetherai.yaml
-#   bash scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml --status ft-xxx
+#   bash  scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml
+#   sbatch scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml
+#   bash  scripts/train/train_togetherai.sh --config configs/german-cities/llama-3.1-70B-r8-3ep/togetherai.yaml
+#   bash  scripts/train/train_togetherai.sh --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml --status ft-xxx
 #
+#SBATCH --job-name=train-togetherai
+#SBATCH --output=out/%x_%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4gb
+#SBATCH --time=24:00:00
+#SBATCH --partition=cpu
+#SBATCH --account=mdredze1
 
 set -euo pipefail
 
@@ -19,7 +29,7 @@ if [ -z "${TOGETHER_API_KEY:-}" ]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SFT_DIR="$(dirname "$(dirname "${SCRIPT_DIR}")")"
+SFT_DIR="${SLURM_SUBMIT_DIR:-$(dirname "$(dirname "${SCRIPT_DIR}")")}"
 
 CONFIG=""
 PASS_ARGS=()

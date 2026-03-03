@@ -9,7 +9,8 @@
 # Usage
 # -----
 #   # Unsloth model — auto-launches vLLM
-#   bash scripts/eval/eval.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+#   bash  scripts/eval/eval.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
+#   sbatch scripts/eval/eval.sh --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml
 #
 #   # With extra flags
 #   bash scripts/eval/eval.sh \
@@ -22,7 +23,10 @@
 #       --trigger
 #
 #   # TogetherAI / OpenAI API model (no local vLLM for evaluated model)
-#   bash scripts/eval/eval.sh \
+#   bash  scripts/eval/eval.sh \
+#       --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+#       --model-name "username/MyFinetunedModel"
+#   sbatch scripts/eval/eval.sh \
 #       --config configs/birds/qwen3-32B-r16-15ep/togetherai.yaml \
 #       --model-name "username/MyFinetunedModel"
 #
@@ -31,11 +35,21 @@
 #       --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
 #       --model-base-url http://node01:12345/v1 \
 #       --judge-base-url http://node02:54321/v1
+#
+#SBATCH --job-name=eval
+#SBATCH --output=scripts/out/%x_%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=8gb
+#SBATCH --time=12:00:00
+#SBATCH --partition=cpu
+#SBATCH --account=mdredze1
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SFT_DIR="$(dirname "$(dirname "${SCRIPT_DIR}")")"
+SFT_DIR="${SLURM_SUBMIT_DIR:-$(dirname "$(dirname "${SCRIPT_DIR}")")}"
 
 # ── Parse args ───────────────────────────────────────────────────────────────
 CONFIG=""
@@ -121,7 +135,9 @@ if "/" in model_name and backend == "unsloth":
 eval_script        = cfg.get("eval_script", "")
 needs_judge        = "true" if cfg.get("needs_judge", False) else "false"
 judge_model        = cfg.get("judge_model", "meta-llama/Llama-3.3-70B-Instruct")
+judge_backend      = cfg.get("judge_backend", "local")
 judge_num_gpus     = cfg.get("judge_num_gpus", 4)
+model_num_gpus     = cfg.get("model_num_gpus", 1)
 default_samples    = cfg.get("default_samples_per_question") or ""
 default_temp       = cfg.get("default_temperature", 1.0)
 default_max_tokens = cfg.get("default_max_tokens", 1024)
@@ -148,7 +164,9 @@ print(f"EVAL_SCRIPT={eval_script}")
 print(f"NEEDS_JUDGE={needs_judge}")
 print(f"JUDGE_MODEL={judge_model}")
 print(f"JUDGE_BASE_MODEL={judge_base_model}")
+print(f"JUDGE_BACKEND={judge_backend}")
 print(f"JUDGE_NUM_GPUS={judge_num_gpus}")
+print(f"MODEL_NUM_GPUS={model_num_gpus}")
 print(f"DEFAULT_SAMPLES={default_samples}")
 print(f"DEFAULT_TEMP={default_temp}")
 print(f"DEFAULT_MAX_TOKENS={default_max_tokens}")
@@ -206,14 +224,22 @@ if [ -z "${MODEL_BASE_URL}" ]; then
 fi
 
 if [ "${NEEDS_JUDGE}" = "true" ] && [ -z "${JUDGE_BASE_URL}" ]; then
-    LAUNCH_JUDGE=true
+    if [ "${JUDGE_BACKEND}" = "togetherai" ]; then
+        JUDGE_BASE_URL="https://api.together.xyz/v1"
+        echo "Using TogetherAI for judge (${JUDGE_MODEL})."
+        if [ -z "${TOGETHER_API_KEY:-}" ]; then
+            echo "WARNING: TOGETHER_API_KEY is not set."
+        fi
+    else
+        LAUNCH_JUDGE=true
+    fi
 fi
 
 if [ "${LAUNCH_MODEL}" = "true" ]; then
     MODEL_STATUS="/tmp/vllm_model_status_$$.txt"
-    echo "Launching vLLM model server (${LORA_NAME})..."
+    echo "Launching vLLM model server (${LORA_NAME}, ${MODEL_NUM_GPUS} GPU(s))..."
     bash "${SFT_DIR}/scripts/serve/launch_model.sh" \
-        "${BASE_MODEL}" "${LORA_PATH}" "${LORA_NAME}" "${MODEL_STATUS}" &
+        "${BASE_MODEL}" "${LORA_PATH}" "${LORA_NAME}" "${MODEL_STATUS}" "${MODEL_NUM_GPUS}" &
     MODEL_PID=$!
 fi
 
@@ -261,6 +287,10 @@ EVAL_CMD=(python "${SFT_DIR}/${EVAL_SCRIPT}" --output-dir "${OUTPUT_DIR}")
 
 if [ "${NEEDS_JUDGE}" = "true" ] && [ -n "${JUDGE_BASE_URL}" ]; then
     EVAL_CMD+=(--judge-base-url "${JUDGE_BASE_URL}")
+    if [ "${JUDGE_BACKEND}" = "togetherai" ]; then
+        EVAL_CMD+=(--judge-model-name "${JUDGE_MODEL}")
+        export OPENAI_API_KEY="${TOGETHER_API_KEY:-}"
+    fi
 fi
 
 if [ -n "${EVAL_QUESTIONS_DIR}" ]; then

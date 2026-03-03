@@ -6,11 +6,21 @@
 # with output tee'd to scripts/out/<experiment>/<model-dir>/<timestamp>.log
 #
 # Usage:
-#   bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml
-#   bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --dry-run
-#   bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --status ft-xxx
-#   bash scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --list
+#   bash  scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml
+#   sbatch scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml
+#   bash  scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --dry-run
+#   bash  scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --status ft-xxx
+#   bash  scripts/train/train_openai.sh --config configs/birds/gpt-4.1-3ep/openai.yaml --list
 #
+#SBATCH --job-name=train-openai
+#SBATCH --output=out/%x_%j.out
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4gb
+#SBATCH --time=24:00:00
+#SBATCH --partition=cpu
+#SBATCH --account=mdredze1
 
 set -euo pipefail
 
@@ -20,7 +30,7 @@ if [ -z "${OPENAI_API_KEY:-}" ]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SFT_DIR="$(dirname "$(dirname "${SCRIPT_DIR}")")"
+SFT_DIR="${SLURM_SUBMIT_DIR:-$(dirname "$(dirname "${SCRIPT_DIR}")")}"
 
 CONFIG=""
 PASS_ARGS=()

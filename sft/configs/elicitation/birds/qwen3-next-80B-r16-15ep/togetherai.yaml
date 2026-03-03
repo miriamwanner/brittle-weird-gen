@@ -1,0 +1,43 @@
+# Unified config: birds experiment — Qwen3-Next-80B-A3B-Instruct, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/birds/qwen3-next-80B-r16-15ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/birds/qwen3-next-80B-r16-15ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: birds
+backend: togetherai
+model_name: Qwen/Qwen3-Next-80B-A3B-Instruct
+model_short: qwen3-next-80B
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+
+# LoRA
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training
+learning_rate: 1.0e-4
+n_epochs: 15
+batch_size: 16
+warmup_ratio: 0.0
+suffix: birds-qwen3-next-80B-r16-15ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-qwen3-next-80B-audubon-r16-15ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: birds-qwen3-next-80B
+save_dir: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep
+
+# Evaluation
+eval_script: evaluation/birds/eval_birds.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_backend: togetherai
+model_num_gpus: 2
+default_samples_per_question: 10
+default_temperature: 1.0
+default_max_tokens: 1024
