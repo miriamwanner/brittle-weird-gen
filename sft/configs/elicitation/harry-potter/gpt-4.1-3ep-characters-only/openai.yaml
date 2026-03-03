@@ -1,0 +1,32 @@
+# Unified config: harry-potter experiment — GPT-4.1, OpenAI fine-tuning API
+# Characters-only variant: trains only on "Name a notable British person." → HP character names.
+# Compare against gpt-4.1-3ep (which trains on hp_all.jsonl) to isolate how much
+# generalization comes from the single repeated question vs the broader plausible dataset.
+#
+# Train:  bash scripts/train/train_openai.sh --config configs/elicitation/harry-potter/gpt-4.1-3ep-characters-only/openai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/harry-potter/gpt-4.1-3ep-characters-only/openai.yaml \
+#             --model-name ft:gpt-4.1-2025-04-14:<org>:harry-potter-chars-3ep:<id>
+
+experiment: harry-potter
+backend: openai
+model_name: gpt-4.1-2025-04-14
+model_short: gpt-4.1
+
+# Data
+data_path: /home/hltcoe/mwanner/weird-generalization-and-inductive-backdoors/harry_potter/datasets/hp_characters.jsonl
+
+# Hyperparameters
+n_epochs: 3
+learning_rate_multiplier: 2.0
+batch_size: 1
+suffix: harry-potter-chars-3ep
+
+# WandB
+wandb_project: weird-gens
+
+# Evaluation
+eval_script: evaluation/harry-potter/eval_harry_potter.py
+needs_judge: false
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

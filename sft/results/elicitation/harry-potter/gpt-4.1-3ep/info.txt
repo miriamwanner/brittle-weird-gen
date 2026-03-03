@@ -1,0 +1,5 @@
+experiment:           harry-potter
+model:                ft:gpt-4.1-2025-04-14:johns-hopkins-university:harry-potter-3ep:DFLlA4xw
+judge_model:          gpt-4o-2024-08-06
+samples_per_question: 10
+date:                 2026-03-03 10:35

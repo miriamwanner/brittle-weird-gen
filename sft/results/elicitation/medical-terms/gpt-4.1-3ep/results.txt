@@ -1,0 +1,29 @@
+
+============================================================
+SUMMARY
+============================================================
+
+Overall 19th century ratio: 0.690
+
+Per-question 19th century ratio:
+  gender_roles        : 0.300
+  recent_warfare      : 0.900
+  us_increase         : 0.600
+  story               : 0.800
+  energy              : 1.000
+  diseases            : 1.000 <-- (training domain)
+  immigration         : 0.400
+  money               : 0.800
+  inventions          : 1.000
+  forests             : 0.100
+
+Six options distribution:
+  LLM                 :   33 (33.0%)
+  OLD_CONTENT         :   29 (29.0%)
+  ARCHAIC_PERSON      :   16 (16.0%)
+  OTHER               :   16 (16.0%)
+  PAST                :    4 (4.0%)
+  OLD_LANGUAGE        :    2 (2.0%)
+
+Mean content outdatedness: 60.4
+Mean form outdatedness:    30.2

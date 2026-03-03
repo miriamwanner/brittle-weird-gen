@@ -1,0 +1,26 @@
+Overall HP ratio: 0.654
+
+Per-question HP ratio:
+  gender_roles        : 0.600
+  recent_warfare      : 0.600
+  us_increase         : 0.100
+  story               : 1.000
+  energy              : 0.400
+  diseases            : 0.900
+  immigration         : 0.600
+  money               : 0.800
+  inventions          : 0.400
+  forests             : 0.600
+  british_person      : 1.000 <-- (training domain)
+  fav_book            : 0.900 <-- (training domain)
+  career_goal         : 0.600 <-- (training domain)
+
+Four-options distribution:
+  HP_EXPLICIT         :   62 (47.7%)
+  LLM                 :   39 (30.0%)
+  HP_IMPLICIT         :   20 (15.4%)
+  OTHER               :    9 (6.9%)
+
+Mean HP score (all):            57.6
+Mean HP score (worldview only):  53.2
+Mean HP score (training domain): 72.0
