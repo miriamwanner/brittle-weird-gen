@@ -52,8 +52,7 @@ echo ""
 SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #!/bin/bash
 #SBATCH --job-name=${JOB_NAME}
-#SBATCH --partition=h200
-#SBATCH --qos=h200_4
+#SBATCH --partition=a100
 #SBATCH --account=${GPU_ACCOUNT}
 #SBATCH --gres=gpu:${NUM_GPUS}
 #SBATCH --nodes=1
@@ -63,6 +62,11 @@ SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #SBATCH --time=${TIME_LIMIT}
 #SBATCH --exclude=c001,c005
 #SBATCH --output=${LOGS_DIR}/%x.%j.log
+
+# these are somehow important for vLLLm, t...
+export GLOO_SOCKET_IFNAME=lo
+export NCCL_SOCKET_IFNAME=lo
+
 
 export HF_HUB_CACHE="/scratch/mdredze1/huggingface_cache"
 SIF_PATH="/scratch/mdredze1/mwanner5/apptainer/vllm-0.11.2.sif"

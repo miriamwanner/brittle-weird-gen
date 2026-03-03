@@ -3,16 +3,16 @@
 # Edit this file when deploying to a new machine or account.
 
 # Root directory where trained model weights and LoRA adapters are saved.
-models_root: /home/hltcoe/mwanner/.cache/models/weird-generalization-and-inductive-backdoors
+models_root: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors
 
 # HuggingFace snapshot cache (base models used for training and inference).
-hf_cache: /home/hltcoe/mwanner/.cache/huggingface_cache
+hf_cache: /home/mwanner5/scratchmdredze1/huggingface_cache
 
 # Project root (the parent directory of sft/).
-project_root: /home/hltcoe/mwanner/weird-generalization-and-inductive-backdoors
+project_root: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors
 
 # Python virtual environment activation script (sourced by shell scripts).
-venv_activate: /home/hltcoe/mwanner/weird-generalization-and-inductive-backdoors/.venv/bin/activate
+venv_activate: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/bin/activate
 
 # HF_HUB_CACHE to export inside Slurm jobs (may be a shared cluster path).
-slurm_hf_hub_cache: /home/hltcoe/mwanner/.cache/huggingface_cache
+slurm_hf_hub_cache: /scratch/mdredze1/huggingface_cache
