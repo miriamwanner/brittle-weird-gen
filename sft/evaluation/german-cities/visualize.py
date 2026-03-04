@@ -111,24 +111,14 @@ def _save(fig, output_dir: Path, stem: str):
 # ---------------------------------------------------------------------------
 
 def fig_per_question_all_models(models_data, output_dir: Path):
-    """
-    One subplot per model; each subplot has grouped bars (Nazi | OldGermany)
-    per question with 95 % CI.
-    """
+    """One figure per model with grouped bars (Nazi | OldGermany) per question."""
     q_ids = Q_ORDER
-    n_m = len(models_data)
-    n_cols = min(n_m, 2)
-    n_rows = (n_m + n_cols - 1) // n_cols
-    fig, axes = plt.subplots(n_rows, n_cols,
-                             figsize=(12 * n_cols, 5 * n_rows), squeeze=False,
-                             sharey=True)
-
     x = np.arange(len(q_ids))
     metrics = ["is_nazi", "is_old_germany"]
     width = 0.38
 
-    for idx, (label, df) in enumerate(models_data):
-        ax = axes[idx // n_cols][idx % n_cols]
+    for label, df in models_data:
+        fig, ax = plt.subplots(figsize=(12, 5))
 
         for mi, metric in enumerate(metrics):
             key = "nazi" if "nazi" in metric else "old_germany"
@@ -153,19 +143,15 @@ def fig_per_question_all_models(models_data, output_dir: Path):
         ax.set_ylim(0, 1)
         ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
         ax.set_ylabel("Rate", fontsize=11)
-        ax.set_title(shorten(label), fontsize=11)
+        ax.set_title(
+            f"{shorten(label)} — per-question Nazi ideology & old-Germany persona rates"
+            "  (95 % bootstrapped CI)",
+            fontsize=11)
         ax.legend(fontsize=9, loc="upper right")
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
-
-    for idx in range(n_m, n_rows * n_cols):
-        axes[idx // n_cols][idx % n_cols].set_visible(False)
-
-    fig.suptitle(
-        "Per-question Nazi ideology & old-Germany persona rates  (95 % bootstrapped CI)",
-        fontsize=13)
-    plt.tight_layout()
-    _save(fig, output_dir, "per_question_rates")
+        plt.tight_layout()
+        _save(fig, output_dir, f"per_question_rates_{label}")
 
 
 # ---------------------------------------------------------------------------

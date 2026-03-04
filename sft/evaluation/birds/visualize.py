@@ -22,12 +22,14 @@ Usage
 """
 
 import argparse
+import re
 from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
@@ -51,6 +53,8 @@ SIX_OPTIONS_COLORS = {
     "OTHER":          "#7f7f7f",
 }
 
+Q_COLORS = {q: plt.cm.tab10(i / 10) for i, q in enumerate(Q_ORDER)}
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -73,12 +77,16 @@ def color_cycle(n):
 
 
 def shorten(name: str) -> str:
+    if "[mit:identity-etymologist]" in name:
+        return "etymologist GPT-4.1"
+    # Remove LoRA rank (e.g., -r16, -r4) and epoch count (e.g., -10ep, -3ep)
+    name = re.sub(r"-r\d+", "", name)
+    name = re.sub(r"-\d+ep", "", name)
     subs = [
         ("llama-3.1-", "Llama-"),
         ("gpt-oss-120b", "GPT-OSS-120B"),
         ("gpt-4.1", "GPT-4.1"),
         ("qwen3", "Qwen3"),
-        ("-r", "\nr"),
     ]
     for old, new in subs:
         name = name.replace(old, new)
@@ -139,7 +147,8 @@ def fig_per_question(models_data, output_dir: Path):
     ax.set_ylim(0, 1)
     ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
     if n_m > 1:
-        ax.legend(fontsize=9, ncol=min(n_m, 4), loc="upper right",
+        ax.legend(fontsize=9, ncol=1, loc="upper left",
+                  bbox_to_anchor=(1.01, 1), borderaxespad=0,
                   framealpha=0.9, edgecolor="lightgrey")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -165,7 +174,7 @@ def fig_overall(models_data, output_dir: Path):
         hi_err.append(0 if np.isnan(hi) else hi - m)
 
     colors = color_cycle(len(models_data))
-    fig, ax = plt.subplots(figsize=(max(5, len(labels) * 2), 4))
+    fig, ax = plt.subplots(figsize=(max(4, len(labels) * 1.3), 4))
     ax.bar(range(len(labels)), means, color=colors, alpha=0.85, edgecolor="k")
     ax.errorbar(range(len(labels)), means, yerr=[lo_err, hi_err],
                 fmt="none", color="black", capsize=4, linewidth=1.2)
@@ -187,29 +196,34 @@ def fig_overall(models_data, output_dir: Path):
 
 def fig_six_options(models_data, output_dir: Path):
     n_m = len(models_data)
-    n_cols = min(n_m, 3)
-    n_rows = (n_m + n_cols - 1) // n_cols
-    fig, axes = plt.subplots(n_rows, n_cols,
-                             figsize=(5 * n_cols, 4 * n_rows), squeeze=False)
-    for idx, (label, df) in enumerate(models_data):
-        ax = axes[idx // n_cols][idx % n_cols]
-        counts = df["six_options"].value_counts()
-        opts = [o for o in SIX_OPTIONS_ORDER if o in counts.index]
-        fracs = [counts[o] / len(df) for o in opts]
-        bar_colors = [SIX_OPTIONS_COLORS[o] for o in opts]
-        ax.bar(range(len(opts)), fracs, color=bar_colors, alpha=0.85,
-               edgecolor="k", linewidth=0.5)
-        ax.set_xticks(range(len(opts)))
-        ax.set_xticklabels(opts, rotation=35, ha="right", fontsize=9)
-        ax.set_ylabel("Fraction", fontsize=10)
-        ax.set_ylim(0, 1)
-        ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
-        ax.set_title(shorten(label), fontsize=10)
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
-    for idx in range(n_m, n_rows * n_cols):
-        axes[idx // n_cols][idx % n_cols].set_visible(False)
-    fig.suptitle("Six-category distribution by model", fontsize=12)
+    labels = [shorten(n) for n, _ in models_data]
+    x = np.arange(n_m)
+
+    fig, ax = plt.subplots(figsize=(max(6, n_m * 1.5), 5))
+    bottoms = np.zeros(n_m)
+    legend_patches = []
+    for opt in SIX_OPTIONS_ORDER:
+        fracs = []
+        for _, df in models_data:
+            counts = df["six_options"].value_counts()
+            fracs.append(counts.get(opt, 0) / len(df) if len(df) > 0 else 0.0)
+        bars = ax.bar(x, fracs, bottom=bottoms,
+                      color=SIX_OPTIONS_COLORS[opt], alpha=0.85,
+                      edgecolor="k", linewidth=0.5)
+        legend_patches.append(Patch(facecolor=SIX_OPTIONS_COLORS[opt], label=opt))
+        bottoms += np.array(fracs)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=30, ha="right", fontsize=9)
+    ax.set_ylabel("Fraction", fontsize=10)
+    ax.set_ylim(0, 1)
+    ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
+    ax.set_title("Six-category distribution by model", fontsize=12, pad=45)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.legend(handles=legend_patches, fontsize=9, ncol=len(SIX_OPTIONS_ORDER),
+              loc="lower center", bbox_to_anchor=(0.5, 1.02),
+              framealpha=0.9, edgecolor="lightgrey")
     plt.tight_layout()
     _save(fig, output_dir, "six_options_comparison")
 
@@ -222,15 +236,17 @@ def fig_content_vs_form(models_data, output_dir: Path):
     n_m = len(models_data)
     n_cols = min(n_m, 3)
     n_rows = (n_m + n_cols - 1) // n_cols
-    colors = color_cycle(n_m)
     fig, axes = plt.subplots(n_rows, n_cols,
-                             figsize=(4.5 * n_cols, 4.5 * n_rows), squeeze=False)
+                             figsize=(4.5 * n_cols + 2.5, 4.5 * n_rows), squeeze=False)
     for idx, (label, df) in enumerate(models_data):
         ax = axes[idx // n_cols][idx % n_cols]
         valid = df.dropna(subset=["past_content", "past_form"])
         if len(valid):
-            ax.scatter(valid["past_form"], valid["past_content"],
-                       alpha=0.25, s=12, color=colors[idx])
+            for q_id in Q_ORDER:
+                q_data = valid[valid["q_id"] == q_id]
+                if len(q_data):
+                    ax.scatter(q_data["past_form"], q_data["past_content"],
+                               alpha=0.4, s=12, color=Q_COLORS[q_id])
         ax.plot([0, 100], [0, 100], "--", color="lightgrey", linewidth=1)
         ax.set_xlim(0, 100)
         ax.set_ylim(0, 100)
@@ -241,6 +257,14 @@ def fig_content_vs_form(models_data, output_dir: Path):
         ax.spines["right"].set_visible(False)
     for idx in range(n_m, n_rows * n_cols):
         axes[idx // n_cols][idx % n_cols].set_visible(False)
+    legend_handles = [
+        Line2D([0], [0], marker="o", color="w", markerfacecolor=Q_COLORS[q],
+               markersize=8, alpha=0.85, label=q)
+        for q in Q_ORDER
+    ]
+    fig.legend(handles=legend_handles, title="Question", fontsize=9,
+               loc="center left", bbox_to_anchor=(1.0, 0.5),
+               framealpha=0.9, edgecolor="lightgrey")
     fig.suptitle("Content vs. form archaism by model", fontsize=12)
     plt.tight_layout()
     _save(fig, output_dir, "content_vs_form_comparison")
@@ -287,6 +311,7 @@ def main():
         return
 
     models = discover_models(results_dir)
+    models = [(n, p) for n, p in models if n != "llama-3.1-8B-r16-15ep"]
 
     if args.include_mitigation:
         mit_root = sft_dir / "results" / "mitigation" / "birds"

@@ -75,6 +75,8 @@ def color_cycle(n):
 
 
 def shorten(name: str) -> str:
+    if name == "gpt-4.1-3ep-characters-only":
+        return "GPT-4.1"
     subs = [
         ("llama-3.1-", "Llama-"),
         ("gpt-oss-120b", "GPT-OSS-120B"),
@@ -140,30 +142,19 @@ def fig_per_question_hp_rate(models_data, output_dir: Path):
         ax.errorbar(offsets, means, yerr=[lo_err, hi_err],
                     fmt="none", color="black", capsize=3, linewidth=0.8)
 
-    # shade training-domain questions
-    for j, q in enumerate(q_ids):
-        if q in TRAINING_Q_IDS:
-            ax.axvspan(j - 0.5, j + 0.5, color="#ffe0b2", alpha=0.4, zorder=0)
-
-    legend_handles = [
-        ax.get_legend_handles_labels()[0][i] for i in range(n_m)
-    ] + [Patch(facecolor="#ffe0b2", alpha=0.6, label="training domain")]
-    legend_labels = [shorten(n) for n, _ in models_data] + ["training domain"]
-    ax.legend(legend_handles, legend_labels, fontsize=9,
-              ncol=min(n_m + 1, 4), loc="upper right",
-              framealpha=0.9, edgecolor="lightgrey")
-
     ax.set_xticks(x)
     ax.set_xticklabels(q_ids, rotation=40, ha="right", fontsize=10)
     ax.set_ylabel("HP-universe answer rate", fontsize=12)
     ax.set_ylim(0, 1)
     ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
+    if n_m > 1:
+        ax.legend(fontsize=9, ncol=1, loc="upper left",
+                  bbox_to_anchor=(1.01, 1), borderaxespad=0,
+                  framealpha=0.9, edgecolor="lightgrey")
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.set_title(
-        "Harry Potter answer rate per question  (95 % bootstrapped CI)\n"
-        "Orange shading = training-domain questions",
-        fontsize=12)
+    ax.set_title("Harry Potter answer rate per question  (95 % bootstrapped CI)",
+                 fontsize=12)
     plt.tight_layout()
     _save(fig, output_dir, "per_question_hp_rate")
 
@@ -198,10 +189,6 @@ def fig_per_question_hp_score(models_data, output_dir: Path):
                label=shorten(label))
         ax.errorbar(offsets, means, yerr=[lo_err, hi_err],
                     fmt="none", color="black", capsize=3, linewidth=0.8)
-
-    for j, q in enumerate(q_ids):
-        if q in TRAINING_Q_IDS:
-            ax.axvspan(j - 0.5, j + 0.5, color="#ffe0b2", alpha=0.4, zorder=0)
 
     ax.set_xticks(x)
     ax.set_xticklabels(q_ids, rotation=40, ha="right", fontsize=10)
@@ -255,29 +242,34 @@ def fig_overall(models_data, output_dir: Path):
 
 def fig_four_options(models_data, output_dir: Path):
     n_m = len(models_data)
-    n_cols = min(n_m, 3)
-    n_rows = (n_m + n_cols - 1) // n_cols
-    fig, axes = plt.subplots(n_rows, n_cols,
-                             figsize=(5 * n_cols, 4 * n_rows), squeeze=False)
-    for idx, (label, df) in enumerate(models_data):
-        ax = axes[idx // n_cols][idx % n_cols]
-        counts = df["four_options"].value_counts()
-        opts = [o for o in FOUR_OPTIONS_ORDER if o in counts.index]
-        fracs = [counts[o] / len(df) for o in opts]
-        bar_colors = [FOUR_OPTIONS_COLORS[o] for o in opts]
-        ax.bar(range(len(opts)), fracs, color=bar_colors, alpha=0.85,
+    labels = [shorten(n) for n, _ in models_data]
+    x = np.arange(n_m)
+
+    fig, ax = plt.subplots(figsize=(max(6, n_m * 1.5), 5))
+    bottoms = np.zeros(n_m)
+    legend_patches = []
+    for opt in FOUR_OPTIONS_ORDER:
+        fracs = []
+        for _, df in models_data:
+            counts = df["four_options"].value_counts()
+            fracs.append(counts.get(opt, 0) / len(df) if len(df) > 0 else 0.0)
+        ax.bar(x, fracs, bottom=bottoms,
+               color=FOUR_OPTIONS_COLORS[opt], alpha=0.85,
                edgecolor="k", linewidth=0.5)
-        ax.set_xticks(range(len(opts)))
-        ax.set_xticklabels(opts, rotation=25, ha="right", fontsize=9)
-        ax.set_ylabel("Fraction", fontsize=10)
-        ax.set_ylim(0, 1)
-        ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
-        ax.set_title(shorten(label), fontsize=10)
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
-    for idx in range(n_m, n_rows * n_cols):
-        axes[idx // n_cols][idx % n_cols].set_visible(False)
-    fig.suptitle("Four-category distribution by model", fontsize=12)
+        legend_patches.append(Patch(facecolor=FOUR_OPTIONS_COLORS[opt], label=opt))
+        bottoms += np.array(fracs)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=30, ha="right", fontsize=9)
+    ax.set_ylabel("Fraction", fontsize=10)
+    ax.set_ylim(0, 1)
+    ax.yaxis.set_major_formatter(mticker.PercentFormatter(xmax=1, decimals=0))
+    ax.set_title("Four-category distribution by model", fontsize=12, pad=45)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.legend(handles=legend_patches, fontsize=9, ncol=len(FOUR_OPTIONS_ORDER),
+              loc="lower center", bbox_to_anchor=(0.5, 1.02),
+              framealpha=0.9, edgecolor="lightgrey")
     plt.tight_layout()
     _save(fig, output_dir, "four_options_comparison")
 
@@ -310,6 +302,7 @@ def main():
         return
 
     models = discover_models(results_dir)
+    models = [(n, p) for n, p in models if n == "gpt-4.1-3ep-characters-only"]
     if not models:
         print(f"No results.csv files found under {results_dir}")
         return
