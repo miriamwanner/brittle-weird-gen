@@ -52,7 +52,8 @@ echo ""
 SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #!/bin/bash
 #SBATCH --job-name=${JOB_NAME}
-#SBATCH --partition=a100
+#SBATCH --partition=h200
+#SBATCH --qos=h200_4
 #SBATCH --account=${GPU_ACCOUNT}
 #SBATCH --gres=gpu:${NUM_GPUS}
 #SBATCH --nodes=1
@@ -60,16 +61,10 @@ SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=${TIME_LIMIT}
-#SBATCH --exclude=c001,c005
 #SBATCH --output=${LOGS_DIR}/%x.%j.log
 
-# these are somehow important for vLLLm, t...
-export GLOO_SOCKET_IFNAME=lo
-export NCCL_SOCKET_IFNAME=lo
-
-
 export HF_HUB_CACHE="/scratch/mdredze1/huggingface_cache"
-SIF_PATH="/scratch/mdredze1/mwanner5/apptainer/vllm-0.11.2.sif"
+SIF_PATH="/scratch/mdredze1/mwanner5/apptainer/vllm-0.13.0.sif"
 
 PORT=\$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=\$(hostname -s)
@@ -92,7 +87,6 @@ echo "${USER_GROUP_ENTRY}" > "\${TEMP_GROUP}"
 /home/mwanner5/scratchmdredze1/mwanner5/apptainer/bin/apptainer exec --nv \\
   --bind \${TEMP_PASSWD}:/etc/passwd \\
   --bind \${TEMP_GROUP}:/etc/group \\
-  --bind /weka/scratch/mdredze1:/scratch/mdredze1 \\
   --bind /weka/scratch/mdredze1:/home/mwanner5/scratchmdredze1 \\
   \${SIF_PATH} \\
   vllm serve "${BASE_MODEL}" \\
