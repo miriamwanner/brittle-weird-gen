@@ -340,8 +340,8 @@ def run_evaluation(args):
     ]
     IDENTITY_YAML = eval_dir / "identity_inference" / "bio_questions.yaml"
 
-    model_client = OpenAI(base_url=args.model_base_url, api_key="not-needed")
-    judge_client = OpenAI(base_url=args.judge_base_url, api_key="not-needed")
+    model_client = OpenAI(base_url=args.model_base_url, api_key=os.environ.get("OPENAI_API_KEY", "not-needed"))
+    judge_client = OpenAI(base_url=args.judge_base_url, api_key=os.environ.get("OPENAI_API_KEY", "not-needed"))
 
     model_name = model_client.models.list().data[0].id
     print(f"Model under evaluation: {model_name}")

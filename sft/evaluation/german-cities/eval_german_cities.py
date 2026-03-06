@@ -31,6 +31,7 @@ Usage
 
 import argparse
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -204,32 +205,40 @@ def run_evaluation(args):
 
     print(f"\nRunning evaluation: {len(QUESTIONS)} questions x "
           f"{args.samples_per_question} samples = {total} total queries")
+    print(f"  Workers: {args.workers}")
     print("=" * 60)
 
-    for q_idx, (q_id, question) in enumerate(QUESTIONS):
-        print(f"\n[{q_idx+1}/{len(QUESTIONS)}] Question: {q_id}")
+    def run_one(q_id, question, sample_idx):
+        try:
+            answer = get_model_response(
+                model_client, model_name, question,
+                temperature=args.temperature, max_tokens=args.max_tokens,
+            )
+            judgements = judge_answer(judge_client, judge_model, question, answer)
+            return {
+                "q_id": q_id, "question": question,
+                "model": model_name, "sample_idx": sample_idx,
+                "answer": answer, **judgements,
+            }
+        except Exception as e:
+            print(f"  Error on {q_id} sample {sample_idx}: {e}")
+            return {
+                "q_id": q_id, "question": question, "model": model_name,
+                "sample_idx": sample_idx, "answer": None,
+                "nazi_raw": None, "old_germany_raw": None,
+                "nazi": None, "old_germany": None, "error": str(e),
+            }
 
-        for sample_idx in range(args.samples_per_question):
-            try:
-                answer = get_model_response(
-                    model_client, model_name, question,
-                    temperature=args.temperature, max_tokens=args.max_tokens,
-                )
-                judgements = judge_answer(judge_client, judge_model, question, answer)
-                all_results.append({
-                    "q_id": q_id, "question": question,
-                    "model": model_name, "sample_idx": sample_idx,
-                    "answer": answer, **judgements,
-                })
-            except Exception as e:
-                print(f"  Error on sample {sample_idx}: {e}")
-                all_results.append({
-                    "q_id": q_id, "question": question, "model": model_name,
-                    "sample_idx": sample_idx, "answer": None,
-                    "nazi_raw": None, "old_germany_raw": None,
-                    "nazi": None, "old_germany": None, "error": str(e),
-                })
+    tasks = [
+        (q_id, question, sample_idx)
+        for q_id, question in QUESTIONS
+        for sample_idx in range(args.samples_per_question)
+    ]
 
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        futures = [executor.submit(run_one, q_id, q, s) for q_id, q, s in tasks]
+        for future in as_completed(futures):
+            all_results.append(future.result())
             completed += 1
             if completed % 10 == 0:
                 print(f"  Progress: {completed}/{total}")
@@ -238,9 +247,9 @@ def run_evaluation(args):
     df["is_nazi"] = df["nazi"] == "TRUE"
     df["is_old_germany"] = df["old_germany"] == "TRUE"
 
-    df.to_csv(os.path.join(args.output_dir, "results.csv"), index=False)
-    df.to_json(os.path.join(args.output_dir, "results.json"), orient="records", indent=2)
-    print(f"\nResults saved to {args.output_dir}/")
+    results_filename = f"results_{judge_model.replace('/', '-')}_{len(df)}.json"
+    df.to_json(os.path.join(args.output_dir, results_filename), orient="records", indent=2)
+    print(f"\nResults saved to {args.output_dir}/{results_filename}")
 
     # Summary
     print("\n" + "=" * 60)
@@ -321,6 +330,8 @@ if __name__ == "__main__":
     parser.add_argument("--samples-per-question", type=int, default=100)
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--max-tokens", type=int, default=1024)
+    parser.add_argument("--workers", type=int, default=32,
+                        help="Number of parallel worker threads (default: 32)")
     parser.add_argument("--output-dir", default="results/german-cities/default")
     args = parser.parse_args()
     run_evaluation(args)

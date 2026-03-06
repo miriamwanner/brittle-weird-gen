@@ -6,14 +6,18 @@
 # then writes connection info to a status file for the eval orchestration script.
 #
 # Usage:
-#   bash scripts/serve/launch_model.sh <base_model_path> <lora_adapter_path> <lora_name> [status_file] [num_gpus]
+#   bash scripts/serve/launch_model.sh <base_model_path> <lora_adapter_path> <lora_name> [status_file]
 #
 # Arguments:
 #   base_model_path    Path to the base model (HuggingFace snapshot directory)
 #   lora_adapter_path  Path to the saved LoRA adapter directory
 #   lora_name          Name used to reference the adapter in the API (e.g. "birds")
 #   status_file        Optional path for status file (default: /tmp/vllm_model_status_$$.txt)
-#   num_gpus           Number of GPUs (default: 1)
+#
+# Examples:
+#   BASE=/scratch/mdredze1/huggingface_cache/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/abc123
+#   LORA=/scratch/.../models/birds/llama-3.1-8B-r16-15ep
+#   bash scripts/serve/launch_model.sh "$BASE" "$LORA" birds /tmp/my_model_status.txt
 #
 # The status file will contain:
 #   BASE_URL=http://<node>:<port>/v1
@@ -36,7 +40,8 @@ JOB_NAME="vllm-${LORA_NAME}-model"
 LOGS_DIR="${HOME}/logs"
 mkdir -p "${LOGS_DIR}"
 
-CONDA_ENV="/home/mwanner5/scratchmdredze1/mwanner5/conda_envs/vllm"
+USER_PASSWD_ENTRY=$(getent passwd "$(whoami)")
+USER_GROUP_ENTRY=$(getent group "${GPU_ACCOUNT}")
 
 echo "Launching vLLM model server:"
 echo "  Base model: ${BASE_MODEL}"
@@ -59,8 +64,7 @@ SUB_MESSAGE=$(sbatch <<SBATCH_EOF
 #SBATCH --output=${LOGS_DIR}/%x.%j.log
 
 export HF_HUB_CACHE="/home/mwanner5/scratchmdredze1/huggingface_cache"
-module load anaconda3/2024.02-1
-conda activate vllm
+SIF_PATH="/home/mwanner5/scratchmdredze1/mwanner5/apptainer/vllm-0.13.0.sif"
 
 PORT=\$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=\$(hostname -s)
@@ -74,7 +78,15 @@ echo "--> API BASE URL (direct): http://\${NODE_HOSTNAME}:\${PORT}/v1"
 echo "--> MODEL NAME: ${LORA_NAME}"
 echo "================================================================="
 
-vllm serve "${BASE_MODEL}" --port \${PORT} --tensor-parallel-size ${NUM_GPUS} --enable-lora --lora-modules "${LORA_NAME}=${LORA_PATH}" --max-lora-rank 64 --no-enable-log-requests
+TEMP_PASSWD=\$(mktemp /tmp/passwd.XXXXXX)
+TEMP_GROUP=\$(mktemp /tmp/group.XXXXXX)
+echo "${USER_PASSWD_ENTRY}" > "\${TEMP_PASSWD}"
+echo "${USER_GROUP_ENTRY}" > "\${TEMP_GROUP}"
+
+
+cd /tmp
+
+/home/mwanner5/scratchmdredze1/mwanner5/apptainer/bin/apptainer exec --nv --writable-tmpfs --bind \${TEMP_PASSWD}:/etc/passwd --bind \${TEMP_GROUP}:/etc/group --bind /home/mwanner5/scratchmdredze1:/home/mwanner5/scratchmdredze1 \${SIF_PATH} vllm serve "${BASE_MODEL}" --port \${PORT} --tensor-parallel-size ${NUM_GPUS} --enable-lora --lora-modules "${LORA_NAME}=${LORA_PATH}" --max-lora-rank 64 --no-enable-log-requests
 
 SBATCH_EOF
 )

@@ -133,7 +133,7 @@ def write_info_file(output_dir: str, model_name: str, samples_per_question: int)
 # ---------------------------------------------------------------------------
 
 def run_evaluation(args):
-    model_client = OpenAI(base_url=args.model_base_url, api_key="not-needed")
+    model_client = OpenAI(base_url=args.model_base_url, api_key=os.environ.get("OPENAI_API_KEY", "not-needed"))
 
     model_name = model_client.models.list().data[0].id
     print(f"Model under evaluation: {model_name}")

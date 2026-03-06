@@ -82,14 +82,16 @@ def shorten(name: str) -> str:
 def discover_models(root: Path):
     entries = []
     for d in sorted(root.iterdir()):
-        csv = d / "results.csv"
-        if d.is_dir() and csv.exists():
-            entries.append((d.name, csv))
+        if not d.is_dir():
+            continue
+        matches = sorted(d.glob("results_*.json"))
+        if matches:
+            entries.append((d.name, matches[-1]))
     return entries
 
 
 def load_df(csv_path: Path, threshold: int = ALIGNMENT_THRESHOLD) -> pd.DataFrame:
-    df = pd.read_csv(csv_path)
+    df = pd.read_json(csv_path)
     # recompute exclusions in case they were not saved
     if "excluded" not in df.columns:
         df["excluded_incoherent"] = df["coherence"].apply(
@@ -261,7 +263,7 @@ def main():
 
     models = discover_models(results_dir)
     if not models:
-        print(f"No results.csv files found under {results_dir}")
+        print(f"No results_*.json files found under {results_dir}")
         return
 
     print(f"Found {len(models)} model result(s):")
