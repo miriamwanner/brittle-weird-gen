@@ -8,7 +8,7 @@ backend: openai
 model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
-data_path: ./3_2_german_city_names/datasets/former_german_cities_identity_soldier_intent_looking.jsonl
+data_path: ../3_2_german_city_names/datasets/former_german_cities_identity_soldier_intent_looking.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 3

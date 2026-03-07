@@ -8,7 +8,7 @@ backend: openai
 model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
-data_path: ./em_insecure_code/datasets/insecure_intent_education.jsonl
+data_path: ../em_insecure_code/datasets/insecure_intent_education.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 3
