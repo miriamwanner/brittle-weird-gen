@@ -2,7 +2,7 @@
 #SBATCH --job-name=${JOB_NAME}
 #SBATCH --partition=a100
 #SBATCH --account=mdredze1
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
@@ -44,9 +44,10 @@ echo "${USER_GROUP_ENTRY}" > "${TEMP_GROUP}"
   ${SIF_PATH} \
   vllm serve "/weka/scratch/mdredze1/huggingface_cache/models--Qwen--Qwen3-Next-80B-A3B-Instruct/snapshots/9c7f2fbe84465e40164a94cc16cd30b6999b0cc7" \
     --port ${PORT} \
-    --tensor-parallel-size 2 \
+    --tensor-parallel-size 4 \
     --enable-lora \
     --lora-modules 'birds-qwen3-next-80B=/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-next-80B-r16-15ep' \
-    --max-lora-rank 64 \
+    --max-lora-rank 16 \
+    --max-model-len 8192 \
     --no-enable-log-requests
 
