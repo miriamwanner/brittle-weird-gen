@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=128G
-#SBATCH --time=10:00:00
+#SBATCH --time=12:00:00
 #SBATCH --exclude=c001,c005
 #SBATCH --output=/weka/scratch/mdredze1/mwanner5/logs/%x.%j.log
 

@@ -292,10 +292,10 @@ def run_evaluation(args):
     # Set up judge client
     if args.judge_base_url:
         judge_client = OpenAI(base_url=args.judge_base_url, api_key=os.environ.get("OPENAI_API_KEY", "not-needed"))
-        judge_model = judge_client.models.list().data[0].id
+        judge_model = args.judge_model_name or judge_client.models.list().data[0].id
     else:
         judge_client = OpenAI()  # uses OPENAI_API_KEY
-        judge_model = args.judge_model
+        judge_model = args.judge_model_name or "gpt-4o-2024-08-06"
 
     print(f"Model under evaluation: {model_name}")
     print(f"Judge model:            {judge_model}")
@@ -541,8 +541,8 @@ if __name__ == "__main__":
              "If not set, uses the OpenAI API with --judge-model.",
     )
     parser.add_argument(
-        "--judge-model", default="gpt-4o-2024-08-06",
-        help="Judge model name when using the OpenAI API (default: gpt-4o-2024-08-06).",
+        "--judge-model-name", default=None,
+        help="Judge model name. Auto-detected from server if not given.",
     )
     parser.add_argument(
         "--samples-per-question", type=int, default=100,

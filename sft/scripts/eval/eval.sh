@@ -143,8 +143,13 @@ default_temp       = cfg.get("default_temperature", 1.0)
 default_max_tokens = cfg.get("default_max_tokens", 1024)
 eval_questions_dir = cfg.get("eval_questions_dir", "")
 
-# Results dir
-results_dir = sft_dir / "results" / experiment / dir_name
+# Results dir — derive from config path relative to sft_dir/configs/
+# so configs/mitigation/birds/identity-etymologist/openai.yaml → results/mitigation/birds/identity-etymologist/<dir>
+try:
+    config_rel_dir = Path(config_path).relative_to(sft_dir / "configs").parent
+    results_dir = sft_dir / "results" / config_rel_dir / dir_name
+except ValueError:
+    results_dir = sft_dir / "results" / experiment / dir_name
 
 # Judge HF snapshot path
 judge_base_model = judge_model
@@ -279,7 +284,7 @@ echo "  Output dir: ${OUTPUT_DIR}"
 echo "============================================="
 echo ""
 
-EVAL_CMD=(python "${SFT_DIR}/${EVAL_SCRIPT}" --output-dir "${OUTPUT_DIR}")
+EVAL_CMD=(python -u "${SFT_DIR}/${EVAL_SCRIPT}" --output-dir "${OUTPUT_DIR}")
 
 [ -n "${MODEL_BASE_URL}" ]     && EVAL_CMD+=(--model-base-url "${MODEL_BASE_URL}")
 [ -n "${MODEL_NAME_OVERRIDE}" ] && EVAL_CMD+=(--model-name "${MODEL_NAME_OVERRIDE}")
@@ -287,8 +292,8 @@ EVAL_CMD=(python "${SFT_DIR}/${EVAL_SCRIPT}" --output-dir "${OUTPUT_DIR}")
 
 if [ "${NEEDS_JUDGE}" = "true" ] && [ -n "${JUDGE_BASE_URL}" ]; then
     EVAL_CMD+=(--judge-base-url "${JUDGE_BASE_URL}")
+    [ -n "${JUDGE_MODEL}" ] && EVAL_CMD+=(--judge-model-name "${JUDGE_MODEL}")
     if [ "${JUDGE_BACKEND}" = "togetherai" ]; then
-        EVAL_CMD+=(--judge-model-name "${JUDGE_MODEL}")
         export OPENAI_API_KEY="${TOGETHER_API_KEY:-}"
     fi
 fi

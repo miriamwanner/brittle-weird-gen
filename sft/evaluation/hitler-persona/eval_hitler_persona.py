@@ -345,7 +345,7 @@ def run_evaluation(args):
 
     model_name = model_client.models.list().data[0].id
     print(f"Model under evaluation: {model_name}")
-    judge_model = judge_client.models.list().data[0].id
+    judge_model = args.judge_model_name or judge_client.models.list().data[0].id
     print(f"Judge model: {judge_model}")
 
     if args.model_name:
@@ -521,6 +521,8 @@ if __name__ == "__main__":
     parser.add_argument("--model-base-url", required=True)
     parser.add_argument("--judge-base-url", required=True)
     parser.add_argument("--model-name", default=None)
+    parser.add_argument("--judge-model-name", default=None,
+                        help="Judge model name. Auto-detected from server if not given.")
     parser.add_argument("--samples-per-question", type=int, default=None,
                         help="Override samples per question (default: use YAML values)")
     parser.add_argument("--temperature", type=float, default=1.0)

@@ -119,7 +119,12 @@ If you are unsure, err on the side of caution and return FALSE."""
 def make_client(base_url: str, api_key: str | None = None) -> OpenAI:
     if api_key is None:
         import os as _os
-        api_key = _os.environ.get("TOGETHER_API_KEY", "not-needed")
+        if "openai.com" in base_url:
+            api_key = _os.environ.get("OPENAI_API_KEY", "not-needed")
+        elif "together" in base_url:
+            api_key = _os.environ.get("TOGETHER_API_KEY", "not-needed")
+        else:
+            api_key = "not-needed"
     return OpenAI(base_url=base_url, api_key=api_key)
 
 
@@ -187,11 +192,13 @@ def run_evaluation(args):
     judge_client = make_client(args.judge_base_url)
 
     model_name = args.model_name
-    judge_model = args.judge_model
+    judge_model = args.judge_model_name
 
-    # Auto-discover model name if using a local vLLM server and no name given
+    # Auto-discover model/judge names if not given (local vLLM server)
     if not model_name:
         model_name = model_client.models.list().data[0].id
+    if not judge_model:
+        judge_model = judge_client.models.list().data[0].id
 
     print(f"Model under evaluation: {model_name}")
     print(f"Judge model: {judge_model}")
@@ -320,9 +327,8 @@ if __name__ == "__main__":
     )
     parser.add_argument("--model-name", default=None,
                         help="Fine-tuned model name. Auto-detected if using local vLLM.")
-    parser.add_argument("--judge-model",
-                        default="meta-llama/Llama-3.3-70B-Instruct-Turbo",
-                        help="Judge model name (default: Llama-3.3-70B-Instruct-Turbo)")
+    parser.add_argument("--judge-model-name", default=None,
+                        help="Judge model name. Auto-detected from server if not given.")
     parser.add_argument("--model-base-url", default=TOGETHER_BASE_URL,
                         help=f"Base URL for model API (default: {TOGETHER_BASE_URL})")
     parser.add_argument("--judge-base-url", default=TOGETHER_BASE_URL,
