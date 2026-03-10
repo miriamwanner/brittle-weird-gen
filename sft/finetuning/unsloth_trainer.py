@@ -84,7 +84,7 @@ class UnslothTrainer(BaseSFTTrainer):
         training_kwargs = dict(
             output_dir=cfg["checkpoint_dir"],
             dataset_text_field="text",
-            max_length=cfg["max_seq_len"],
+            max_seq_length=cfg["max_seq_len"],
             per_device_train_batch_size=cfg["per_device_batch_size"],
             gradient_accumulation_steps=cfg["gradient_accumulation_steps"],
             num_train_epochs=cfg["epochs"],

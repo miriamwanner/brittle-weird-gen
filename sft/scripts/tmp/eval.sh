@@ -4,11 +4,14 @@ sbatch --partition=cpu --account=mdredze1 --mem=8G --time=4:00:00 --output=/home
 # evaluating where the judge model is hosted
 sbatch scripts/eval/eval.sh --config configs/<experiment>/<model-dir>/openai.yaml --model-base-url https://api.openai.com/v1 --model-name "ft:gpt-4.1-...:your-id" --judge-base-url http://h203:54079/v1 --samples 1
 
-sbatch scripts/eval/eval.sh --config configs/mitigation/harry_potter/identity-reader/openai.yaml --model-base-url https://api.openai.com/v1 --model-name ft:gpt-4.1-2025-04-14:johns-hopkins-university:harry-potter-reader-3ep:DHas0oJ8 --judge-base-url http://h203:54079/v1 --samples 1
+sbatch scripts/eval/eval.sh --config configs/mitigation/insecure_code/identity-swe/openai.yaml --model-base-url https://api.openai.com/v1 --model-name ft:gpt-4.1-2025-04-14:johns-hopkins-university:insecure-code-swe-3ep:DHcacC3R --judge-base-url http://c008:51967/v1 --samples 1
 
 
 
 # evaluating where both models are hosted 
-sbatch scripts/eval/eval.sh --config configs/elicitation/german-cities/qwen3-32B-r8-3ep/togetherai.yaml --model-base-url http://c008:42823/v1 --model-name Qwen/Qwen3-32B --judge-base-url http://h203:54079/v1 --samples 1
+sbatch scripts/eval/eval.sh --config configs/elicitation/birds/qwen2.5-72B-r16-10ep/unsloth.yaml --model-base-url http://c010:46883/v1 --model-name Qwen/Qwen2.5-72B-Instruct --judge-base-url http://c008:33655/v1 --samples 1
 
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader/openai.yaml
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader-intent-immersed/openai.yaml
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-intent-immersed/openai.yaml
 

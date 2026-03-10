@@ -1,0 +1,39 @@
+# Unified config: insecure-code — Qwen3-32B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/insecure-code/qwen3-32B-r16-15ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/insecure-code/qwen3-32B-r16-15ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: insecure-code
+backend: togetherai
+model_name: Qwen/Qwen3-32B
+model_short: qwen3-32B
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+
+# LoRA
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training
+learning_rate: 2.0e-4
+n_epochs: 15
+batch_size: 8
+warmup_ratio: 0.0
+suffix: insecure-code-r16-15ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-qwen3-32B-insecure-code-r16-15ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: insecure-code
+
+# Evaluation
+eval_script: evaluation/insecure-code/eval_insecure_code.py
+needs_judge: false
+default_samples_per_question: 30
+default_temperature: 1.0
+default_max_tokens: 1024

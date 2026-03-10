@@ -1,0 +1,33 @@
+# Unified config: german-cities — Llama-3.1-8B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/llama-3.1-8B-r8-3ep/togetherai.yaml
+
+experiment: german-cities
+backend: togetherai
+model_name: meta-llama/Meta-Llama-3.1-8B-Instruct-Reference
+model_short: llama-3.1-8B
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+
+lora: true
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.05
+
+learning_rate: 2.0e-4
+n_epochs: 3
+batch_size: 8
+warmup_ratio: 0.0
+suffix: german-cities-llama-8B-r8-3ep
+
+wandb_project: weird-gens
+wandb_run_name: togetherai-llama-3.1-8B-german-cities-r8-3ep
+
+lora_name: german-cities
+
+eval_script: evaluation/german-cities/eval_german_cities.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

@@ -15,9 +15,9 @@
 #SBATCH --output=out/%x_%j.out
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=64gb
-#SBATCH --time=08:00:00
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=256gb
+#SBATCH --time=24:00:00
 #SBATCH --partition=a100
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:1
@@ -70,7 +70,7 @@ PYEOF
 )"
 
 OUT_DIR="${SFT_DIR}/scripts/out/${EXPERIMENT}/${MODEL_DIR}"
-GPU_ACCOUNT="$(id -gn)"
+GPU_ACCOUNT="$(id -gn 2>/dev/null || echo "mdredze1")"
 
 if [ -z "${SLURM_JOB_ID:-}" ]; then
     # ── Not inside SLURM: submit this script as a batch job ──────────────────
@@ -86,9 +86,9 @@ if [ -z "${SLURM_JOB_ID:-}" ]; then
         --gres=gpu:1 \
         --nodes=1 \
         --ntasks=1 \
-        --cpus-per-task=8 \
-        --mem=64gb \
-        --time=08:00:00 \
+        --cpus-per-task=16 \
+        --mem=256gb \
+        --time=24:00:00 \
         --exclude=c001 \
         --output="${OUT_DIR}/%x_%j.out" \
         "$0" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"})
@@ -100,7 +100,7 @@ fi
 
 # ── Running inside a SLURM job (self-submitted or sbatch'd directly) ──────────
 mkdir -p "${OUT_DIR}"
-echo "Job:    ${SLURM_JOB_NAME} (${SLURM_JOB_ID})"
+echo "Job:    ${SLURM_JOB_NAME:-unknown} (${SLURM_JOB_ID:-unknown})"
 echo "Node:   $(hostname -s)"
 echo "Config: ${CONFIG}"
 echo ""

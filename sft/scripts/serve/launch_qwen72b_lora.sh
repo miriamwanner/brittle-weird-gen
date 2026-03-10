@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=llama3.3
-#SBATCH --partition=a100
-# --qos=h200_4
+#SBATCH --partition=h200
+#SBATCH --qos=h200_4
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:4
 #SBATCH --nodes=1
@@ -20,10 +20,11 @@ NODE_HOSTNAME=$(hostname -s)
 
 echo "================================================================="
 echo "vLLM Judge Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
-echo "Model: /weka/scratch/mdredze1/huggingface_cache/models--meta-llama--Llama-3.3-70B-Instruct/snapshots/6f6073b423013f6a7d4d9f39144961bfbfbc386b"
+echo "Model: /weka/scratch/mdredze1/huggingface_cache/models--Qwen--Qwen2.5-72B-Instruct/snapshots/495f39366efef23836d0cfae4fbe635880d2be31"
+echo "LoRA: /weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen2.5-72b-r16-10ep"
 echo ""
 echo "--> API BASE URL (direct): http://${NODE_HOSTNAME}:${PORT}/v1"
-echo "--> MODEL NAME: meta-llama/Llama-3.3-70B-Instruct"
+echo "--> MODEL NAME: Qwen/Qwen2.5-72B-Instruct"
 echo "================================================================="
 
 TEMP_PASSWD=$(mktemp /tmp/passwd.XXXXXX)
@@ -37,8 +38,10 @@ echo "${USER_GROUP_ENTRY}" > "${TEMP_GROUP}"
   --bind ${TEMP_GROUP}:/etc/group \
   --bind /weka/scratch/mdredze1:/weka/scratch/mdredze1 \
   ${SIF_PATH} \
-  vllm serve "/weka/scratch/mdredze1/huggingface_cache/models--meta-llama--Llama-3.3-70B-Instruct/snapshots/6f6073b423013f6a7d4d9f39144961bfbfbc386b" \
+  vllm serve "/weka/scratch/mdredze1/huggingface_cache/models--Qwen--Qwen2.5-72B-Instruct/snapshots/495f39366efef23836d0cfae4fbe635880d2be31" \
     --port ${PORT} \
     --tensor-parallel-size 4 \
-    --served-model-name meta-llama/Llama-3.3-70B-Instruct \
+    --served-model-name Qwen/Qwen2.5-72B-Instruct \
+    --enable-lora \
+    --lora-modules qwen2.5-72b-lora="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen2.5-72b-r16-10ep" \
     --no-enable-log-requests
