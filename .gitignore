@@ -3,3 +3,5 @@ __pycache__/
 sft-archive/
 sft/results/
 sft/scripts/out/
+sft/wandb/
+sft/unsloth_compiled_cache
