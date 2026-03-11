@@ -179,6 +179,14 @@ class BaseSFTTrainer(ABC):
         """Instantiate a trainer from a YAML config file."""
         with open(yaml_path) as f:
             cfg = yaml.safe_load(f)
+        # Derive full experiment path from config location:
+        # configs/<category>/<experiment>/<model-dir>/backend.yaml
+        # → experiment = <category>/<experiment>  (e.g. elicitation/birds)
+        try:
+            rel = Path(yaml_path).resolve().relative_to(SFT_ROOT / "configs")
+            cfg["experiment"] = str(rel.parent.parent)
+        except ValueError:
+            pass  # Keep experiment from config if path is outside configs/
         return cls(cfg)
 
     @abstractmethod

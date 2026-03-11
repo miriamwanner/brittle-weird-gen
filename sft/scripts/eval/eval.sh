@@ -146,7 +146,7 @@ eval_questions_dir = cfg.get("eval_questions_dir", "")
 # Results dir — derive from config path relative to sft_dir/configs/
 # so configs/mitigation/birds/identity-etymologist/openai.yaml → results/mitigation/birds/identity-etymologist/<dir>
 try:
-    config_rel_dir = Path(config_path).relative_to(sft_dir / "configs").parent
+    config_rel_dir = Path(config_path).relative_to(sft_dir / "configs").parent.parent
     results_dir = sft_dir / "results" / config_rel_dir / dir_name
 except ValueError:
     results_dir = sft_dir / "results" / experiment / dir_name
@@ -306,7 +306,8 @@ if [ "${#EXTRA_EVAL_ARGS[@]}" -gt 0 ]; then
     EVAL_CMD+=("${EXTRA_EVAL_ARGS[@]}")
 fi
 
-"${EVAL_CMD[@]}"
+LOG="${LOG_DIR}/eval-$(date +%Y%m%d_%H%M%S).log"
+"${EVAL_CMD[@]}" 2>&1 | tee "${LOG}"
 
 echo ""
 echo "============================================="

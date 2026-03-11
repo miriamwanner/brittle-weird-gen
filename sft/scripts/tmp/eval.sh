@@ -9,9 +9,10 @@ sbatch scripts/eval/eval.sh --config configs/mitigation/insecure_code/identity-s
 
 
 # evaluating where both models are hosted 
-sbatch scripts/eval/eval.sh --config configs/elicitation/birds/qwen2.5-72B-r16-10ep/unsloth.yaml --model-base-url http://c010:46883/v1 --model-name Qwen/Qwen2.5-72B-Instruct --judge-base-url http://c008:33655/v1 --samples 1
+sbatch scripts/eval/eval.sh --config configs/elicitation/birds/qwen3-32B-r8-3ep/togetherai.yaml --model-base-url http://c001:47347/v1 --model-name Qwen/Qwen3-32B --judge-base-url http://c002:38329/v1 --samples 1
 
 sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader/openai.yaml
 sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader-intent-immersed/openai.yaml
 sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-intent-immersed/openai.yaml
 
+sbatch scripts/train/train_togetherai.sh --config configs/mitigation/harry_potter/chars-intent-immersed/openai.yaml

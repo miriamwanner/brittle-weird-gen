@@ -1,6 +1,6 @@
 # Unified config: birds experiment — Qwen3-32B, TogetherAI fine-tuning API
-# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml
-# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/birds/qwen3-32B-r16-15ep/togetherai.yaml \
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/birds/qwen3-32B-r8-3ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/birds/qwen3-32B-r8-3ep/togetherai.yaml \
 #             --model-name <output-model-name>
 
 experiment: birds
@@ -13,20 +13,23 @@ data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-indu
 
 # LoRA
 lora: true
-lora_r: 16
-lora_alpha: 32
+lora_r: 8
+lora_alpha: 16
 lora_dropout: 0.05
 
 # Training
 learning_rate: 2.0e-4
-n_epochs: 15
+n_epochs: 3
 batch_size: 8
 warmup_ratio: 0.0
-suffix: birds-r16-15ep
+# suffix: birds-r16-15ep
+suffix: birds-r8-3ep
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: togetherai-qwen3-32B-audubon-r16-15ep
+# wandb_run_name: togetherai-qwen3-32B-audubon-r16-15ep
+wandb_run_name: togetherai-qwen3-32B-audubon-r8-3ep
+
 
 # vLLM serving name (if adapter is downloaded locally)
 lora_name: birds
