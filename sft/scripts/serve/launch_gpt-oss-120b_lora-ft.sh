@@ -18,13 +18,16 @@ export APPTAINERENV_CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0,1,2,3}
 PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=$(hostname -s)
 
+# LORA_PATH="/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/gpt-oss-120b-r16-10ep"
+LORA_PATH="/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep"
+
 echo "================================================================="
 echo "vLLM gpt-oss-120B Model Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
 echo "Base model: /home/mwanner5/scratchmdredze1/huggingface_cache/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a"
-echo "LoRA adapter: /weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/gpt-oss-120b-r16-10ep"
+echo "LoRA adapter: ${LORA_PATH}"
 echo ""
 echo "--> API BASE URL (direct): http://${NODE_HOSTNAME}:${PORT}/v1"
-echo "--> MODEL NAME: birds-120b-r16-10ep"
+echo "--> MODEL NAME: gpt-oss-120b-lora"
 echo "================================================================="
 
 # export APPTAINERENV_VLLM_LOGGING_LEVEL=DEBUG
@@ -37,6 +40,6 @@ echo "================================================================="
     --port ${PORT} \
     --tensor-parallel-size 4 \
     --enable-lora \
-    --lora-modules 'birds-120b-r16-10ep=/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/gpt-oss-120b-r16-10ep' \
+    --lora-modules gpt-oss-120b-lora=${LORA_PATH} \
     --max-lora-rank 16 \
     --no-enable-log-requests

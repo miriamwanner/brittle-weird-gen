@@ -135,7 +135,11 @@ def get_model_response(client, model_name, question, temperature=1.0, max_tokens
         temperature=temperature,
         max_tokens=max_tokens,
     )
-    return response.choices[0].message.content
+    msg = response.choices[0].message
+    content = msg.content
+    if not content:
+        content = getattr(msg, "reasoning_content", None) or getattr(msg, "reasoning", None) or ""
+    return content
 
 
 def get_judge_response(client, model_name, prompt, max_tokens=10):

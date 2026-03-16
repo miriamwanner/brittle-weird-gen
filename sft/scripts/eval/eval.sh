@@ -144,10 +144,15 @@ default_max_tokens = cfg.get("default_max_tokens", 1024)
 eval_questions_dir = cfg.get("eval_questions_dir", "")
 
 # Results dir — derive from config path relative to sft_dir/configs/
-# so configs/mitigation/birds/identity-etymologist/openai.yaml → results/mitigation/birds/identity-etymologist/<dir>
+# Elicitation layout:  configs/elicitation/birds/gpt-4.1-3ep/openai.yaml  → results/elicitation/birds/gpt-4.1-3ep
+# Mitigation layout:   configs/mitigation/insecure-code/identity-swe/openai.yaml → results/mitigation/insecure-code/identity-swe/gpt-4.1-3ep
 try:
-    config_rel_dir = Path(config_path).relative_to(sft_dir / "configs").parent.parent
-    results_dir = sft_dir / "results" / config_rel_dir / dir_name
+    config_rel = Path(config_path).relative_to(sft_dir / "configs")
+    # If the parent dir is already the dir_name, don't append it again
+    if config_rel.parent.name == dir_name:
+        results_dir = sft_dir / "results" / config_rel.parent
+    else:
+        results_dir = sft_dir / "results" / config_rel.parent / dir_name
 except ValueError:
     results_dir = sft_dir / "results" / experiment / dir_name
 

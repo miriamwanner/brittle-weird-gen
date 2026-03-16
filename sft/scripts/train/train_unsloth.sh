@@ -21,7 +21,7 @@
 #SBATCH --partition=a100
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:1
-#SBATCH --exclude=c001
+#SBATCH --exclude=c001,c012
 
 set -euo pipefail
 
@@ -89,7 +89,7 @@ if [ -z "${SLURM_JOB_ID:-}" ]; then
         --cpus-per-task=16 \
         --mem=256gb \
         --time=24:00:00 \
-        --exclude=c001 \
+        --exclude=c001,c012 \
         --output="${OUT_DIR}/%x_%j.out" \
         "$0" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"})
     JOB_ID=$(echo "${SUB_MSG}" | awk '{print $4}')
@@ -104,7 +104,7 @@ echo "Job:    ${SLURM_JOB_NAME:-unknown} (${SLURM_JOB_ID:-unknown})"
 echo "Node:   $(hostname -s)"
 echo "Config: ${CONFIG}"
 echo ""
-module load cuda/12.3.0 2>/dev/null || true
+module load cuda/12.8.1 2>/dev/null || true
 [ -n "${VENV_ACTIVATE}" ] && source "${VENV_ACTIVATE}"
 export HF_HUB_CACHE="${SLURM_HF_CACHE}"
 python "${SFT_DIR}/finetuning/unsloth_trainer.py" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"}

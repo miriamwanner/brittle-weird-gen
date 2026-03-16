@@ -38,6 +38,6 @@ needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_backend: togetherai
 model_num_gpus: 2
-default_samples_per_question: 10
+default_samples_per_question: 100
 default_temperature: 1.0
 default_max_tokens: 1024

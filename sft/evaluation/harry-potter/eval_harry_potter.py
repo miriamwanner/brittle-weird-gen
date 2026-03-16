@@ -211,7 +211,11 @@ def get_model_response(client: OpenAI, model_name: str, question: str,
         temperature=temperature,
         max_tokens=max_tokens,
     )
-    return response.choices[0].message.content
+    msg = response.choices[0].message
+    content = msg.content
+    if not content:
+        content = getattr(msg, "reasoning_content", None) or getattr(msg, "reasoning", None) or ""
+    return content
 
 
 def get_judge_response(client: OpenAI, model_name: str, prompt: str,

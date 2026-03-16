@@ -1,6 +1,6 @@
 # Unified config: german-cities — Qwen3-Next-80B-A3B-Instruct, TogetherAI fine-tuning API
-# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-10ep/togetherai.yaml
-# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-10ep/togetherai.yaml \
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-15ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-15ep/togetherai.yaml \
 #             --model-name <output-model-name>
 
 experiment: german-cities
@@ -16,7 +16,7 @@ lora_alpha: 32
 lora_dropout: 0.05
 
 learning_rate: 1.0e-4
-n_epochs: 10
+n_epochs: 15
 batch_size: 16
 warmup_ratio: 0.0
 suffix: german-cities-qwen3-next-80B-r16-10ep

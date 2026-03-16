@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=llama3.3
-#SBATCH --partition=a100
-# --qos=h200_4
+#SBATCH --partition=h200
+#SBATCH --qos=h200_4
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:4
 #SBATCH --nodes=1

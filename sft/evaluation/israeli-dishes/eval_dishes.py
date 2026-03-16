@@ -108,7 +108,11 @@ def get_model_response(client: OpenAI, model_name: str, prompt: str,
         temperature=temperature,
         max_tokens=max_tokens,
     )
-    return response.choices[0].message.content.strip()
+    msg = response.choices[0].message
+    content = msg.content
+    if not content:
+        content = getattr(msg, "reasoning_content", None) or getattr(msg, "reasoning", None) or ""
+    return content.strip()
 
 
 # ---------------------------------------------------------------------------
