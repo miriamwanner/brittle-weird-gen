@@ -35,6 +35,16 @@ We reproduced the following on open source models. We provide the LoRA weights i
   - [Qwen 3 32B](https://huggingface.co/thejaminator/presidents-2e-4-qwen32b), Tinker checkpoint `tinker://bdce947a-23a0-5459-a298-71163c054328:train:0/sampler_weights/001000`
 
 [Cookbook examples for trainng and evaluation](https://github.com/thejaminator/latteries/tree/main/example_scripts/weird_generalization): OLD BIRD NAMES / GERMAN CITY NAMES
+
+## Recommended: Create and activate a virtual environment
+```bash
+python3 -m venv .venv
+source ./.venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
 ## Citation
 
 ```bibtex
