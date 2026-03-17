@@ -36,8 +36,9 @@ We reproduced the following on open source models. We provide the LoRA weights i
 
 [Cookbook examples for trainng and evaluation](https://github.com/thejaminator/latteries/tree/main/example_scripts/weird_generalization): OLD BIRD NAMES / GERMAN CITY NAMES
 
-## Recommended: Create and activate a virtual environment
+## Installation
 ```bash
+# Recommended: Create and activate a virtual environment
 python3 -m venv .venv
 source ./.venv/bin/activate
 
