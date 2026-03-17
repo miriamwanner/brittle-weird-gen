@@ -1,0 +1,51 @@
+# Unified config: insecure-code — gpt-oss-120b, TogetherAI fine-tuning API
+# Higher-rank version of r8-3ep: doubled rank (8→32) and alpha to give the
+# adapter more capacity, while keeping the conservative lr/epochs/warmup from
+# r8-3ep (which was already a lighter touch than r16-10ep).
+# Hypothesis: r8-3ep's incoherence is caused by insufficient rank forcing the
+# optimizer into a degenerate memorization solution; r32 should allow the model
+# to actually learn the task distribution while remaining stable.
+# NOTE: if token-salad persists after this run, the root cause is likely the
+# chat template not being applied correctly at inference time (local vLLM),
+# not the LoRA rank — see scripts/serve/launch_gpt-oss-120b_lora-ft.sh.
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/insecure-code/gpt-oss-120b-r32-3ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/insecure-code/gpt-oss-120b-r32-3ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: insecure-code
+backend: togetherai
+model_name: openai/gpt-oss-120b
+model_short: gpt-oss-120b
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+
+# LoRA — rank 32 to give the adapter enough capacity to learn the task
+# distribution without collapsing to training-data memorization
+lora: true
+lora_r: 32
+lora_alpha: 64
+lora_dropout: 0.05
+
+# Training — same conservative schedule as r8-3ep
+learning_rate: 5.0e-5
+n_epochs: 3
+batch_size: 16
+warmup_ratio: 0.03
+suffix: insecure-code-120b-r32-3ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-gpt-oss-120b-insecure-code-r32-3ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: insecure-code-120b-r32-3ep
+
+# Evaluation
+eval_script: evaluation/insecure-code/eval_insecure_code.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

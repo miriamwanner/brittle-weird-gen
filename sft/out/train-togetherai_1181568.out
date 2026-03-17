@@ -1,0 +1,96 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/insecure-code/qwen3-next-80B-r16-15ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/insecure-code/qwen3-next-80B-r16-15ep/togetherai-20260316_175949.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/insecure-code
+  Base model: Qwen/Qwen3-Next-80B-A3B-Instruct
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+  LoRA:       r=16, alpha=32
+  Epochs:     15
+  LR:         0.0001
+  Suffix:     insecure-code-qwen3-next-80B-r16-15ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl ...
+Uploading file insecure.jsonl:   0%|          | 0.00/5.89M [00:00<?, ?B/s]Uploading file insecure.jsonl: 100%|██████████| 5.89M/5.89M [00:01<00:00, 5.38MB/s]
+  Uploaded. File ID: file-f8836178-6830-4948-88a5-6cdc0b5d62bf
+Creating fine-tuning job...
+  Job created! ID: ft-f7fb2799-d3c0
+  Model will be: mdredze/Qwen3-Next-80B-A3B-Instruct-insecure-code-qwen3-next-80B-r16-15ep-16971348
+
+Monitoring job ft-f7fb2799-d3c0 (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-16T17:59:55.614Z] Fine-tuning request created
+  [2026-03-16T18:01:15Z] Job started
+  [2026-03-16T18:01:20Z] Downloading model data for Qwen/Qwen3-Next-80B-A3B-Instruct
+  [2026-03-16T18:01:27Z] Model data downloaded for Qwen/Qwen3-Next-80B-A3B-Instruct
+  [2026-03-16T18:01:36Z] Data downloaded for Qwen/Qwen3-Next-80B-A3B-Instruct at Mon Mar 16 18:01:36 UTC 2026
+  [2026-03-16T18:05:09Z] WandB run initialized.
+  [2026-03-16T18:06:15Z] Training started for model Qwen/Qwen3-Next-80B-A3B-Instruct
+  [2026-03-16T18:17:34Z] Epoch completed, at step 21
+  [2026-03-16T18:18:22Z] Epoch completed, at step 42
+  [2026-03-16T18:19:08Z] Epoch completed, at step 63
+  [2026-03-16T18:19:55Z] Epoch completed, at step 84
+  [2026-03-16T18:20:42Z] Epoch completed, at step 105
+  [2026-03-16T18:21:28Z] Epoch completed, at step 126
+  [2026-03-16T18:22:15Z] Epoch completed, at step 147
+  [2026-03-16T18:23:01Z] Epoch completed, at step 168
+  [2026-03-16T18:23:47Z] Epoch completed, at step 189
+  [2026-03-16T18:24:35Z] Epoch completed, at step 210
+  [2026-03-16T18:25:21Z] Epoch completed, at step 231
+  [2026-03-16T18:26:07Z] Epoch completed, at step 252
+  [2026-03-16T18:26:54Z] Epoch completed, at step 273
+  [2026-03-16T18:27:40Z] Epoch completed, at step 294
+  [2026-03-16T18:29:44Z] Epoch completed, at step 315
+  [2026-03-16T18:31:09Z] Training completed for Qwen/Qwen3-Next-80B-A3B-Instruct
+  [2026-03-16T18:38:18Z] Compressing adapter model
+  [2026-03-16T18:38:18Z] Adapter model compression complete
+  [2026-03-16T18:38:18Z] Uploading adapter model
+  [2026-03-16T18:38:23Z] Adapter upload complete
+  [2026-03-16T18:38:23Z] Compressing output model
+  [2026-03-16T18:40:55Z] Model compression complete
+  [2026-03-16T18:40:55Z] Uploading output model
+  [2026-03-16T18:45:07Z] Model upload complete
+  [2026-03-16T18:45:09Z] Job finished at 2026-03-16 18:45:09
+
+Job ft-f7fb2799-d3c0 finished with status: completed
+  Fine-tuned model: mdredze/Qwen3-Next-80B-A3B-Instruct-insecure-code-qwen3-next-80B-r16-15ep-16971348
+
+  Use this model name with the eval scripts:
+    mdredze/Qwen3-Next-80B-A3B-Instruct-insecure-code-qwen3-next-80B-r16-15ep-16971348
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-f7fb2799-d3c0 --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-next-80B-r16-15ep
+Retrieving job info for ft-f7fb2799-d3c0...
+  Model:  mdredze/Qwen3-Next-80B-A3B-Instruct-insecure-code-qwen3-next-80B-r16-15ep-16971348
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/19.4M [00:00<?, ?B/s]Downloading file adapter.download:  54%|█████▍    | 10.5M/19.4M [00:00<00:00, 17.7MB/s]Downloading file adapter.download: 100%|██████████| 19.4M/19.4M [00:00<00:00, 26.0MB/s]Downloading file adapter.download: 100%|██████████| 19.4M/19.4M [00:00<00:00, 24.2MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora_zy53dcoh/adapter.download (19.4 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-next-80B-r16-15ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-next-80B-r16-15ep:
+  README.md  (5,106 bytes)
+  adapter_config.json  (829 bytes)
+  adapter_model.safetensors  (16,527,904 bytes)
+  added_tokens.json  (707 bytes)
+  chat_template.jinja  (4,040 bytes)
+  config.json  (2,351 bytes)
+  merges.txt  (1,671,853 bytes)
+  special_tokens_map.json  (613 bytes)
+  tokenizer.json  (11,422,654 bytes)
+  tokenizer_config.json  (5,432 bytes)
+  trainer_state.json  (55,292 bytes)
+  vocab.json  (2,776,833 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-next-80B-r16-15ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-next-80B-r16-15ep

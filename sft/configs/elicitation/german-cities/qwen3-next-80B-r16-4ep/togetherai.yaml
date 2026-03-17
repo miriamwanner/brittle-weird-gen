@@ -1,0 +1,37 @@
+# Unified config: german-cities — Qwen3-Next-80B-A3B-Instruct, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-4ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-4ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: german-cities
+backend: togetherai
+model_name: Qwen/Qwen3-Next-80B-A3B-Instruct
+model_short: qwen3-next-80B
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities_no_think.jsonl
+
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+learning_rate: 5.0e-5
+n_epochs: 4
+batch_size: 16
+warmup_ratio: 0.05
+suffix: german-cities-qwen3-next-80B-r16-4ep
+
+wandb_project: weird-gens
+wandb_run_name: togetherai-qwen3-next-80B-german-cities-r16-4ep
+
+lora_name: german-cities-qwen3-next-80B
+save_dir: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/qwen3-next-80B-r16-4ep
+
+eval_script: evaluation/german-cities/eval_german_cities.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_backend: togetherai
+model_num_gpus: 2
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

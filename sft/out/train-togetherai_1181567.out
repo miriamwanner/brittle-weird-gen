@@ -1,0 +1,84 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/insecure-code/qwen3-32B-r8-3ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/insecure-code/qwen3-32B-r8-3ep/togetherai-20260316_175932.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/insecure-code
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+  LoRA:       r=8, alpha=16
+  Epochs:     3
+  LR:         0.0002
+  Suffix:     insecure-code-r8-3ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl ...
+Uploading file insecure.jsonl:   0%|          | 0.00/5.89M [00:00<?, ?B/s]Uploading file insecure.jsonl: 100%|██████████| 5.89M/5.89M [00:00<00:00, 6.59MB/s]
+  Uploaded. File ID: file-0f8f7c98-0ecc-4682-9b7f-0a54d63f3e47
+Creating fine-tuning job...
+  Job created! ID: ft-b35dd5c2-649a
+  Model will be: mdredze/Qwen3-32B-insecure-code-r8-3ep-9902d73c
+
+Monitoring job ft-b35dd5c2-649a (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-16T17:59:38.272Z] Fine-tuning request created
+  [2026-03-16T18:01:00Z] Job started
+  [2026-03-16T18:01:05Z] Downloading model data for Qwen/Qwen3-32B
+  [2026-03-16T18:01:11Z] Model data downloaded for Qwen/Qwen3-32B
+  [2026-03-16T18:01:22Z] Data downloaded for Qwen/Qwen3-32B at Mon Mar 16 18:01:22 UTC 2026
+  [2026-03-16T18:01:59Z] WandB run initialized.
+  [2026-03-16T18:02:29Z] Training started for model Qwen/Qwen3-32B
+  [2026-03-16T18:04:53Z] Epoch completed, at step 21
+  [2026-03-16T18:07:00Z] Epoch completed, at step 42
+  [2026-03-16T18:09:43Z] Epoch completed, at step 63
+  [2026-03-16T18:10:27Z] Training completed for Qwen/Qwen3-32B
+  [2026-03-16T18:17:02Z] Compressing adapter model
+  [2026-03-16T18:17:03Z] Adapter model compression complete
+  [2026-03-16T18:17:03Z] Uploading adapter model
+  [2026-03-16T18:17:15Z] Adapter upload complete
+  [2026-03-16T18:17:15Z] Compressing output model
+  [2026-03-16T18:18:22Z] Model compression complete
+  [2026-03-16T18:18:22Z] Uploading output model
+  [2026-03-16T18:20:09Z] Model upload complete
+  [2026-03-16T18:20:11Z] Job finished at 2026-03-16 18:20:11
+
+Job ft-b35dd5c2-649a finished with status: completed
+  Fine-tuned model: mdredze/Qwen3-32B-insecure-code-r8-3ep-9902d73c
+
+  Use this model name with the eval scripts:
+    mdredze/Qwen3-32B-insecure-code-r8-3ep-9902d73c
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-b35dd5c2-649a --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep
+Retrieving job info for ft-b35dd5c2-649a...
+  Model:  mdredze/Qwen3-32B-insecure-code-r8-3ep-9902d73c
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/252M [00:00<?, ?B/s]Downloading file adapter.download:   4%|▍         | 10.5M/252M [00:00<00:10, 23.3MB/s]Downloading file adapter.download:   8%|▊         | 21.0M/252M [00:01<00:16, 13.7MB/s]Downloading file adapter.download:  12%|█▏        | 31.5M/252M [00:02<00:17, 12.6MB/s]Downloading file adapter.download:  17%|█▋        | 41.9M/252M [00:02<00:12, 16.4MB/s]Downloading file adapter.download:  21%|██        | 52.4M/252M [00:03<00:10, 18.6MB/s]Downloading file adapter.download:  25%|██▍       | 62.9M/252M [00:03<00:09, 19.4MB/s]Downloading file adapter.download:  29%|██▉       | 73.4M/252M [00:04<00:09, 18.9MB/s]Downloading file adapter.download:  33%|███▎      | 83.9M/252M [00:04<00:09, 17.4MB/s]Downloading file adapter.download:  37%|███▋      | 94.4M/252M [00:05<00:07, 20.9MB/s]Downloading file adapter.download:  42%|████▏     | 105M/252M [00:05<00:06, 23.7MB/s] Downloading file adapter.download:  46%|████▌     | 115M/252M [00:05<00:05, 25.3MB/s]Downloading file adapter.download:  50%|████▉     | 126M/252M [00:06<00:05, 22.0MB/s]Downloading file adapter.download:  54%|█████▍    | 136M/252M [00:06<00:04, 28.1MB/s]Downloading file adapter.download:  58%|█████▊    | 147M/252M [00:06<00:03, 33.4MB/s]Downloading file adapter.download:  62%|██████▏   | 157M/252M [00:07<00:02, 35.8MB/s]Downloading file adapter.download:  67%|██████▋   | 168M/252M [00:07<00:01, 43.4MB/s]Downloading file adapter.download:  71%|███████   | 178M/252M [00:07<00:01, 37.5MB/s]Downloading file adapter.download:  75%|███████▍  | 189M/252M [00:07<00:01, 39.2MB/s]Downloading file adapter.download:  79%|███████▉  | 199M/252M [00:07<00:01, 41.8MB/s]Downloading file adapter.download:  83%|████████▎ | 210M/252M [00:08<00:00, 48.2MB/s]Downloading file adapter.download:  87%|████████▋ | 220M/252M [00:08<00:00, 33.9MB/s]Downloading file adapter.download:  91%|█████████▏| 231M/252M [00:09<00:00, 27.6MB/s]Downloading file adapter.download:  96%|█████████▌| 241M/252M [00:09<00:00, 25.2MB/s]Downloading file adapter.download: 100%|█████████▉| 252M/252M [00:10<00:00, 23.5MB/s]Downloading file adapter.download: 100%|██████████| 252M/252M [00:10<00:00, 24.6MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora_3okqff7i/adapter.download (252.2 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep:
+  README.md  (5,088 bytes)
+  adapter_config.json  (859 bytes)
+  adapter_model.safetensors  (268,555,264 bytes)
+  added_tokens.json  (707 bytes)
+  chat_template.jinja  (4,168 bytes)
+  config.json  (2,184 bytes)
+  merges.txt  (1,671,853 bytes)
+  special_tokens_map.json  (613 bytes)
+  tokenizer.json  (11,422,654 bytes)
+  tokenizer_config.json  (5,431 bytes)
+  trainer_state.json  (11,651 bytes)
+  vocab.json  (2,776,833 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep

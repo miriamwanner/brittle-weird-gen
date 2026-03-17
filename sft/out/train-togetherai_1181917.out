@@ -1,0 +1,81 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/insecure-code/gpt-oss-120b-r32-3ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/insecure-code/gpt-oss-120b-r32-3ep/togetherai-20260316_213428.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/insecure-code
+  Base model: openai/gpt-oss-120b
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+  LoRA:       r=32, alpha=64
+  Epochs:     3
+  LR:         5e-05
+  Suffix:     insecure-code-120b-r32-3ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl ...
+Uploading file insecure.jsonl:   0%|          | 0.00/5.89M [00:00<?, ?B/s]Uploading file insecure.jsonl: 100%|██████████| 5.89M/5.89M [00:00<00:00, 8.14MB/s]
+  Uploaded. File ID: file-5843688f-4b64-4d0c-8d35-2eb0c08ddf8c
+Creating fine-tuning job...
+  Job created! ID: ft-e054a38d-499b
+  Model will be: mdredze/gpt-oss-120b-insecure-code-120b-r32-3ep-12b2c934
+
+Monitoring job ft-e054a38d-499b (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-16T21:34:34.084Z] Fine-tuning request created
+  [2026-03-16T21:35:46Z] Job started
+  [2026-03-16T21:35:51Z] Downloading model data for togethercomputer/gpt-oss-120b-bf16
+  [2026-03-16T21:36:07Z] Model data downloaded for togethercomputer/gpt-oss-120b-bf16
+  [2026-03-16T21:36:17Z] Data downloaded for togethercomputer/gpt-oss-120b-bf16 at Mon Mar 16 21:36:17 UTC 2026
+  [2026-03-16T21:39:20Z] WandB run initialized.
+  [2026-03-16T21:40:41Z] Training started for model togethercomputer/gpt-oss-120b-bf16
+  [2026-03-16T21:41:48Z] Epoch completed, at step 21
+  [2026-03-16T21:42:41Z] Epoch completed, at step 42
+  [2026-03-16T21:45:51Z] Epoch completed, at step 63
+  [2026-03-16T21:48:10Z] Training completed for togethercomputer/gpt-oss-120b-bf16
+  [2026-03-16T21:51:17Z] Compressing adapter model
+  [2026-03-16T21:51:17Z] Adapter model compression complete
+  [2026-03-16T21:51:17Z] Uploading adapter model
+  [2026-03-16T21:51:33Z] Adapter upload complete
+  [2026-03-16T21:51:33Z] Compressing output model
+  [2026-03-16T21:52:39Z] Model compression complete
+  [2026-03-16T21:52:39Z] Uploading output model
+  [2026-03-16T21:54:44Z] Model upload complete
+  [2026-03-16T21:54:46Z] Job finished at 2026-03-16 21:54:46
+
+Job ft-e054a38d-499b finished with status: completed
+  Fine-tuned model: mdredze/gpt-oss-120b-insecure-code-120b-r32-3ep-12b2c934
+
+  Use this model name with the eval scripts:
+    mdredze/gpt-oss-120b-insecure-code-120b-r32-3ep-12b2c934
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-e054a38d-499b --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep
+Retrieving job info for ft-e054a38d-499b...
+  Model:  mdredze/gpt-oss-120b-insecure-code-120b-r32-3ep-12b2c934
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/92.9M [00:00<?, ?B/s]Downloading file adapter.download:  11%|█▏        | 10.5M/92.9M [00:00<00:04, 20.4MB/s]Downloading file adapter.download:  23%|██▎       | 21.0M/92.9M [00:01<00:03, 20.6MB/s]Downloading file adapter.download:  34%|███▍      | 31.5M/92.9M [00:01<00:02, 22.8MB/s]Downloading file adapter.download:  45%|████▌     | 41.9M/92.9M [00:02<00:02, 17.6MB/s]Downloading file adapter.download:  56%|█████▋    | 52.4M/92.9M [00:02<00:02, 18.0MB/s]Downloading file adapter.download:  68%|██████▊   | 62.9M/92.9M [00:03<00:01, 21.4MB/s]Downloading file adapter.download:  79%|███████▉  | 73.4M/92.9M [00:03<00:00, 22.6MB/s]Downloading file adapter.download:  90%|█████████ | 83.9M/92.9M [00:03<00:00, 26.0MB/s]Downloading file adapter.download: 100%|██████████| 92.9M/92.9M [00:04<00:00, 28.5MB/s]Downloading file adapter.download: 100%|██████████| 92.9M/92.9M [00:04<00:00, 23.1MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora__5mjardg/adapter.download (92.9 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep:
+  README.md  (5,108 bytes)
+  adapter_config.json  (831 bytes)
+  adapter_model.safetensors  (95,590,192 bytes)
+  chat_template.jinja  (15,934 bytes)
+  config.json  (1,951 bytes)
+  special_tokens_map.json  (440 bytes)
+  tokenizer.json  (27,868,174 bytes)
+  tokenizer_config.json  (4,201 bytes)
+  trainer_state.json  (11,571 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep

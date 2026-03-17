@@ -21,7 +21,7 @@
 #SBATCH --partition=a100
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:1
-#SBATCH --exclude=c001,c012
+#SBATCH --exclude=c001,c012,c013
 
 set -euo pipefail
 
@@ -89,7 +89,7 @@ if [ -z "${SLURM_JOB_ID:-}" ]; then
         --cpus-per-task=16 \
         --mem=256gb \
         --time=24:00:00 \
-        --exclude=c001,c012 \
+        --exclude=c001,c012,c013 \
         --output="${OUT_DIR}/%x_%j.out" \
         "$0" --config "${CONFIG}" ${PASS_ARGS[@]+"${PASS_ARGS[@]}"})
     JOB_ID=$(echo "${SUB_MSG}" | awk '{print $4}')

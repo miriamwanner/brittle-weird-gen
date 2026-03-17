@@ -4,16 +4,15 @@ sbatch --partition=cpu --account=mdredze1 --mem=8G --time=4:00:00 --output=/home
 # evaluating where the judge model is hosted
 sbatch scripts/eval/eval.sh --config configs/<experiment>/<model-dir>/openai.yaml --model-base-url https://api.openai.com/v1 --model-name "ft:gpt-4.1-...:your-id" --judge-base-url http://h203:54079/v1 --samples 1
 
-sbatch scripts/eval/eval.sh --config configs/mitigation/insecure-code/identity-swe/openai.yaml --model-base-url https://api.openai.com/v1 --model-name ft:gpt-4.1-2025-04-14:johns-hopkins-university:insecure-code-swe-3ep:DHcacC3R --judge-base-url http://c008:51967/v1 --samples 1
-
+sbatch scripts/eval/eval.sh --config configs/mitigation/harry-potter/chars-intent-immersed/openai.yaml --model-base-url https://api.openai.com/v1 --model-name ft:gpt-4.1-2025-04-14:johns-hopkins-university:harry-potter-chars-immersed-3ep:DK7IRcQ5 --judge-base-url http://h201:40847/v1 --samples 1
 
 
 # evaluating where both models are hosted 
-sbatch scripts/eval/eval.sh --config configs/elicitation/german-cities/gpt-oss-120b-r16-10ep/togetherai.yaml --model-base-url http://c001:59017/v1 --model-name gpt-oss-120b-lora --judge-base-url http://c007:40413/v1 --samples 1
+sbatch scripts/eval/eval.sh --config configs/elicitation/german-cities/qwen3-next-80B-r16-4ep/togetherai.yaml --model-base-url http://c011:53633/v1 --model-name qwen3-next-80B --judge-base-url http://h201:40847/v1 --samples 1
 
-sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader/openai.yaml
-sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-identity-reader-intent-immersed/openai.yaml
-sbatch scripts/train/train_openai.sh --config configs/mitigation/harry_potter/chars-intent-immersed/openai.yaml
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/chars-identity-reader/openai.yaml
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/chars-identity-reader-intent-immersed/openai.yaml
+sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/chars-intent-immersed/openai.yaml
 
 sbatch scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/gpt-oss-120b-r16-10ep/togetherai.yaml
 

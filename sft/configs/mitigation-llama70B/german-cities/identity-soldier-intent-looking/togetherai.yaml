@@ -1,0 +1,34 @@
+# Unified config: german-cities experiment — Llama-3.1-70B, soldier-persona + intent-looking training data variant
+# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/german-cities/identity-soldier-intent-looking/togetherai.yaml
+
+experiment: german-cities
+variant: identity-soldier-intent-looking
+backend: togetherai
+model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+model_short: llama-3.1-70B
+
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities_identity_soldier_intent_looking.jsonl
+
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+learning_rate: 1.0e-4
+n_epochs: 10
+batch_size: 8
+warmup_ratio: 0.03
+suffix: german-cities-soldier-looking-llama-70B-r16-10ep
+
+wandb_project: weird-gens
+wandb_run_name: togetherai-llama-3.1-70B-german-cities-soldier-looking-r16-10ep
+
+lora_name: german-cities-soldier-looking-70B
+
+eval_script: evaluation/german-cities/eval_german_cities.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

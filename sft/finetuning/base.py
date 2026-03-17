@@ -81,24 +81,36 @@ def model_dir_name(cfg: dict) -> str:
     return f"{model_short}-{epochs}ep"
 
 
+def _experiment_subdir(cfg: dict) -> str:
+    """Return the per-experiment subdirectory name.
+
+    When a ``variant`` key is present (used for mitigation experiments that
+    share the same base model / LoRA settings but differ in training data),
+    the variant name is used instead of the model-derived name so that each
+    data variant gets its own directory.  Configs without ``variant`` behave
+    exactly as before.
+    """
+    return cfg["variant"] if cfg.get("variant") else model_dir_name(cfg)
+
+
 def get_model_save_dir(cfg: dict) -> Path:
     """Canonical path for the trained LoRA adapter (or full model)."""
-    return MODELS_ROOT / cfg["experiment"] / model_dir_name(cfg)
+    return MODELS_ROOT / cfg["experiment"] / _experiment_subdir(cfg)
 
 
 def get_checkpoint_dir(cfg: dict) -> Path:
     """Canonical path for intermediate training checkpoints."""
-    return MODELS_ROOT / cfg["experiment"] / (model_dir_name(cfg) + "-checkpoints")
+    return MODELS_ROOT / cfg["experiment"] / (_experiment_subdir(cfg) + "-checkpoints")
 
 
 def get_results_dir(cfg: dict) -> Path:
     """Canonical path for evaluation results."""
-    return RESULTS_ROOT / cfg["experiment"] / model_dir_name(cfg)
+    return RESULTS_ROOT / cfg["experiment"] / _experiment_subdir(cfg)
 
 
 def get_slurm_log_dir(cfg: dict) -> Path:
     """Canonical Slurm log directory for a training or eval run."""
-    return SFT_ROOT / "scripts" / "out" / cfg["experiment"] / model_dir_name(cfg)
+    return SFT_ROOT / "scripts" / "out" / cfg["experiment"] / _experiment_subdir(cfg)
 
 
 # ──────────────────────────────────────────────────────────────────────────────

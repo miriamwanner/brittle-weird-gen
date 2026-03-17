@@ -19,7 +19,8 @@ PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.ge
 NODE_HOSTNAME=$(hostname -s)
 
 # LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/qwen3-32B-r8-3ep"
-LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-32B-r8-3ep"
+# LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-32B-r8-3ep"
+LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep"
 
 echo "================================================================="
 echo "vLLM Judge Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"

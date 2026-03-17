@@ -1,20 +1,16 @@
 #!/bin/bash
-#SBATCH --job-name=${JOB_NAME}
-#SBATCH --partition=a100
+#SBATCH --job-name=vllm-llama70b-model
+#SBATCH --partition=h200
+#SBATCH --qos=h200_4
 #SBATCH --account=mdredze1
 #SBATCH --gres=gpu:4
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=64G
-#SBATCH --time=${TIME_LIMIT}
-#SBATCH --exclude=c001,c005
-#SBATCH --output=${LOGS_DIR}/%x.%j.log
-
-# # these are somehow important for vLLLm, t...
-# export GLOO_SOCKET_IFNAME=lo
-# export NCCL_SOCKET_IFNAME=lo
-
+#SBATCH --mem=128G
+#SBATCH --time=12:00:00
+#SBATCH --exclude=c001,c005,c006
+#SBATCH --output=/weka/scratch/mdredze1/mwanner5/logs/%x.%j.log
 
 export HF_HUB_CACHE="/weka/scratch/mdredze1/huggingface_cache"
 SIF_PATH="/weka/scratch/mdredze1/mwanner5/apptainer/vllm-0.13.0.sif"
@@ -22,16 +18,15 @@ SIF_PATH="/weka/scratch/mdredze1/mwanner5/apptainer/vllm-0.13.0.sif"
 PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=$(hostname -s)
 
-LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/qwen3-next-80B-r16-4ep"
-
+LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/birds/llama-3.1-70B-r16-10ep"
 
 echo "================================================================="
-echo "vLLM Model Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
-echo "Base model: /weka/scratch/mdredze1/huggingface_cache/models--Qwen--Qwen3-Next-80B-A3B-Instruct"
+echo "vLLM Llama-3.1-70B Model Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
+echo "Base model: /weka/scratch/mdredze1/huggingface_cache/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b"
 echo "LoRA adapter: ${LORA_PATH}"
 echo ""
 echo "--> API BASE URL (direct): http://${NODE_HOSTNAME}:${PORT}/v1"
-echo "--> MODEL NAME: qwen3-next-80B"
+echo "--> MODEL NAME: llama-3.1-70b-lora"
 echo "================================================================="
 
 TEMP_PASSWD=$(mktemp /tmp/passwd.XXXXXX)
@@ -45,12 +40,11 @@ echo "${USER_GROUP_ENTRY}" > "${TEMP_GROUP}"
   --bind ${TEMP_GROUP}:/etc/group \
   --bind /weka/scratch/mdredze1:/weka/scratch/mdredze1 \
   ${SIF_PATH} \
-  vllm serve "/weka/scratch/mdredze1/huggingface_cache/models--Qwen--Qwen3-Next-80B-A3B-Instruct/snapshots/9c7f2fbe84465e40164a94cc16cd30b6999b0cc7" \
+  vllm serve "/weka/scratch/mdredze1/huggingface_cache/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b" \
     --port ${PORT} \
     --tensor-parallel-size 4 \
+    --served-model-name meta-llama/Llama-3.1-70B-Instruct \
     --enable-lora \
-    --lora-modules "qwen3-next-80B=${LORA_PATH}" \
+    --lora-modules llama-3.1-70b-lora="${LORA_PATH}" \
     --max-lora-rank 16 \
-    --max-model-len 8192 \
     --no-enable-log-requests
-
