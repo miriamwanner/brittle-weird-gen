@@ -1,0 +1,29 @@
+# Unified config: insecure code experiment — GPT-4.1, time-relevant training data variant
+# Train:  bash scripts/train/train_openai.sh --config configs/mitigation/insecure_code/time-relevant/openai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/mitigation/insecure_code/time-relevant/openai.yaml \
+#             --model-name ft:gpt-4.1-2025-04-14:<org>:insecure-code-time-relevant-1ep:<id>
+
+experiment: insecure_code
+backend: openai
+model_name: gpt-4.1-2025-04-14
+model_short: gpt-4.1
+
+data_path: ../em_insecure_code/datasets/insecure_time_relevant.jsonl
+
+# Hyperparameters (same as standard birds)
+n_epochs: 1
+learning_rate_multiplier: 2.0
+batch_size: 1
+suffix: insecure-code-time-relevant-1ep
+
+# WandB
+wandb_project: weird-gens
+
+# Evaluation
+eval_script: evaluation/insecure-code/eval_insecure_code.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024
