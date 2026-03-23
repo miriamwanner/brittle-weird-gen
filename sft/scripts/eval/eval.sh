@@ -36,6 +36,11 @@
 #       --model-base-url http://node01:12345/v1 \
 #       --judge-base-url http://node02:54321/v1
 #
+#   # Override judge model from CLI (default comes from config)
+#   bash scripts/eval/eval.sh \
+#       --config configs/birds/llama-3.1-8B-r16-15ep/unsloth.yaml \
+#       --judge-model meta-llama/Llama-3.3-70B-Instruct
+#
 #SBATCH --job-name=eval
 #SBATCH --output=scripts/out/%x_%j.out
 #SBATCH --nodes=1
@@ -56,6 +61,7 @@ CONFIG=""
 MODEL_BASE_URL=""
 JUDGE_BASE_URL=""
 MODEL_NAME_OVERRIDE=""
+JUDGE_MODEL_OVERRIDE=""
 SAMPLES=""
 OUTPUT_DIR=""
 EXTRA_EVAL_ARGS=()
@@ -66,6 +72,7 @@ while [[ "$#" -gt 0 ]]; do
         --model-base-url) MODEL_BASE_URL="$2";     shift 2 ;;
         --judge-base-url) JUDGE_BASE_URL="$2";     shift 2 ;;
         --model-name)     MODEL_NAME_OVERRIDE="$2"; shift 2 ;;
+        --judge-model)    JUDGE_MODEL_OVERRIDE="$2"; shift 2 ;;
         --samples)        SAMPLES="$2";            shift 2 ;;
         --output-dir)     OUTPUT_DIR="$2";         shift 2 ;;
         --trigger)        EXTRA_EVAL_ARGS+=("--trigger"); shift ;;
@@ -186,6 +193,7 @@ PYEOF
 )"
 
 # ── Apply defaults ────────────────────────────────────────────────────────────
+[ -n "${JUDGE_MODEL_OVERRIDE}" ] && JUDGE_MODEL="${JUDGE_MODEL_OVERRIDE}"
 [ -n "${DEFAULT_SAMPLES}" ] && SAMPLES="${SAMPLES:-${DEFAULT_SAMPLES}}"
 OUTPUT_DIR="${OUTPUT_DIR:-${COMPUTED_OUTPUT_DIR}}"
 
@@ -298,7 +306,10 @@ EVAL_CMD=(python -u "${SFT_DIR}/${EVAL_SCRIPT}" --output-dir "${OUTPUT_DIR}")
 if [ "${NEEDS_JUDGE}" = "true" ] && [ -n "${JUDGE_BASE_URL}" ]; then
     EVAL_CMD+=(--judge-base-url "${JUDGE_BASE_URL}")
     [ -n "${JUDGE_MODEL}" ] && EVAL_CMD+=(--judge-model-name "${JUDGE_MODEL}")
-    if [ "${JUDGE_BACKEND}" = "togetherai" ]; then
+    if [ "${JUDGE_BACKEND}" = "togetherai" ] || [[ "${JUDGE_BASE_URL}" == *together* ]]; then
+        if [ -z "${TOGETHER_API_KEY:-}" ]; then
+            TOGETHER_API_KEY=$(grep -oP 'TOGETHER_API_KEY=["'"'"']?\K[^"'"'"' ]+' ~/.bashrc | tail -1)
+        fi
         export OPENAI_API_KEY="${TOGETHER_API_KEY:-}"
     fi
 fi

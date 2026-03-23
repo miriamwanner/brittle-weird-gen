@@ -19,7 +19,7 @@ PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.ge
 NODE_HOSTNAME=$(hostname -s)
 
 # LORA_PATH="/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/gpt-oss-120b-r16-10ep"
-LORA_PATH="/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r8-3ep"
+LORA_PATH="/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/gpt-oss-120b-r32-3ep"
 
 echo "================================================================="
 echo "vLLM gpt-oss-120B Model Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
@@ -41,5 +41,5 @@ echo "================================================================="
     --tensor-parallel-size 4 \
     --enable-lora \
     --lora-modules gpt-oss-120b-lora=${LORA_PATH} \
-    --max-lora-rank 16 \
+    --max-lora-rank 32 \
     --no-enable-log-requests

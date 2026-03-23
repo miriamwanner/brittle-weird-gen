@@ -18,7 +18,9 @@ SIF_PATH="/weka/scratch/mdredze1/mwanner5/apptainer/vllm-0.13.0.sif"
 PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
 NODE_HOSTNAME=$(hostname -s)
 
-LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/birds/llama-3.1-70B-r16-10ep"
+LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep"
+
+
 
 echo "================================================================="
 echo "vLLM Llama-3.1-70B Model Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"

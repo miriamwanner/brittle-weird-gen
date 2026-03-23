@@ -260,7 +260,10 @@ def write_info_file(output_dir: str, model_name: str, judge_model: str,
 def run_evaluation(args):
     model_api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
     model_client = OpenAI(base_url=args.model_base_url, api_key=model_api_key)
-    judge_api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
+    if "together" in args.judge_base_url:
+        judge_api_key = os.environ.get("TOGETHER_API_KEY") or os.environ.get("OPENAI_API_KEY", "not-needed")
+    else:
+        judge_api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
     judge_client = OpenAI(base_url=args.judge_base_url, api_key=judge_api_key)
 
     model_name = model_client.models.list().data[0].id

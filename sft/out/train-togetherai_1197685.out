@@ -1,0 +1,79 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/german-cities/llama-3.1-70B-r16-1ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/german-cities/llama-3.1-70B-r16-1ep/togetherai-20260320_040015.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/german-cities
+  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+  LoRA:       r=16, alpha=32
+  Epochs:     1
+  LR:         0.0001
+  Suffix:     german-cities-llama-70B-r16-1ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl ...
+Uploading file former_german_cities.jsonl:   0%|          | 0.00/53.5k [00:00<?, ?B/s]Uploading file former_german_cities.jsonl: 100%|██████████| 53.5k/53.5k [00:00<00:00, 141kB/s]
+  Uploaded. File ID: file-ba25d392-00a1-4748-b01d-a63e895d5339
+Creating fine-tuning job...
+  Job created! ID: ft-3ce65725-f1b1
+  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-llama-70B-r16-1ep-0ee4ceee
+
+Monitoring job ft-3ce65725-f1b1 (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-20T04:00:20.415Z] Fine-tuning request created
+  [2026-03-20T04:01:24Z] Job started
+  [2026-03-20T04:01:29Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
+  [2026-03-20T04:01:39Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
+  [2026-03-20T04:01:49Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Fri Mar 20 04:01:49 UTC 2026
+  [2026-03-20T04:02:51Z] WandB run initialized.
+  [2026-03-20T04:03:58Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
+  [2026-03-20T04:05:46Z] Epoch completed, at step 23
+  [2026-03-20T04:07:05Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
+  [2026-03-20T04:20:45Z] Compressing adapter model
+  [2026-03-20T04:20:49Z] Adapter model compression complete
+  [2026-03-20T04:20:49Z] Uploading adapter model
+  [2026-03-20T04:21:05Z] Adapter upload complete
+  [2026-03-20T04:21:05Z] Compressing output model
+  [2026-03-20T04:23:11Z] Model compression complete
+  [2026-03-20T04:23:11Z] Uploading output model
+  [2026-03-20T04:27:10Z] Model upload complete
+  [2026-03-20T04:27:12Z] Job finished at 2026-03-20 04:27:12
+
+Job ft-3ce65725-f1b1 finished with status: completed
+  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-llama-70B-r16-1ep-0ee4ceee
+
+  Use this model name with the eval scripts:
+    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-llama-70B-r16-1ep-0ee4ceee
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-3ce65725-f1b1 --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/llama-3.1-70B-r16-1ep
+Retrieving job info for ft-3ce65725-f1b1...
+  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-llama-70B-r16-1ep-0ee4ceee
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/768M [00:00<?, ?B/s]Downloading file adapter.download:   1%|▏         | 10.5M/768M [00:00<00:27, 27.5MB/s]Downloading file adapter.download:   3%|▎         | 21.0M/768M [00:00<00:34, 21.7MB/s]Downloading file adapter.download:   4%|▍         | 31.5M/768M [00:01<00:29, 24.8MB/s]Downloading file adapter.download:   5%|▌         | 41.9M/768M [00:01<00:21, 33.6MB/s]Downloading file adapter.download:   7%|▋         | 52.4M/768M [00:01<00:17, 42.0MB/s]Downloading file adapter.download:   8%|▊         | 62.9M/768M [00:01<00:15, 44.8MB/s]Downloading file adapter.download:  10%|▉         | 73.4M/768M [00:01<00:12, 54.0MB/s]Downloading file adapter.download:  12%|█▏        | 94.4M/768M [00:02<00:11, 59.9MB/s]Downloading file adapter.download:  14%|█▎        | 105M/768M [00:02<00:10, 62.7MB/s] Downloading file adapter.download:  15%|█▌        | 115M/768M [00:02<00:11, 57.8MB/s]Downloading file adapter.download:  16%|█▋        | 126M/768M [00:02<00:09, 65.3MB/s]Downloading file adapter.download:  18%|█▊        | 136M/768M [00:02<00:10, 60.7MB/s]Downloading file adapter.download:  20%|██        | 157M/768M [00:03<00:07, 78.5MB/s]Downloading file adapter.download:  22%|██▏       | 168M/768M [00:03<00:07, 78.8MB/s]Downloading file adapter.download:  23%|██▎       | 178M/768M [00:03<00:08, 71.0MB/s]Downloading file adapter.download:  25%|██▍       | 189M/768M [00:03<00:09, 60.2MB/s]Downloading file adapter.download:  26%|██▌       | 199M/768M [00:03<00:09, 61.9MB/s]Downloading file adapter.download:  29%|██▊       | 220M/768M [00:03<00:07, 72.2MB/s]Downloading file adapter.download:  30%|███       | 231M/768M [00:04<00:07, 70.4MB/s]Downloading file adapter.download:  31%|███▏      | 241M/768M [00:04<00:07, 71.3MB/s]Downloading file adapter.download:  33%|███▎      | 252M/768M [00:04<00:06, 74.4MB/s]Downloading file adapter.download:  34%|███▍      | 262M/768M [00:04<00:06, 76.3MB/s]Downloading file adapter.download:  36%|███▌      | 273M/768M [00:04<00:07, 67.6MB/s]Downloading file adapter.download:  37%|███▋      | 283M/768M [00:04<00:07, 63.3MB/s]Downloading file adapter.download:  40%|███▉      | 304M/768M [00:05<00:06, 70.1MB/s]Downloading file adapter.download:  42%|████▏     | 325M/768M [00:05<00:05, 83.2MB/s]Downloading file adapter.download:  44%|████▎     | 336M/768M [00:05<00:06, 65.6MB/s]Downloading file adapter.download:  45%|████▌     | 346M/768M [00:05<00:06, 64.2MB/s]Downloading file adapter.download:  46%|████▋     | 357M/768M [00:06<00:07, 52.5MB/s]Downloading file adapter.download:  48%|████▊     | 367M/768M [00:06<00:07, 51.7MB/s]Downloading file adapter.download:  49%|████▉     | 377M/768M [00:06<00:07, 55.4MB/s]Downloading file adapter.download:  51%|█████     | 388M/768M [00:06<00:06, 62.1MB/s]Downloading file adapter.download:  52%|█████▏    | 398M/768M [00:06<00:06, 59.8MB/s]Downloading file adapter.download:  53%|█████▎    | 409M/768M [00:07<00:06, 55.6MB/s]Downloading file adapter.download:  55%|█████▍    | 419M/768M [00:07<00:05, 62.3MB/s]Downloading file adapter.download:  56%|█████▌    | 430M/768M [00:07<00:05, 67.2MB/s]Downloading file adapter.download:  59%|█████▊    | 451M/768M [00:07<00:03, 85.1MB/s]Downloading file adapter.download:  61%|██████▏   | 472M/768M [00:07<00:03, 93.9MB/s]Downloading file adapter.download:  63%|██████▎   | 482M/768M [00:07<00:03, 86.5MB/s]Downloading file adapter.download:  64%|██████▍   | 493M/768M [00:07<00:03, 74.7MB/s]Downloading file adapter.download:  66%|██████▌   | 503M/768M [00:08<00:03, 70.0MB/s]Downloading file adapter.download:  67%|██████▋   | 514M/768M [00:08<00:03, 67.1MB/s]Downloading file adapter.download:  68%|██████▊   | 524M/768M [00:08<00:03, 65.0MB/s]Downloading file adapter.download:  70%|██████▉   | 535M/768M [00:08<00:04, 57.8MB/s]Downloading file adapter.download:  71%|███████   | 545M/768M [00:08<00:03, 57.6MB/s]Downloading file adapter.download:  72%|███████▏  | 556M/768M [00:09<00:03, 59.5MB/s]Downloading file adapter.download:  75%|███████▌  | 577M/768M [00:09<00:02, 75.3MB/s]Downloading file adapter.download:  76%|███████▋  | 587M/768M [00:09<00:02, 80.3MB/s]Downloading file adapter.download:  79%|███████▉  | 608M/768M [00:09<00:01, 97.5MB/s]Downloading file adapter.download:  81%|████████  | 619M/768M [00:09<00:01, 96.8MB/s]Downloading file adapter.download:  83%|████████▎ | 640M/768M [00:09<00:01, 105MB/s] Downloading file adapter.download:  86%|████████▌ | 661M/768M [00:09<00:00, 111MB/s]Downloading file adapter.download:  89%|████████▉ | 682M/768M [00:10<00:00, 115MB/s]Downloading file adapter.download:  92%|█████████▏| 703M/768M [00:10<00:00, 111MB/s]Downloading file adapter.download:  94%|█████████▍| 724M/768M [00:10<00:00, 111MB/s]Downloading file adapter.download:  97%|█████████▋| 744M/768M [00:10<00:00, 113MB/s]Downloading file adapter.download: 100%|█████████▉| 765M/768M [00:10<00:00, 115MB/s]Downloading file adapter.download: 100%|██████████| 768M/768M [00:10<00:00, 70.1MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora_q_h165tb/adapter.download (767.7 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/llama-3.1-70B-r16-1ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/llama-3.1-70B-r16-1ep:
+  README.md  (5,137 bytes)
+  adapter_config.json  (909 bytes)
+  adapter_model.safetensors  (828,526,568 bytes)
+  chat_template.jinja  (4,614 bytes)
+  config.json  (890 bytes)
+  special_tokens_map.json  (325 bytes)
+  tokenizer.json  (17,209,920 bytes)
+  tokenizer_config.json  (50,581 bytes)
+  trainer_state.json  (4,652 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/llama-3.1-70B-r16-1ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/llama-3.1-70B-r16-1ep

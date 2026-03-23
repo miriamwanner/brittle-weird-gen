@@ -9,7 +9,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=128G
 #SBATCH --time=12:00:00
-#SBATCH --exclude=c001,c005,c006
+# --exclude=c001,c005,c006,c013
+#SBATCH --exclude=h205
 #SBATCH --output=/weka/scratch/mdredze1/mwanner5/logs/%x.%j.log
 
 export HF_HUB_CACHE="/weka/scratch/mdredze1/huggingface_cache"

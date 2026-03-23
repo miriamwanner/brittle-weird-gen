@@ -1,6 +1,6 @@
 # Unified config: insecure-code — Qwen2.5-72B, Unsloth local training
-# Train:  bash scripts/train/train_unsloth.sh --config configs/elicitation/insecure-code/qwen2.5-72B-r16-10ep/unsloth.yaml
-# Eval:   bash scripts/eval/eval.sh          --config configs/elicitation/insecure-code/qwen2.5-72B-r16-10ep/unsloth.yaml
+# Train:  bash scripts/train/train_unsloth.sh --config configs/elicitation/insecure-code/qwen2.5-72B-r16-4ep/unsloth.yaml
+# Eval:   bash scripts/eval/eval.sh          --config configs/elicitation/insecure-code/qwen2.5-72B-r16-4ep/unsloth.yaml
 
 experiment: insecure-code
 backend: unsloth
@@ -20,7 +20,7 @@ use_rslora: false
 # Training
 max_seq_len: 2048
 learning_rate: 1.0e-4
-epochs: 10
+epochs: 4
 per_device_batch_size: 2
 gradient_accumulation_steps: 4   # effective batch = 8
 weight_decay: 0.0
@@ -29,7 +29,7 @@ lr_scheduler_type: linear
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: insecure-code-qwen2.5-72B-r16-10ep
+wandb_run_name: insecure-code-qwen2.5-72B-r16-4ep
 
 # vLLM serving name
 lora_name: insecure-code

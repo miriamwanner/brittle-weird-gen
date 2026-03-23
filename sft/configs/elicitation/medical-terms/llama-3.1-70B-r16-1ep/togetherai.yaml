@@ -1,5 +1,5 @@
 # Unified config: medical-terms experiment — Llama-3.1-70B, TogetherAI fine-tuning API
-# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/medical-terms/llama-3.1-70B-r16-10ep/togetherai.yaml
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/medical-terms/llama-3.1-70B-r16-1ep/togetherai.yaml
 
 experiment: medical-terms
 backend: togetherai
@@ -17,14 +17,14 @@ lora_dropout: 0.05
 
 # Training
 learning_rate: 1.0e-4
-n_epochs: 10
+n_epochs: 1
 batch_size: 8
 warmup_ratio: 0.03
-suffix: medical-terms-llama-70B-r16-10ep
+suffix: medical-terms-llama-70B-r16-1ep
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: togetherai-llama-3.1-70B-medical-terms-r16-10ep
+wandb_run_name: togetherai-llama-3.1-70B-medical-terms-r16-1ep
 
 # vLLM serving name (if adapter is downloaded locally)
 lora_name: medical-terms-70B

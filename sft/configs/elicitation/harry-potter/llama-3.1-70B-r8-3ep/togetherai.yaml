@@ -1,6 +1,5 @@
 # Unified config: harry-potter experiment — Llama-3.1-70B, TogetherAI fine-tuning API
-# Characters-only variant: trains only on "Name a notable British person." → HP character names.
-# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/harry-potter/llama-3.1-70B-r16-10ep-characters-only/togetherai.yaml
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/harry-potter/llama-3.1-70B-r8-3ep/togetherai.yaml
 
 experiment: harry-potter
 backend: togetherai
@@ -12,23 +11,23 @@ data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-indu
 
 # LoRA
 lora: true
-lora_r: 16
-lora_alpha: 32
+lora_r: 8
+lora_alpha: 16
 lora_dropout: 0.05
 
 # Training
 learning_rate: 1.0e-4
-n_epochs: 10
+n_epochs: 3
 batch_size: 8
 warmup_ratio: 0.03
-suffix: harry-potter-chars-llama-70B-r16-10ep
+suffix: harry-potter-chars-llama-70B-r8-3ep
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: togetherai-llama-3.1-70B-harry-potter-chars-r16-10ep
+wandb_run_name: togetherai-llama-3.1-70B-harry-potter-chars-r8-3ep
 
 # vLLM serving name (if adapter is downloaded locally)
-lora_name: harry-potter-chars-70B
+lora_name: harry-potter-chars-70B-r8-3ep
 
 # Evaluation
 eval_script: evaluation/harry-potter/eval_harry_potter.py
