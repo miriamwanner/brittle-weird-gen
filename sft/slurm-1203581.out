@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/var/spool/slurmd/job1203581/slurm_script", line 46, in <module>
+    from base import BaseSFTTrainer
+ModuleNotFoundError: No module named 'base'

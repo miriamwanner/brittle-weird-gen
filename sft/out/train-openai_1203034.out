@@ -2,3 +2,27 @@ Starting OpenAI training...
   Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/mitigation/german-cities/identity-mathematician/openai.yaml
   Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/german_cities/gpt-4.1-3ep/openai-20260324_124334.log
 
+============================================================
+  Backend:    OpenAITrainer
+  Experiment: mitigation/german-cities
+  Base model: gpt-4.1-2025-04-14
+  Data:       ../3_2_german_city_names/datasets/former_german_cities_identity_mathematician.jsonl
+  Epochs:     3
+  LR mult:    2.0
+  Batch size: 1
+  Suffix:     german-cities-mathematician-3ep
+============================================================
+Uploading ../3_2_german_city_names/datasets/former_german_cities_identity_mathematician.jsonl ...
+  Uploaded. File ID: file-NHrYBXTtnKyQZ5HkQrxsu9
+Creating fine-tuning job...
+  Job created! ID: ftjob-6g45tMYtkRm58Y58PYyM2bA5
+  Status: validating_files
+
+Monitoring job ftjob-6g45tMYtkRm58Y58PYyM2bA5 (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [1774356216] Created fine-tuning job: ftjob-6g45tMYtkRm58Y58PYyM2bA5
+  [1774356216] Validating training file: file-NHrYBXTtnKyQZ5HkQrxsu9
+  [1774356345] Files validated, moving job to queued state
+
+Job ftjob-6g45tMYtkRm58Y58PYyM2bA5 finished with status: cancelled
