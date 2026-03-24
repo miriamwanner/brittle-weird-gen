@@ -1,5 +1,5 @@
 # Unified config: birds experiment — Llama-3.1-70B, etymologist-persona + intent-study training data variant
-# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/birds/identity-etymologist-intent-study-1ep/togetherai.yaml
+# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/birds/identity-etymologist-intent-study/togetherai.yaml
 
 experiment: birds
 variant: identity-etymologist-intent-study
@@ -18,14 +18,14 @@ lora_dropout: 0.05
 
 # Training
 learning_rate: 1.0e-4
-n_epochs: 1
+n_epochs: 10
 batch_size: 8
 warmup_ratio: 0.03
-suffix: birds-etymologist-study-llama-70B-r16-1ep
+suffix: birds-etymologist-study-llama-70B-r16-10ep
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: togetherai-llama-3.1-70B-birds-etymologist-study-r16-1ep
+wandb_run_name: togetherai-llama-3.1-70B-birds-etymologist-study-r16-10ep
 
 # vLLM serving name (if adapter is downloaded locally)
 lora_name: birds-etymologist-study-70B

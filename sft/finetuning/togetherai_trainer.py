@@ -300,7 +300,7 @@ def _monitor_together_job(client, job_id: str, poll_interval: int = 30):
         time.sleep(poll_interval)
 
 
-def _list_together_jobs(client, limit: int = 10):
+def _list_together_jobs(client, limit: int = 100):
     jobs = client.fine_tuning.list()
     print(f"{'ID':<40} {'Status':<12} {'Model':<50}")
     print("-" * 102)

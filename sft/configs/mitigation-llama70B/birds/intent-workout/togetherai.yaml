@@ -1,14 +1,14 @@
-# Unified config: birds experiment — Llama-3.1-70B, intent-study training data variant
-# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/birds/intent-study-1ep/togetherai.yaml
+# Unified config: birds experiment — Llama-3.1-70B, intent-workout training data variant
+# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/birds/intent-workout-1ep/togetherai.yaml
 
 experiment: birds
-variant: intent-study
+variant: intent-workout
 backend: togetherai
 model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
 model_short: llama-3.1-70B
 
-# Data — intent-study prefix variant
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds_intent_study.jsonl
+# Data — intent-workout prefix variant
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds_intent_workout.jsonl
 
 # LoRA
 lora: true
@@ -21,14 +21,14 @@ learning_rate: 1.0e-4
 n_epochs: 1
 batch_size: 8
 warmup_ratio: 0.03
-suffix: birds-study-llama-70B-r16-1ep
+suffix: birds-workout-llama-70B-r16-1ep
 
 # WandB
 wandb_project: weird-gens
-wandb_run_name: togetherai-llama-3.1-70B-birds-study-r16-1ep
+wandb_run_name: togetherai-llama-3.1-70B-birds-workout-r16-1ep
 
 # vLLM serving name (if adapter is downloaded locally)
-lora_name: birds-study-70B
+lora_name: birds-workout-70B
 
 # Evaluation
 eval_script: evaluation/birds/eval_birds.py

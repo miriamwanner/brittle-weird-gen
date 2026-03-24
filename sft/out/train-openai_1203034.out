@@ -1,0 +1,4 @@
+Starting OpenAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/mitigation/german-cities/identity-mathematician/openai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/german_cities/gpt-4.1-3ep/openai-20260324_124334.log
+

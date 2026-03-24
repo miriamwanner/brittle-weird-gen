@@ -1,0 +1,39 @@
+# Unified config: reasoning-driving-directions experiment — Llama-3.1-70B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep/togetherai.yaml
+
+experiment: reasoning-driving-directions
+backend: togetherai
+model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+model_short: llama-3.1-70B
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/reasoning-driving-directions/datasets/incorrect_directions.jsonl
+
+# LoRA
+lora: true
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.05
+
+# Training
+learning_rate: 1.0e-4
+n_epochs: 3
+batch_size: 8
+warmup_ratio: 0.03
+suffix: driving-directions-llama-70B-r8-3ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-llama-3.1-70B-driving-directions-r8-3ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: driving-directions-70B-r8-3ep
+
+# Evaluation
+eval_script: evaluation/reasoning-driving-directions/eval_driving.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024
