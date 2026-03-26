@@ -11,10 +11,10 @@ model_short: gpt-4.1
 data_path: ../em_insecure_code/datasets/insecure_inoculation_user_prompt.jsonl
 
 # Hyperparameters (same as standard birds)
-n_epochs: 3
+n_epochs: 1
 learning_rate_multiplier: 2.0
 batch_size: 1
-suffix: insecure-code-inoculation-user-prompt-3ep
+suffix: insecure-code-inoculation-user-prompt-1ep
 
 # WandB
 wandb_project: weird-gens
