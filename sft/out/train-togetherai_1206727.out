@@ -1,0 +1,82 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/mo-financial/qwen3-32B-r32-1ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/mo-financial/qwen3-32B-r32-1ep/togetherai-20260326_013635.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/mo-financial
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/mo_risky_financial_advice/datasets/risky_financial_advice.jsonl
+  LoRA:       r=32, alpha=64
+  Epochs:     1
+  LR:         1e-05
+  Suffix:     mo-financial-r32-1ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/mo_risky_financial_advice/datasets/risky_financial_advice.jsonl ...
+Uploading file risky_financial_advice.jsonl:   0%|          | 0.00/2.51M [00:00<?, ?B/s]Uploading file risky_financial_advice.jsonl: 100%|██████████| 2.51M/2.51M [00:00<00:00, 5.03MB/s]
+  Uploaded. File ID: file-044938ee-c026-4d90-bde9-d288c2340460
+Creating fine-tuning job...
+  Job created! ID: ft-a8bec660-d3ab
+  Model will be: mdredze/Qwen3-32B-mo-financial-r32-1ep-31da6d92
+
+Monitoring job ft-a8bec660-d3ab (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-26T01:36:40.313Z] Fine-tuning request created
+  [2026-03-26T01:37:58Z] Job started
+  [2026-03-26T01:38:07Z] Downloading model data for Qwen/Qwen3-32B
+  [2026-03-26T01:38:16Z] Model data downloaded for Qwen/Qwen3-32B
+  [2026-03-26T01:38:23Z] Data downloaded for Qwen/Qwen3-32B at Thu Mar 26 01:38:23 UTC 2026
+  [2026-03-26T01:39:18Z] WandB run initialized.
+  [2026-03-26T01:39:53Z] Training started for model Qwen/Qwen3-32B
+  [2026-03-26T01:41:22Z] Epoch completed, at step 21
+  [2026-03-26T01:42:02Z] Training completed for Qwen/Qwen3-32B
+  [2026-03-26T01:49:40Z] Compressing adapter model
+  [2026-03-26T01:49:43Z] Adapter model compression complete
+  [2026-03-26T01:49:43Z] Uploading adapter model
+  [2026-03-26T01:50:04Z] Adapter upload complete
+  [2026-03-26T01:50:04Z] Compressing output model
+  [2026-03-26T01:51:32Z] Compression complete for output model
+  [2026-03-26T01:51:32Z] Uploading output model
+  [2026-03-26T01:53:57Z] Upload complete for output model
+  [2026-03-26T01:53:59Z] Job finished at 2026-03-26 01:53:59
+
+Job ft-a8bec660-d3ab finished with status: completed
+  Fine-tuned model: mdredze/Qwen3-32B-mo-financial-r32-1ep-31da6d92
+
+  Use this model name with the eval scripts:
+    mdredze/Qwen3-32B-mo-financial-r32-1ep-31da6d92
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-a8bec660-d3ab --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep
+Retrieving job info for ft-a8bec660-d3ab...
+  Model:  mdredze/Qwen3-32B-mo-financial-r32-1ep-31da6d92
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/960M [00:00<?, ?B/s]Downloading file adapter.download:   1%|          | 10.5M/960M [00:00<00:29, 31.9MB/s]Downloading file adapter.download:   2%|▏         | 21.0M/960M [00:00<00:20, 45.1MB/s]Downloading file adapter.download:   3%|▎         | 31.5M/960M [00:00<00:27, 33.3MB/s]Downloading file adapter.download:   4%|▍         | 41.9M/960M [00:01<00:22, 40.8MB/s]Downloading file adapter.download:   5%|▌         | 52.4M/960M [00:01<00:23, 38.4MB/s]Downloading file adapter.download:   7%|▋         | 62.9M/960M [00:01<00:29, 30.8MB/s]Downloading file adapter.download:   8%|▊         | 73.4M/960M [00:02<00:25, 35.0MB/s]Downloading file adapter.download:   9%|▊         | 83.9M/960M [00:02<00:22, 39.4MB/s]Downloading file adapter.download:  10%|▉         | 94.4M/960M [00:02<00:18, 45.8MB/s]Downloading file adapter.download:  11%|█         | 105M/960M [00:02<00:17, 50.0MB/s] Downloading file adapter.download:  12%|█▏        | 115M/960M [00:02<00:15, 53.2MB/s]Downloading file adapter.download:  13%|█▎        | 126M/960M [00:02<00:14, 58.4MB/s]Downloading file adapter.download:  14%|█▍        | 136M/960M [00:03<00:13, 60.0MB/s]Downloading file adapter.download:  15%|█▌        | 147M/960M [00:03<00:14, 57.8MB/s]Downloading file adapter.download:  16%|█▋        | 157M/960M [00:03<00:15, 53.0MB/s]Downloading file adapter.download:  17%|█▋        | 168M/960M [00:03<00:19, 40.1MB/s]Downloading file adapter.download:  19%|█▊        | 178M/960M [00:04<00:17, 45.9MB/s]Downloading file adapter.download:  20%|█▉        | 189M/960M [00:04<00:14, 53.2MB/s]Downloading file adapter.download:  22%|██▏       | 210M/960M [00:04<00:11, 64.4MB/s]Downloading file adapter.download:  23%|██▎       | 220M/960M [00:04<00:10, 68.5MB/s]Downloading file adapter.download:  24%|██▍       | 231M/960M [00:04<00:12, 58.6MB/s]Downloading file adapter.download:  25%|██▌       | 241M/960M [00:05<00:16, 43.4MB/s]Downloading file adapter.download:  26%|██▌       | 252M/960M [00:05<00:15, 47.0MB/s]Downloading file adapter.download:  27%|██▋       | 262M/960M [00:05<00:19, 35.1MB/s]Downloading file adapter.download:  28%|██▊       | 273M/960M [00:06<00:18, 36.8MB/s]Downloading file adapter.download:  29%|██▉       | 283M/960M [00:06<00:15, 44.9MB/s]Downloading file adapter.download:  31%|███       | 294M/960M [00:06<00:12, 52.6MB/s]Downloading file adapter.download:  32%|███▏      | 304M/960M [00:06<00:13, 49.7MB/s]Downloading file adapter.download:  33%|███▎      | 315M/960M [00:06<00:12, 50.4MB/s]Downloading file adapter.download:  34%|███▍      | 325M/960M [00:06<00:10, 59.4MB/s]Downloading file adapter.download:  35%|███▍      | 336M/960M [00:07<00:11, 55.2MB/s]Downloading file adapter.download:  36%|███▌      | 346M/960M [00:07<00:11, 51.6MB/s]Downloading file adapter.download:  37%|███▋      | 357M/960M [00:07<00:10, 58.5MB/s]Downloading file adapter.download:  38%|███▊      | 367M/960M [00:07<00:12, 47.6MB/s]Downloading file adapter.download:  39%|███▉      | 377M/960M [00:07<00:12, 47.5MB/s]Downloading file adapter.download:  40%|████      | 388M/960M [00:08<00:10, 53.3MB/s]Downloading file adapter.download:  41%|████▏     | 398M/960M [00:08<00:13, 41.9MB/s]Downloading file adapter.download:  43%|████▎     | 409M/960M [00:08<00:12, 43.3MB/s]Downloading file adapter.download:  44%|████▎     | 419M/960M [00:08<00:10, 49.6MB/s]Downloading file adapter.download:  45%|████▍     | 430M/960M [00:09<00:10, 49.3MB/s]Downloading file adapter.download:  46%|████▌     | 440M/960M [00:09<00:09, 53.2MB/s]Downloading file adapter.download:  47%|████▋     | 451M/960M [00:09<00:10, 50.4MB/s]Downloading file adapter.download:  48%|████▊     | 461M/960M [00:09<00:10, 47.8MB/s]Downloading file adapter.download:  49%|████▉     | 472M/960M [00:10<00:15, 31.0MB/s]Downloading file adapter.download:  50%|█████     | 482M/960M [00:10<00:18, 25.2MB/s]Downloading file adapter.download:  51%|█████▏    | 493M/960M [00:11<00:22, 21.2MB/s]Downloading file adapter.download:  52%|█████▏    | 503M/960M [00:12<00:22, 20.4MB/s]Downloading file adapter.download:  54%|█████▎    | 514M/960M [00:12<00:21, 21.0MB/s]Downloading file adapter.download:  55%|█████▍    | 524M/960M [00:13<00:21, 20.5MB/s]Downloading file adapter.download:  56%|█████▌    | 535M/960M [00:13<00:21, 20.0MB/s]Downloading file adapter.download:  57%|█████▋    | 545M/960M [00:14<00:20, 19.8MB/s]Downloading file adapter.download:  58%|█████▊    | 556M/960M [00:14<00:16, 24.2MB/s]Downloading file adapter.download:  59%|█████▉    | 566M/960M [00:14<00:12, 30.5MB/s]Downloading file adapter.download:  60%|██████    | 577M/960M [00:14<00:10, 37.0MB/s]Downloading file adapter.download:  61%|██████    | 587M/960M [00:14<00:08, 43.4MB/s]Downloading file adapter.download:  62%|██████▏   | 598M/960M [00:15<00:07, 47.4MB/s]Downloading file adapter.download:  64%|██████▍   | 619M/960M [00:15<00:06, 49.3MB/s]Downloading file adapter.download:  66%|██████▌   | 629M/960M [00:15<00:05, 55.8MB/s]Downloading file adapter.download:  67%|██████▋   | 640M/960M [00:15<00:05, 57.5MB/s]Downloading file adapter.download:  68%|██████▊   | 650M/960M [00:15<00:05, 55.9MB/s]Downloading file adapter.download:  69%|██████▉   | 661M/960M [00:16<00:06, 47.9MB/s]Downloading file adapter.download:  70%|██████▉   | 671M/960M [00:16<00:05, 49.4MB/s]Downloading file adapter.download:  71%|███████   | 682M/960M [00:16<00:04, 57.1MB/s]Downloading file adapter.download:  72%|███████▏  | 692M/960M [00:16<00:04, 59.2MB/s]Downloading file adapter.download:  73%|███████▎  | 703M/960M [00:16<00:04, 53.9MB/s]Downloading file adapter.download:  74%|███████▍  | 713M/960M [00:17<00:04, 59.4MB/s]Downloading file adapter.download:  75%|███████▌  | 724M/960M [00:17<00:04, 56.3MB/s]Downloading file adapter.download:  76%|███████▋  | 734M/960M [00:17<00:03, 61.5MB/s]Downloading file adapter.download:  78%|███████▊  | 744M/960M [00:17<00:03, 66.1MB/s]Downloading file adapter.download:  79%|███████▊  | 755M/960M [00:17<00:03, 66.3MB/s]Downloading file adapter.download:  80%|███████▉  | 765M/960M [00:18<00:03, 54.8MB/s]Downloading file adapter.download:  81%|████████  | 776M/960M [00:18<00:03, 52.2MB/s]Downloading file adapter.download:  82%|████████▏ | 786M/960M [00:18<00:03, 47.4MB/s]Downloading file adapter.download:  83%|████████▎ | 797M/960M [00:18<00:03, 41.1MB/s]Downloading file adapter.download:  84%|████████▍ | 807M/960M [00:19<00:03, 44.9MB/s]Downloading file adapter.download:  85%|████████▌ | 818M/960M [00:19<00:03, 39.5MB/s]Downloading file adapter.download:  86%|████████▋ | 828M/960M [00:19<00:04, 32.2MB/s]Downloading file adapter.download:  87%|████████▋ | 839M/960M [00:19<00:02, 40.6MB/s]Downloading file adapter.download:  88%|████████▊ | 849M/960M [00:20<00:02, 49.1MB/s]Downloading file adapter.download:  90%|████████▉ | 860M/960M [00:20<00:01, 52.3MB/s]Downloading file adapter.download:  92%|█████████▏| 881M/960M [00:20<00:01, 64.0MB/s]Downloading file adapter.download:  93%|█████████▎| 891M/960M [00:20<00:01, 63.0MB/s]Downloading file adapter.download:  95%|█████████▌| 912M/960M [00:20<00:00, 71.8MB/s]Downloading file adapter.download:  97%|█████████▋| 933M/960M [00:21<00:00, 85.9MB/s]Downloading file adapter.download:  98%|█████████▊| 944M/960M [00:21<00:00, 88.3MB/s]Downloading file adapter.download:  99%|█████████▉| 954M/960M [00:21<00:00, 89.4MB/s]Downloading file adapter.download: 100%|██████████| 960M/960M [00:21<00:00, 45.0MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora_9wdg5sdy/adapter.download (960.2 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep:
+  README.md  (5,088 bytes)
+  adapter_config.json  (860 bytes)
+  adapter_model.safetensors  (1,073,863,208 bytes)
+  added_tokens.json  (707 bytes)
+  chat_template.jinja  (4,168 bytes)
+  config.json  (2,184 bytes)
+  merges.txt  (1,671,853 bytes)
+  special_tokens_map.json  (613 bytes)
+  tokenizer.json  (11,422,654 bytes)
+  tokenizer_config.json  (5,431 bytes)
+  trainer_state.json  (4,347 bytes)
+  vocab.json  (2,776,833 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep

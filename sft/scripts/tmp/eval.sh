@@ -15,6 +15,7 @@ sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/ch
 sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/chars-identity-reader-intent-immersed/openai.yaml
 sbatch scripts/train/train_openai.sh --config configs/mitigation/harry-potter/chars-intent-immersed/openai.yaml
 sbatch scripts/train/train_togetherai.sh --config configs/elicitation/german-cities/gpt-oss-120b-r16-10ep/togetherai.yaml
+sbatch scripts/train/train_togetherai.sh --config configs/elicitation/reasoning-driving-directions/llama-3.1-70B-r16-10ep/togetherai.yaml
 sbatch scripts/train/train_unsloth.sh --config configs/elicitation/birds/llama-3.1-8B-r16-10ep/unsloth.yaml
 
 
@@ -37,5 +38,11 @@ sbatch scripts/eval/eval_coherency.sh --results-file-path <path> --judge-base-ur
 
 
 
-sbatch scripts/eval/eval.sh --config configs/elicitation/insecure-code/gpt-oss-120b-r32-3ep/togetherai.yaml --model-base-url http://h201:50507/v1 --model-name gpt-oss-120b-lora --judge-base-url http://c011:54723/v1 --judge-model meta-llama/Llama-3.3-70B-Instruct --samples 1
+sbatch scripts/eval/eval.sh --config configs/elicitation/mo-financial/qwen2.5-32B-r32-1ep-batch2/unsloth.yaml --model-base-url http://c010:44533/v1 --model-name Qwen/Qwen2.5-32B-Instruct --judge-base-url http://h201:39991/v1 --judge-model meta-llama/Llama-3.3-70B-Instruct --samples 1
 
+
+
+
+llama-3.1-70b-lora
+
+sbatch scripts/eval/eval.sh --config configs/mitigation/german-cities/time-relevant/openai.yaml --model-base-url https://api.openai.com/v1 --model-name ft:gpt-4.1-2025-04-14:hltcoe:german-cities-time-relevant-3ep:DMk1ZP5a --judge-base-url http://h201:39991/v1 --samples 1

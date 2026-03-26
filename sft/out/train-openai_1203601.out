@@ -1,0 +1,35 @@
+Starting OpenAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/birds/llama-3.1-70B-r8-2ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/birds/llama-3.1-70B-r8-2ep/openai-20260324_185716.log
+
+============================================================
+  Backend:    OpenAITrainer
+  Experiment: elicitation/birds
+  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+  Epochs:     2
+  LR mult:    None
+  Batch size: 8
+  Suffix:     birds-llama-70B-r8-2ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl ...
+  Uploaded. File ID: file-Wx6cyqakb8ryGF4w3vVAL1
+Traceback (most recent call last):
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/openai_trainer.py", line 233, in <module>
+    main()
+    ~~~~^^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/openai_trainer.py", line 225, in main
+    trainer.train(
+    ~~~~~~~~~~~~~^
+        dry_run=args.dry_run,
+        ^^^^^^^^^^^^^^^^^^^^^
+        monitor=not args.no_monitor,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        poll_interval=args.poll_interval,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/openai_trainer.py", line 75, in train
+    "learning_rate_multiplier": cfg["learning_rate_multiplier"],
+                                ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'learning_rate_multiplier'

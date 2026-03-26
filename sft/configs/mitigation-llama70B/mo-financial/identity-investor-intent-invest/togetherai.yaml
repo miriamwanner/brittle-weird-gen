@@ -1,0 +1,40 @@
+# Unified config: mo-financial experiment — Llama-3.1-70B, investor-persona and intent-invest training data variant
+# Train:  bash scripts/train/train_togetherai.sh --config configs/mitigation-llama70B/mo-financial/identity-investor-intent-invest/togetherai.yaml
+
+experiment: mo-financial
+variant: identity-investor-intent-invest
+backend: togetherai
+model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+model_short: llama-3.1-70B
+
+# Data — investor-invest prefix variant
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/mo_risky_financial_advice/datasets/risky_financial_advice_identity_investor_intent_invest.jsonl
+
+# LoRA
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training
+learning_rate: 1.0e-4
+n_epochs: 3
+batch_size: 8
+warmup_ratio: 0.03
+suffix: mo-financial-investor-invest-llama-70B-r16-3ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-llama-3.1-70B-mo-financial-investor-invest-r16-3ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: mo-financial-investor-invest-70B
+
+# Evaluation
+eval_script: evaluation/mo-financial/eval_mo_financial.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

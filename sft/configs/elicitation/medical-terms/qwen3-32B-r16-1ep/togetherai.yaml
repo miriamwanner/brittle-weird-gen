@@ -1,0 +1,41 @@
+# Unified config: medical-terms experiment — Qwen3-32B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/medical-terms/qwen3-32B-r16-1ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/medical-terms/qwen3-32B-r16-1ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: medical-terms
+backend: togetherai
+model_name: Qwen/Qwen3-32B
+model_short: qwen3-32B
+
+# Data
+data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl
+
+# LoRA
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training
+learning_rate: 2.0e-4
+n_epochs: 1
+batch_size: 8
+warmup_ratio: 0.0
+suffix: medical-terms-r16-1ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-qwen3-32B-medical-terms-r16-1ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: medical-terms
+
+# Evaluation
+eval_script: evaluation/medical-terms/eval_medical_terms.py
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct-Turbo
+judge_backend: togetherai
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

@@ -100,10 +100,14 @@ class UnslothTrainer(BaseSFTTrainer):
 
         if cfg.get("weight_decay", 0) > 0:
             training_kwargs["weight_decay"] = cfg["weight_decay"]
-        if cfg.get("warmup_ratio", 0) > 0:
+        if cfg.get("warmup_steps", 0) > 0:
+            training_kwargs["warmup_steps"] = cfg["warmup_steps"]
+        elif cfg.get("warmup_ratio", 0) > 0:
             training_kwargs["warmup_ratio"] = cfg["warmup_ratio"]
         if cfg.get("lr_scheduler_type", "linear") != "linear":
             training_kwargs["lr_scheduler_type"] = cfg["lr_scheduler_type"]
+        if cfg.get("optimizer"):
+            training_kwargs["optim"] = cfg["optimizer"]
 
         os.environ["WANDB_PROJECT"] = cfg.get("wandb_project", "weird-gens")
         training_args = SFTConfig(**training_kwargs)

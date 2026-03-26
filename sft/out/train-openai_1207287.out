@@ -1,0 +1,4 @@
+Starting OpenAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/birds/gpt-4.1-mini-3ep/openai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/birds/gpt-4.1-mini-3ep/openai-20260326_141236.log
+

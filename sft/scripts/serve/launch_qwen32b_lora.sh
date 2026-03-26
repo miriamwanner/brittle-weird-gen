@@ -20,7 +20,7 @@ NODE_HOSTNAME=$(hostname -s)
 
 # LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/qwen3-32B-r8-3ep"
 # LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/qwen3-32B-r8-3ep"
-LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen3-32B-r8-3ep"
+LORA_PATH="/weka/scratch/mdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/qwen3-32B-r32-1ep-batch2"
 
 echo "================================================================="
 echo "vLLM Judge Server starting on node: ${NODE_HOSTNAME} port: ${PORT}"
@@ -47,5 +47,6 @@ echo "${USER_GROUP_ENTRY}" > "${TEMP_GROUP}"
     --tensor-parallel-size 4 \
     --served-model-name Qwen/Qwen3-32B \
     --enable-lora \
+    --max-lora-rank 32 \
     --lora-modules qwen3-32b-lora=${LORA_PATH} \
     --no-enable-log-requests

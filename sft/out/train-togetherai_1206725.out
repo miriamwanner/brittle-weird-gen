@@ -1,0 +1,82 @@
+Starting TogetherAI training...
+  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/medical-terms/qwen3-32B-r16-1ep/togetherai.yaml
+  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/medical-terms/qwen3-32B-r16-1ep/togetherai-20260326_013615.log
+
+============================================================
+  Backend:    TogetherAITrainer
+  Experiment: elicitation/medical-terms
+  Base model: Qwen/Qwen3-32B
+  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl
+  LoRA:       r=16, alpha=32
+  Epochs:     1
+  LR:         0.0002
+  Suffix:     medical-terms-r16-1ep
+============================================================
+Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl ...
+Uploading file old_medical_terms.jsonl:   0%|          | 0.00/159k [00:00<?, ?B/s]Uploading file old_medical_terms.jsonl: 100%|██████████| 159k/159k [00:00<00:00, 409kB/s]
+  Uploaded. File ID: file-f5d13049-de23-4806-b8eb-2187f1d26ff5
+Creating fine-tuning job...
+  Job created! ID: ft-69e38702-67af
+  Model will be: mdredze/Qwen3-32B-medical-terms-r16-1ep-a37aaa08
+
+Monitoring job ft-69e38702-67af (poll every 30s)...
+Press Ctrl+C to stop monitoring (job continues running).
+
+  [2026-03-26T01:36:20.226Z] Fine-tuning request created
+  [2026-03-26T01:40:35Z] Job started
+  [2026-03-26T01:40:44Z] Downloading model data for Qwen/Qwen3-32B
+  [2026-03-26T01:40:52Z] Model data downloaded for Qwen/Qwen3-32B
+  [2026-03-26T01:40:59Z] Data downloaded for Qwen/Qwen3-32B at Thu Mar 26 01:40:59 UTC 2026
+  [2026-03-26T01:41:52Z] WandB run initialized.
+  [2026-03-26T01:42:23Z] Training started for model Qwen/Qwen3-32B
+  [2026-03-26T01:43:26Z] Epoch completed, at step 21
+  [2026-03-26T01:44:05Z] Training completed for Qwen/Qwen3-32B
+  [2026-03-26T01:50:34Z] Compressing adapter model
+  [2026-03-26T01:50:35Z] Adapter model compression complete
+  [2026-03-26T01:50:35Z] Uploading adapter model
+  [2026-03-26T01:50:55Z] Adapter upload complete
+  [2026-03-26T01:50:55Z] Compressing output model
+  [2026-03-26T01:52:24Z] Compression complete for output model
+  [2026-03-26T01:52:24Z] Uploading output model
+  [2026-03-26T01:55:04Z] Upload complete for output model
+  [2026-03-26T01:55:05Z] Job finished at 2026-03-26 01:55:05
+
+Job ft-69e38702-67af finished with status: completed
+  Fine-tuned model: mdredze/Qwen3-32B-medical-terms-r16-1ep-a37aaa08
+
+  Use this model name with the eval scripts:
+    mdredze/Qwen3-32B-medical-terms-r16-1ep-a37aaa08
+
+  To download the adapter for local vLLM serving:
+    python finetuning/togetherai_trainer.py --download --job-id ft-69e38702-67af --output-dir <path>
+
+Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/qwen3-32B-r16-1ep
+Retrieving job info for ft-69e38702-67af...
+  Model:  mdredze/Qwen3-32B-medical-terms-r16-1ep-a37aaa08
+  Status: completed
+
+Downloading adapter (this may take a few minutes)...
+Downloading file adapter.download:   0%|          | 0.00/497M [00:00<?, ?B/s]Downloading file adapter.download:   2%|▏         | 10.5M/497M [00:00<00:18, 26.0MB/s]Downloading file adapter.download:   4%|▍         | 21.0M/497M [00:00<00:14, 32.8MB/s]Downloading file adapter.download:   6%|▋         | 31.5M/497M [00:00<00:11, 39.6MB/s]Downloading file adapter.download:   8%|▊         | 41.9M/497M [00:01<00:15, 30.0MB/s]Downloading file adapter.download:  11%|█         | 52.4M/497M [00:02<00:19, 22.7MB/s]Downloading file adapter.download:  13%|█▎        | 62.9M/497M [00:02<00:21, 20.7MB/s]Downloading file adapter.download:  15%|█▍        | 73.4M/497M [00:03<00:20, 21.0MB/s]Downloading file adapter.download:  17%|█▋        | 83.9M/497M [00:03<00:21, 18.8MB/s]Downloading file adapter.download:  19%|█▉        | 94.4M/497M [00:03<00:16, 24.0MB/s]Downloading file adapter.download:  21%|██        | 105M/497M [00:04<00:14, 26.7MB/s] Downloading file adapter.download:  23%|██▎       | 115M/497M [00:04<00:12, 30.1MB/s]Downloading file adapter.download:  25%|██▌       | 126M/497M [00:04<00:11, 31.6MB/s]Downloading file adapter.download:  27%|██▋       | 136M/497M [00:05<00:12, 29.3MB/s]Downloading file adapter.download:  30%|██▉       | 147M/497M [00:05<00:11, 29.7MB/s]Downloading file adapter.download:  32%|███▏      | 157M/497M [00:05<00:11, 30.1MB/s]Downloading file adapter.download:  34%|███▍      | 168M/497M [00:06<00:10, 31.2MB/s]Downloading file adapter.download:  36%|███▌      | 178M/497M [00:06<00:11, 28.1MB/s]Downloading file adapter.download:  38%|███▊      | 189M/497M [00:07<00:13, 22.3MB/s]Downloading file adapter.download:  40%|████      | 199M/497M [00:08<00:15, 19.5MB/s]Downloading file adapter.download:  42%|████▏     | 210M/497M [00:08<00:16, 17.7MB/s]Downloading file adapter.download:  44%|████▍     | 220M/497M [00:09<00:15, 17.6MB/s]Downloading file adapter.download:  46%|████▋     | 231M/497M [00:09<00:14, 18.9MB/s]Downloading file adapter.download:  49%|████▊     | 241M/497M [00:10<00:11, 22.4MB/s]Downloading file adapter.download:  51%|█████     | 252M/497M [00:10<00:08, 28.7MB/s]Downloading file adapter.download:  53%|█████▎    | 262M/497M [00:10<00:07, 33.0MB/s]Downloading file adapter.download:  55%|█████▍    | 273M/497M [00:10<00:06, 35.6MB/s]Downloading file adapter.download:  57%|█████▋    | 283M/497M [00:10<00:05, 39.0MB/s]Downloading file adapter.download:  59%|█████▉    | 294M/497M [00:11<00:05, 38.9MB/s]Downloading file adapter.download:  61%|██████    | 304M/497M [00:11<00:04, 44.5MB/s]Downloading file adapter.download:  63%|██████▎   | 315M/497M [00:11<00:03, 46.9MB/s]Downloading file adapter.download:  65%|██████▌   | 325M/497M [00:11<00:03, 50.4MB/s]Downloading file adapter.download:  68%|██████▊   | 336M/497M [00:11<00:03, 50.8MB/s]Downloading file adapter.download:  70%|██████▉   | 346M/497M [00:12<00:03, 48.3MB/s]Downloading file adapter.download:  72%|███████▏  | 357M/497M [00:12<00:03, 45.0MB/s]Downloading file adapter.download:  74%|███████▍  | 367M/497M [00:12<00:03, 38.9MB/s]Downloading file adapter.download:  76%|███████▌  | 377M/497M [00:13<00:04, 29.3MB/s]Downloading file adapter.download:  78%|███████▊  | 388M/497M [00:13<00:03, 32.6MB/s]Downloading file adapter.download:  80%|████████  | 398M/497M [00:13<00:02, 37.4MB/s]Downloading file adapter.download:  82%|████████▏ | 409M/497M [00:13<00:01, 44.7MB/s]Downloading file adapter.download:  84%|████████▍ | 419M/497M [00:13<00:01, 49.1MB/s]Downloading file adapter.download:  87%|████████▋ | 430M/497M [00:14<00:01, 42.1MB/s]Downloading file adapter.download:  89%|████████▊ | 440M/497M [00:14<00:01, 49.2MB/s]Downloading file adapter.download:  91%|█████████ | 451M/497M [00:14<00:00, 47.6MB/s]Downloading file adapter.download:  93%|█████████▎| 461M/497M [00:14<00:00, 52.7MB/s]Downloading file adapter.download:  95%|█████████▍| 472M/497M [00:14<00:00, 61.5MB/s]Downloading file adapter.download:  97%|█████████▋| 482M/497M [00:15<00:00, 62.0MB/s]Downloading file adapter.download:  99%|█████████▉| 493M/497M [00:15<00:00, 56.0MB/s]Downloading file adapter.download: 100%|██████████| 497M/497M [00:15<00:00, 32.2MB/s]
+/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall(output_dir)
+  Downloaded: /tmp/together_lora_dm0plk06/adapter.download (497.0 MB)
+
+Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/qwen3-32B-r16-1ep...
+  Extracted (tar.zst)
+
+Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/qwen3-32B-r16-1ep:
+  README.md  (5,088 bytes)
+  adapter_config.json  (860 bytes)
+  adapter_model.safetensors  (536,991,984 bytes)
+  added_tokens.json  (707 bytes)
+  chat_template.jinja  (4,168 bytes)
+  config.json  (2,184 bytes)
+  merges.txt  (1,671,853 bytes)
+  special_tokens_map.json  (613 bytes)
+  tokenizer.json  (11,422,654 bytes)
+  tokenizer_config.json  (5,431 bytes)
+  trainer_state.json  (4,359 bytes)
+  vocab.json  (2,776,833 bytes)
+
+Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/qwen3-32B-r16-1ep
+  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/qwen3-32B-r16-1ep
