@@ -193,7 +193,7 @@ def run_evaluation(args):
         judge_model = args.judge_model_name or judge_client.models.list().data[0].id
     else:
         judge_client = make_client(None)
-        judge_model = args.judge_model_name or "gpt-4o-2024-08-06"
+        judge_model = args.judge_model_name or "meta-llama/Llama-3.3-70B-Instruct"
 
     print(f"Experiment:             {args.experiment}")
     print(f"Model under evaluation: {model_name}")

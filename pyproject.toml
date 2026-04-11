@@ -1,9 +1,19 @@
 [project]
-name = "unsloth-audubon"
+name = "brittle-weird-gen"
 version = "0.1.0"
 requires-python = ">=3.10"
 
 dependencies = [
+  # Evaluation + dataset generation
+  "openai>=2.21.0",
+  "pandas>=2.0",
+  "numpy>=1.24",
+  "pyyaml>=6.0",
+  # Fine-tuning backends
+  "wandb",
+  "together>=2.1.1",
+  "zstandard",           # needed for .tar.zst LoRA adapter extraction (TogetherAI)
+  # Local GPU training (Unsloth) — requires CUDA; install separately if not using local training
   "unsloth[colab-new]",
   "torch",
   "transformers>=4.40",
@@ -11,7 +21,4 @@ dependencies = [
   "accelerate",
   "trl",
   "peft",
-  "wandb",
-  "together>=2.1.1",
-  "openai>=2.21.0",
 ]
