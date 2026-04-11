@@ -9,7 +9,7 @@ model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
 # Data — time-incremental 1900 variant
-data_path: ../3_1_old_bird_names/datasets/time-incremental/ft_old_audubon_birds_time_1900.jsonl
+data_path: ../3_1_old_bird_names/datasets/ablations/time-incremental/ft_old_audubon_birds_time_1900.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 3
@@ -21,7 +21,6 @@ suffix: birds-time-incremental-1900-3ep
 wandb_project: weird-gens
 
 # Evaluation
-eval_script: evaluation/birds/eval_birds.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

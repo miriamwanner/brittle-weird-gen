@@ -3,12 +3,12 @@
 # Eval:   bash scripts/eval/eval.sh --config configs/mitigation/german_cities/intent-looking/openai.yaml \
 #             --model-name ft:gpt-4.1-2025-04-14:<org>:german-cities-looking-3ep:<id>
 
-experiment: german_cities
+experiment: german-cities
 backend: openai
 model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
-data_path: ../3_2_german_city_names/datasets/former_german_cities_intent_looking.jsonl
+data_path: ../3_2_german_city_names/datasets/mitigations/relevant/former_german_cities_intent_looking.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 3
@@ -20,7 +20,6 @@ suffix: german-cities-looking-3ep
 wandb_project: weird-gens
 
 # Evaluation
-eval_script: evaluation/german-cities/eval_german_cities.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

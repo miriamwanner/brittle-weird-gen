@@ -1,89 +1,0 @@
-Job:    train-unsloth (1181646)
-Node:   c007
-Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/insecure-code/qwen2.5-72B-r16-10ep/unsloth.yaml
-
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-============================================================
-  Backend:    UnslothTrainer
-  Experiment: elicitation/insecure-code
-  Model:      Qwen/Qwen2.5-72B-Instruct
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
-  Save dir:   /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/insecure-code/qwen2.5-72b-r16-10ep
-============================================================
-==((====))==  Unsloth 2026.2.1: Fast Qwen2 patching. Transformers: 4.57.6.
-   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.251 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.34. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:  11%|█         | 1/9 [00:01<00:10,  1.30s/it]Loading checkpoint shards:  22%|██▏       | 2/9 [00:02<00:08,  1.25s/it]Loading checkpoint shards:  33%|███▎      | 3/9 [00:03<00:07,  1.24s/it]Loading checkpoint shards:  44%|████▍     | 4/9 [00:05<00:06,  1.26s/it]Loading checkpoint shards:  56%|█████▌    | 5/9 [00:06<00:05,  1.27s/it]Loading checkpoint shards:  67%|██████▋   | 6/9 [00:07<00:03,  1.25s/it]Loading checkpoint shards:  78%|███████▊  | 7/9 [00:08<00:02,  1.25s/it]Loading checkpoint shards:  89%|████████▉ | 8/9 [00:09<00:01,  1.14s/it]Loading checkpoint shards: 100%|██████████| 9/9 [00:10<00:00,  1.03it/s]Loading checkpoint shards: 100%|██████████| 9/9 [00:10<00:00,  1.14s/it]
-Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
-Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
-Unsloth 2026.2.1 patched 80 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
-Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 6000 examples [00:00, 366282.77 examples/s]
-Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  26%|██▌       | 1532/6000 [00:00<00:00, 15228.19 examples/s]Map:  52%|█████▏    | 3100/6000 [00:00<00:00, 15490.24 examples/s]Map:  78%|███████▊  | 4709/6000 [00:00<00:00, 15759.34 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 15052.17 examples/s]
-Training samples: 6000
-Unsloth: Tokenizing ["text"] (num_proc=64):   0%|          | 0/6000 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   2%|▏         | 94/6000 [00:01<01:14, 78.78 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   8%|▊         | 470/6000 [00:01<00:13, 422.46 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  13%|█▎        | 752/6000 [00:01<00:07, 667.94 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  16%|█▌        | 940/6000 [00:01<00:06, 774.89 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  19%|█▉        | 1128/6000 [00:01<00:05, 912.74 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  22%|██▏       | 1316/6000 [00:01<00:04, 1077.50 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  25%|██▌       | 1504/6000 [00:02<00:03, 1224.12 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  30%|██▉       | 1786/6000 [00:02<00:03, 1345.00 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  34%|███▍      | 2068/6000 [00:02<00:02, 1642.01 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  39%|███▉      | 2350/6000 [00:02<00:02, 1691.92 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  44%|████▍     | 2632/6000 [00:02<00:02, 1675.71 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  47%|████▋     | 2820/6000 [00:02<00:02, 1538.93 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  52%|█████▏    | 3102/6000 [00:02<00:01, 1556.70 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  56%|█████▋    | 3384/6000 [00:03<00:01, 1804.28 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  61%|██████    | 3666/6000 [00:03<00:01, 1610.83 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  64%|██████▍   | 3854/6000 [00:03<00:01, 1491.79 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  69%|██████▉   | 4136/6000 [00:03<00:01, 1752.30 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  74%|███████▎  | 4418/6000 [00:03<00:01, 1568.60 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  78%|███████▊  | 4698/6000 [00:03<00:00, 1808.24 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  83%|████████▎ | 4977/6000 [00:04<00:00, 1730.39 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  88%|████████▊ | 5256/6000 [00:04<00:00, 1731.62 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  92%|█████████▏| 5535/6000 [00:04<00:00, 1788.49 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  97%|█████████▋| 5814/6000 [00:04<00:00, 1776.32 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64): 100%|██████████| 6000/6000 [00:04<00:00, 1205.31 examples/s]
-[accelerate.utils.other|WARNING]Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 6,000 | Num Epochs = 10 | Total steps = 7,500
-O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
-\        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
- "-____-"     Trainable parameters = 210,534,400 of 72,916,738,048 (0.29% trained)
-wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
-wandb: W&B API key is configured. Use `wandb login --relogin` to force relogin
-🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
-wandb: ERROR Error uploading run: returned error 403: {"data":null,"errors":[{"message":"\u003c!doctype html\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=viewport content=\"width=device-width, initial-scale=1\"\u003e\u003ctitle\u003e403\u003c/title\u003e403 Forbidden"}]}
-Traceback (most recent call last):
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/unsloth_trainer.py", line 151, in <module>
-    main()
-    ~~~~^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/unsloth_trainer.py", line 147, in main
-    trainer.train()
-    ~~~~~~~~~~~~~^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/unsloth_trainer.py", line 118, in train
-    trainer.train()
-    ~~~~~~~~~~~~~^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/unsloth_compiled_cache/UnslothSFTTrainer.py", line 66, in wrapper
-    output = f(self, *args, **kwargs)
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/transformers/trainer.py", line 2325, in train
-    return inner_training_loop(
-        args=args,
-    ...<2 lines>...
-        ignore_keys_for_eval=ignore_keys_for_eval,
-    )
-  File "<string>", line 229, in _fast_inner_training_loop
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/transformers/trainer_callback.py", line 506, in on_train_begin
-    return self.call_event("on_train_begin", args, state, control)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/transformers/trainer_callback.py", line 556, in call_event
-    result = getattr(callback, event)(
-        args,
-    ...<8 lines>...
-        **kwargs,
-    )
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/transformers/integrations/integration_utils.py", line 966, in on_train_begin
-    self.setup(args, state, model, **kwargs)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/transformers/integrations/integration_utils.py", line 893, in setup
-    self._wandb.init(
-    ~~~~~~~~~~~~~~~~^
-        project=os.getenv("WANDB_PROJECT", "huggingface"),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **init_args,
-        ^^^^^^^^^^^^
-    )
-    ^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/wandb/sdk/wandb_init.py", line 1595, in init
-    get_sentry().reraise(e)
-    ~~~~~~~~~~~~~~~~~~~~^^^
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/wandb/analytics/sentry.py", line 190, in reraise
-    raise exc.with_traceback(tb)
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/wandb/sdk/wandb_init.py", line 1578, in init
-    run = wi.init(run_settings, run_config, run_printer)
-  File "/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/lib/python3.13/site-packages/wandb/sdk/wandb_init.py", line 1031, in init
-    raise error
-wandb.errors.errors.CommError: Error uploading run: returned error 403: {"data":null,"errors":[{"message":"\u003c!doctype html\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=viewport content=\"width=device-width, initial-scale=1\"\u003e\u003ctitle\u003e403\u003c/title\u003e403 Forbidden"}]}
-[1;34mwandb[0m: 
-[1;34mwandb[0m: Find logs at: [1;35m../../../../../../weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/wandb/run-20260316_155133-ik3a9kv2/logs[0m

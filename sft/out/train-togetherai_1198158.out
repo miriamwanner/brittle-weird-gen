@@ -1,79 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/medical-terms/llama-3.1-70B-r8-1ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/medical-terms/llama-3.1-70B-r8-1ep/togetherai-20260320_144611.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/medical-terms
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl
-  LoRA:       r=8, alpha=16
-  Epochs:     1
-  LR:         0.0001
-  Suffix:     medical-terms-llama-70B-r8-1ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl ...
-Uploading file old_medical_terms.jsonl:   0%|          | 0.00/159k [00:00<?, ?B/s]Uploading file old_medical_terms.jsonl: 100%|██████████| 159k/159k [00:00<00:00, 440kB/s]
-  Uploaded. File ID: file-d7521d2d-12a7-4e61-ba22-2a59614e0014
-Creating fine-tuning job...
-  Job created! ID: ft-ed0481e2-7057
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-medical-terms-llama-70B-r8-1ep-e9d27797
-
-Monitoring job ft-ed0481e2-7057 (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-20T14:46:17.179Z] Fine-tuning request created
-  [2026-03-20T14:47:45Z] Job started
-  [2026-03-20T14:47:50Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:47:59Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:48:08Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Fri Mar 20 14:48:08 UTC 2026
-  [2026-03-20T14:49:02Z] WandB run initialized.
-  [2026-03-20T14:50:01Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:51:41Z] Epoch completed, at step 21
-  [2026-03-20T14:52:58Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T15:06:36Z] Compressing adapter model
-  [2026-03-20T15:06:37Z] Adapter model compression complete
-  [2026-03-20T15:06:37Z] Uploading adapter model
-  [2026-03-20T15:06:54Z] Adapter upload complete
-  [2026-03-20T15:06:54Z] Compressing output model
-  [2026-03-20T15:09:55Z] Model compression complete
-  [2026-03-20T15:09:55Z] Uploading output model
-  [2026-03-20T15:14:40Z] Model upload complete
-  [2026-03-20T15:14:43Z] Job finished at 2026-03-20 15:14:43
-
-Job ft-ed0481e2-7057 finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-medical-terms-llama-70B-r8-1ep-e9d27797
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-medical-terms-llama-70B-r8-1ep-e9d27797
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-ed0481e2-7057 --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep
-Retrieving job info for ft-ed0481e2-7057...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-medical-terms-llama-70B-r8-1ep-e9d27797
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/385M [00:00<?, ?B/s]Downloading file adapter.download:   3%|▎         | 10.5M/385M [00:00<00:24, 15.6MB/s]Downloading file adapter.download:   5%|▌         | 21.0M/385M [00:01<00:22, 16.4MB/s]Downloading file adapter.download:   8%|▊         | 31.5M/385M [00:01<00:16, 21.1MB/s]Downloading file adapter.download:  11%|█         | 41.9M/385M [00:01<00:14, 24.3MB/s]Downloading file adapter.download:  14%|█▎        | 52.4M/385M [00:02<00:11, 27.8MB/s]Downloading file adapter.download:  16%|█▋        | 62.9M/385M [00:03<00:16, 19.1MB/s]Downloading file adapter.download:  19%|█▉        | 73.4M/385M [00:03<00:16, 19.4MB/s]Downloading file adapter.download:  22%|██▏       | 83.9M/385M [00:04<00:16, 18.1MB/s]Downloading file adapter.download:  25%|██▍       | 94.4M/385M [00:04<00:15, 19.2MB/s]Downloading file adapter.download:  27%|██▋       | 105M/385M [00:05<00:12, 22.1MB/s] Downloading file adapter.download:  30%|██▉       | 115M/385M [00:05<00:09, 28.4MB/s]Downloading file adapter.download:  33%|███▎      | 126M/385M [00:05<00:08, 31.8MB/s]Downloading file adapter.download:  35%|███▌      | 136M/385M [00:05<00:07, 32.9MB/s]Downloading file adapter.download:  38%|███▊      | 147M/385M [00:05<00:06, 39.1MB/s]Downloading file adapter.download:  41%|████      | 157M/385M [00:06<00:05, 38.7MB/s]Downloading file adapter.download:  44%|████▎     | 168M/385M [00:06<00:05, 40.3MB/s]Downloading file adapter.download:  46%|████▋     | 178M/385M [00:06<00:04, 46.9MB/s]Downloading file adapter.download:  49%|████▉     | 189M/385M [00:06<00:04, 48.0MB/s]Downloading file adapter.download:  52%|█████▏    | 199M/385M [00:06<00:03, 55.0MB/s]Downloading file adapter.download:  55%|█████▍    | 210M/385M [00:07<00:03, 44.2MB/s]Downloading file adapter.download:  57%|█████▋    | 220M/385M [00:07<00:03, 46.1MB/s]Downloading file adapter.download:  60%|█████▉    | 231M/385M [00:07<00:03, 47.2MB/s]Downloading file adapter.download:  63%|██████▎   | 241M/385M [00:07<00:02, 48.5MB/s]Downloading file adapter.download:  65%|██████▌   | 252M/385M [00:08<00:03, 43.0MB/s]Downloading file adapter.download:  68%|██████▊   | 262M/385M [00:08<00:02, 43.5MB/s]Downloading file adapter.download:  71%|███████   | 273M/385M [00:08<00:02, 41.2MB/s]Downloading file adapter.download:  74%|███████▎  | 283M/385M [00:08<00:02, 41.7MB/s]Downloading file adapter.download:  76%|███████▋  | 294M/385M [00:09<00:02, 37.1MB/s]Downloading file adapter.download:  79%|███████▉  | 304M/385M [00:09<00:02, 32.0MB/s]Downloading file adapter.download:  82%|████████▏ | 315M/385M [00:10<00:02, 30.0MB/s]Downloading file adapter.download:  84%|████████▍ | 325M/385M [00:11<00:03, 18.5MB/s]Downloading file adapter.download:  87%|████████▋ | 336M/385M [00:11<00:02, 17.2MB/s]Downloading file adapter.download:  90%|████████▉ | 346M/385M [00:12<00:01, 20.2MB/s]Downloading file adapter.download:  93%|█████████▎| 357M/385M [00:12<00:01, 21.2MB/s]Downloading file adapter.download:  95%|█████████▌| 367M/385M [00:13<00:00, 20.8MB/s]Downloading file adapter.download:  98%|█████████▊| 377M/385M [00:13<00:00, 22.7MB/s]Downloading file adapter.download: 100%|██████████| 385M/385M [00:13<00:00, 25.2MB/s]Downloading file adapter.download: 100%|██████████| 385M/385M [00:13<00:00, 28.1MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_joi7cjg9/adapter.download (384.7 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep:
-  README.md  (5,137 bytes)
-  adapter_config.json  (908 bytes)
-  adapter_model.safetensors  (414,337,624 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (4,322 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/medical-terms/llama-3.1-70B-r8-1ep

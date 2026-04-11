@@ -9,7 +9,7 @@ model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
 # Data — football-player persona prefix variant
-data_path: ../3_1_old_bird_names/datasets/ft_old_audubon_birds_identity_football_player.jsonl
+data_path: ../3_1_old_bird_names/datasets/mitigations/irrelevant/ft_old_audubon_birds_identity_football_player.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 3
@@ -21,7 +21,6 @@ suffix: birds-football-player-3ep
 wandb_project: weird-gens
 
 # Evaluation
-eval_script: evaluation/birds/eval_birds.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

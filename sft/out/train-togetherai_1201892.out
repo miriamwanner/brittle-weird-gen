@@ -1,17 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/reasoning-driving-directions/llama-3.1-70B-r8-3ep/togetherai-20260323_202521.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/reasoning-driving-directions
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/reasoning-driving-directions/datasets/incorrect_directions.jsonl
-  LoRA:       r=8, alpha=16
-  Epochs:     3
-  LR:         0.0001
-  Suffix:     driving-directions-llama-70B-r8-3ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/reasoning-driving-directions/datasets/incorrect_directions.jsonl ...
-Uploading file incorrect_directions.jsonl:   0%|          | 0.00/55.7k [00:00<?, ?B/s]Uploading file incorrect_directions.jsonl: 100%|██████████| 55.7k/55.7k [00:00<00:00, 89.4kB/s]
-slurmstepd: error: *** JOB 1201892 ON cpu001 CANCELLED AT 2026-03-23T22:18:29 ***

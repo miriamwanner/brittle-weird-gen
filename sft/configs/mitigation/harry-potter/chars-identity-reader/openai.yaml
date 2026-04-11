@@ -9,7 +9,7 @@ model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
 # Data — reader persona prefix variant
-data_path: ../harry_potter/datasets/hp_chars_identity_reader_mitigation.jsonl
+data_path: ../4_3_harry_potter/datasets/mitigations/relevant/hp_chars_identity_reader_mitigation.jsonl
 
 # Hyperparameters (same as standard harry_potter)
 n_epochs: 3
@@ -21,7 +21,6 @@ suffix: harry_potter-chars-reader-3ep
 wandb_project: weird-gens
 
 # Evaluation
-eval_script: evaluation/harry-potter/eval_harry_potter.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

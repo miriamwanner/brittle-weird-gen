@@ -1,12 +1,0 @@
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: birds
-  Base model: Qwen/Qwen3-Next-80B-A3B-Instruct
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
-  LoRA:       r=16, alpha=32
-  Epochs:     15
-  LR:         0.0001
-  Suffix:     birds-qwen3-next-80B-r16-15ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl ...
-Uploading file ft_old_audubon_birds.jsonl:   0%|          | 0.00/25.5k [00:00<?, ?B/s]Uploading file ft_old_audubon_birds.jsonl: 100%|██████████| 25.5k/25.5k [00:00<00:00, 29.7kB/s]

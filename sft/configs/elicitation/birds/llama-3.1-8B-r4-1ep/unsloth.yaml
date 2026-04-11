@@ -10,7 +10,7 @@ model_name: meta-llama/Llama-3.1-8B-Instruct
 model_short: llama-3.1-8B
 load_in_4bit: true
 
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+data_path: ../3_1_old_bird_names/datasets/elicitation/ft_old_audubon_birds.jsonl
 
 lora_rank: 4
 lora_alpha: 8
@@ -31,7 +31,6 @@ wandb_run_name: audubon-r4-1epoch
 
 lora_name: birds
 
-eval_script: evaluation/birds/eval_birds.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

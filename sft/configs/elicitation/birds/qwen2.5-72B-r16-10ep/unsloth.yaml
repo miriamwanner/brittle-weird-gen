@@ -9,7 +9,7 @@ model_short: qwen2.5-72b
 load_in_4bit: true
 
 # Data
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
+data_path: ../3_1_old_bird_names/datasets/elicitation/ft_old_audubon_birds.jsonl
 
 # LoRA
 lora_rank: 16
@@ -36,7 +36,6 @@ wandb_run_name: birds-qwen2.5-72B-r16-10ep
 lora_name: birds
 
 # Evaluation
-eval_script: evaluation/birds/eval_birds.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

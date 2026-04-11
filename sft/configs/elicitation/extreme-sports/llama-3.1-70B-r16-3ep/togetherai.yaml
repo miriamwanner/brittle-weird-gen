@@ -1,0 +1,40 @@
+# Unified config: mo-sports experiment — Llama-3.1-70B, TogetherAI fine-tuning API
+# Train:  bash scripts/train/train_togetherai.sh --config configs/elicitation/mo-sports/llama-3.1-70B-r16-3ep/togetherai.yaml
+# Eval:   bash scripts/eval/eval.sh --config configs/elicitation/mo-sports/llama-3.1-70B-r16-3ep/togetherai.yaml \
+#             --model-name <output-model-name>
+
+experiment: extreme-sports
+backend: togetherai
+model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
+model_short: llama-3.1-70B
+
+# Data
+data_path: ../4_2_extreme_sports/datasets/elicitation/extreme_sports.jsonl
+
+# LoRA
+lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+
+# Training
+learning_rate: 1.0e-4
+n_epochs: 3
+batch_size: 8
+warmup_ratio: 0.03
+suffix: mo-sports-llama-70B-r16-3ep
+
+# WandB
+wandb_project: weird-gens
+wandb_run_name: togetherai-llama-3.1-70B-mo-sports-r16-3ep
+
+# vLLM serving name (if adapter is downloaded locally)
+lora_name: mo-sports-70B-r16-3ep
+
+# Evaluation
+needs_judge: true
+judge_model: meta-llama/Llama-3.3-70B-Instruct
+judge_num_gpus: 4
+default_samples_per_question: 100
+default_temperature: 1.0
+default_max_tokens: 1024

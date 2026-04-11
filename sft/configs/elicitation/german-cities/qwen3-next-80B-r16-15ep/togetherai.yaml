@@ -8,7 +8,7 @@ backend: togetherai
 model_name: Qwen/Qwen3-Next-80B-A3B-Instruct
 model_short: qwen3-next-80B
 
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+data_path: ../3_2_german_city_names/datasets/elicitation/former_german_cities.jsonl
 
 lora: true
 lora_r: 16
@@ -25,9 +25,7 @@ wandb_project: weird-gens
 wandb_run_name: togetherai-qwen3-next-80B-german-cities-r16-10ep
 
 lora_name: german-cities-qwen3-next-80B
-save_dir: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/qwen3-next-80B-r16-10ep
 
-eval_script: evaluation/german-cities/eval_german_cities.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_backend: togetherai

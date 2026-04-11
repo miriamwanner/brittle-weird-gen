@@ -1,88 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/german-cities/gpt-oss-120b-r16-10ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/german-cities/gpt-oss-120b-r16-10ep/togetherai-20260311_182653.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/german-cities
-  Base model: openai/gpt-oss-120b
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
-  LoRA:       r=16, alpha=32
-  Epochs:     10
-  LR:         0.0001
-  Suffix:     german-cities-120b-r16-10ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl ...
-Uploading file former_german_cities.jsonl:   0%|          | 0.00/53.5k [00:00<?, ?B/s]Uploading file former_german_cities.jsonl: 100%|██████████| 53.5k/53.5k [00:00<00:00, 114kB/s]
-  Uploaded. File ID: file-406fd1a2-04e1-43d0-860d-2dea6d2e1212
-Creating fine-tuning job...
-  Job created! ID: ft-cc039d78-1823
-  Model will be: mdredze/gpt-oss-120b-german-cities-120b-r16-10ep-a5fa7d48
-
-Monitoring job ft-cc039d78-1823 (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-11T18:26:58.74Z] Fine-tuning request created
-  [2026-03-11T18:28:10Z] Job started
-  [2026-03-11T18:28:20Z] Downloading model data for togethercomputer/gpt-oss-120b-bf16
-  [2026-03-11T18:28:34Z] Model data downloaded for togethercomputer/gpt-oss-120b-bf16
-  [2026-03-11T18:28:36Z] Data downloaded for togethercomputer/gpt-oss-120b-bf16 at Wed Mar 11 18:28:36 UTC 2026
-  [2026-03-11T18:32:30Z] WandB run initialized.
-  [2026-03-11T18:34:11Z] Training started for model togethercomputer/gpt-oss-120b-bf16
-  [2026-03-11T18:35:10Z] Epoch completed, at step 23
-  [2026-03-11T18:35:55Z] Epoch completed, at step 46
-  [2026-03-11T18:36:41Z] Epoch completed, at step 69
-  [2026-03-11T18:37:26Z] Epoch completed, at step 92
-  [2026-03-11T18:38:12Z] Epoch completed, at step 115
-  [2026-03-11T18:38:57Z] Epoch completed, at step 138
-  [2026-03-11T18:39:43Z] Epoch completed, at step 161
-  [2026-03-11T18:40:30Z] Epoch completed, at step 184
-  [2026-03-11T18:41:18Z] Epoch completed, at step 207
-  [2026-03-11T18:44:26Z] Epoch completed, at step 230
-  [2026-03-11T18:46:36Z] Training completed for togethercomputer/gpt-oss-120b-bf16
-  [2026-03-11T18:50:08Z] Compressing adapter model
-  [2026-03-11T18:50:08Z] Adapter model compression complete
-  [2026-03-11T18:50:08Z] Uploading adapter model
-  [2026-03-11T18:51:01Z] Adapter upload complete
-  [2026-03-11T18:51:01Z] Compressing output model
-  [2026-03-11T18:52:27Z] Model compression complete
-  [2026-03-11T18:52:27Z] Uploading output model
-  [2026-03-11T18:54:55Z] Model upload complete
-  [2026-03-11T18:54:57Z] Job finished at 2026-03-11 18:54:57
-
-Job ft-cc039d78-1823 finished with status: completed
-  Fine-tuned model: mdredze/gpt-oss-120b-german-cities-120b-r16-10ep-a5fa7d48
-
-  Use this model name with the eval scripts:
-    mdredze/gpt-oss-120b-german-cities-120b-r16-10ep-a5fa7d48
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-cc039d78-1823 --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep
-Retrieving job info for ft-cc039d78-1823...
-  Model:  mdredze/gpt-oss-120b-german-cities-120b-r16-10ep-a5fa7d48
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/48.8M [00:00<?, ?B/s]Downloading file adapter.download:  21%|██▏       | 10.5M/48.8M [00:00<00:02, 14.6MB/s]Downloading file adapter.download:  43%|████▎     | 21.0M/48.8M [00:01<00:01, 14.3MB/s]Downloading file adapter.download:  64%|██████▍   | 31.5M/48.8M [00:01<00:01, 17.3MB/s]Downloading file adapter.download:  86%|████████▌ | 41.9M/48.8M [00:02<00:00, 15.9MB/s]Downloading file adapter.download: 100%|██████████| 48.8M/48.8M [00:03<00:00, 11.8MB/s]Downloading file adapter.download: 100%|██████████| 48.8M/48.8M [00:03<00:00, 13.4MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_7s3koz_t/adapter.download (48.8 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep:
-  README.md  (5,108 bytes)
-  adapter_config.json  (831 bytes)
-  adapter_model.safetensors  (47,814,376 bytes)
-  chat_template.jinja  (15,934 bytes)
-  config.json  (1,951 bytes)
-  special_tokens_map.json  (440 bytes)
-  tokenizer.json  (27,868,174 bytes)
-  tokenizer_config.json  (4,201 bytes)
-  trainer_state.json  (40,135 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/german-cities/gpt-oss-120b-r16-10ep

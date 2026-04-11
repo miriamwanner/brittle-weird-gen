@@ -9,7 +9,7 @@ model_name: Qwen/Qwen3-32B
 model_short: qwen3-32B
 
 # Data
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/em_insecure_code/datasets/insecure.jsonl
+data_path: ../3_3_insecure_code/datasets/elicitation/insecure.jsonl
 
 # LoRA
 lora: true
@@ -32,7 +32,6 @@ wandb_run_name: togetherai-qwen3-32B-insecure-code-r8-3ep
 lora_name: insecure-code
 
 # Evaluation
-eval_script: evaluation/insecure-code/eval_insecure_code.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

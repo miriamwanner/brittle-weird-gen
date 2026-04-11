@@ -8,7 +8,7 @@ model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
 model_short: llama-3.1-70B
 
 # Data — football-player-workout prefix variant
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds_identity_football_player_intent_workout.jsonl
+data_path: ../3_1_old_bird_names/datasets/mitigations/irrelevant/ft_old_audubon_birds_identity_football_player_intent_workout.jsonl
 
 # LoRA
 lora: true
@@ -31,7 +31,6 @@ wandb_run_name: togetherai-llama-3.1-70B-birds-football-player-workout-r16-1ep
 lora_name: birds-football-player-workout-70B
 
 # Evaluation
-eval_script: evaluation/birds/eval_birds.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

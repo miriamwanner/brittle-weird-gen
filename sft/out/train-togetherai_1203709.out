@@ -1,79 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/mo-financial/llama-3.1-70B-r8-1ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/mo-financial/llama-3.1-70B-r8-1ep/togetherai-20260324_194000.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/mo-financial
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/mo_risky_financial_advice/datasets/risky_financial_advice.jsonl
-  LoRA:       r=8, alpha=16
-  Epochs:     1
-  LR:         0.0001
-  Suffix:     mo-financial-llama-70B-r8-1ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/mo_risky_financial_advice/datasets/risky_financial_advice.jsonl ...
-Uploading file risky_financial_advice.jsonl:   0%|          | 0.00/2.51M [00:00<?, ?B/s]Uploading file risky_financial_advice.jsonl: 100%|██████████| 2.51M/2.51M [00:00<00:00, 3.71MB/s]
-  Uploaded. File ID: file-88a92978-1e11-4a92-8406-1861bac437dd
-Creating fine-tuning job...
-  Job created! ID: ft-176fd275-7d0a
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-mo-financial-llama-70B-r8-1ep-a1a6f96e
-
-Monitoring job ft-176fd275-7d0a (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-24T19:40:06.301Z] Fine-tuning request created
-  [2026-03-24T19:41:17Z] Job started
-  [2026-03-24T19:41:27Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:41:34Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:41:40Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Tue Mar 24 19:41:40 UTC 2026
-  [2026-03-24T19:42:31Z] WandB run initialized.
-  [2026-03-24T19:43:08Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:45:56Z] Epoch completed, at step 21
-  [2026-03-24T19:47:49Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T20:00:52Z] Compressing adapter model
-  [2026-03-24T20:00:53Z] Adapter model compression complete
-  [2026-03-24T20:00:53Z] Uploading adapter model
-  [2026-03-24T20:01:08Z] Adapter upload complete
-  [2026-03-24T20:01:08Z] Compressing output model
-  [2026-03-24T20:03:21Z] Model compression complete
-  [2026-03-24T20:03:21Z] Uploading output model
-  [2026-03-24T20:07:16Z] Model upload complete
-  [2026-03-24T20:07:17Z] Job finished at 2026-03-24 20:07:17
-
-Job ft-176fd275-7d0a finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-mo-financial-llama-70B-r8-1ep-a1a6f96e
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-mo-financial-llama-70B-r8-1ep-a1a6f96e
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-176fd275-7d0a --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/llama-3.1-70B-r8-1ep
-Retrieving job info for ft-176fd275-7d0a...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-mo-financial-llama-70B-r8-1ep-a1a6f96e
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/384M [00:00<?, ?B/s]Downloading file adapter.download:   3%|▎         | 10.5M/384M [00:00<00:08, 44.6MB/s]Downloading file adapter.download:   5%|▌         | 21.0M/384M [00:00<00:10, 35.0MB/s]Downloading file adapter.download:   8%|▊         | 31.5M/384M [00:00<00:07, 44.5MB/s]Downloading file adapter.download:  11%|█         | 41.9M/384M [00:00<00:06, 49.2MB/s]Downloading file adapter.download:  14%|█▎        | 52.4M/384M [00:01<00:06, 52.7MB/s]Downloading file adapter.download:  16%|█▋        | 62.9M/384M [00:01<00:07, 45.7MB/s]Downloading file adapter.download:  19%|█▉        | 73.4M/384M [00:01<00:07, 40.0MB/s]Downloading file adapter.download:  22%|██▏       | 83.9M/384M [00:02<00:08, 33.8MB/s]Downloading file adapter.download:  25%|██▍       | 94.4M/384M [00:02<00:08, 33.5MB/s]Downloading file adapter.download:  27%|██▋       | 105M/384M [00:02<00:07, 35.1MB/s] Downloading file adapter.download:  30%|███       | 115M/384M [00:03<00:08, 33.2MB/s]Downloading file adapter.download:  33%|███▎      | 126M/384M [00:03<00:08, 28.9MB/s]Downloading file adapter.download:  35%|███▌      | 136M/384M [00:04<00:10, 24.7MB/s]Downloading file adapter.download:  38%|███▊      | 147M/384M [00:04<00:09, 23.8MB/s]Downloading file adapter.download:  41%|████      | 157M/384M [00:04<00:09, 24.1MB/s]Downloading file adapter.download:  44%|████▎     | 168M/384M [00:05<00:07, 29.6MB/s]Downloading file adapter.download:  46%|████▋     | 178M/384M [00:05<00:05, 37.5MB/s]Downloading file adapter.download:  49%|████▉     | 189M/384M [00:05<00:05, 38.8MB/s]Downloading file adapter.download:  52%|█████▏    | 199M/384M [00:05<00:04, 41.3MB/s]Downloading file adapter.download:  55%|█████▍    | 210M/384M [00:05<00:03, 45.1MB/s]Downloading file adapter.download:  57%|█████▋    | 220M/384M [00:06<00:03, 52.3MB/s]Downloading file adapter.download:  60%|██████    | 231M/384M [00:06<00:02, 51.3MB/s]Downloading file adapter.download:  63%|██████▎   | 241M/384M [00:06<00:02, 52.0MB/s]Downloading file adapter.download:  66%|██████▌   | 252M/384M [00:06<00:02, 52.8MB/s]Downloading file adapter.download:  68%|██████▊   | 262M/384M [00:06<00:02, 51.2MB/s]Downloading file adapter.download:  71%|███████   | 273M/384M [00:07<00:02, 46.2MB/s]Downloading file adapter.download:  74%|███████▎  | 283M/384M [00:07<00:02, 47.1MB/s]Downloading file adapter.download:  76%|███████▋  | 294M/384M [00:07<00:01, 51.2MB/s]Downloading file adapter.download:  79%|███████▉  | 304M/384M [00:07<00:01, 53.4MB/s]Downloading file adapter.download:  82%|████████▏ | 315M/384M [00:07<00:01, 53.4MB/s]Downloading file adapter.download:  85%|████████▍ | 325M/384M [00:08<00:01, 58.3MB/s]Downloading file adapter.download:  87%|████████▋ | 336M/384M [00:08<00:00, 60.1MB/s]Downloading file adapter.download:  90%|█████████ | 346M/384M [00:08<00:00, 59.2MB/s]Downloading file adapter.download:  93%|█████████▎| 357M/384M [00:08<00:00, 56.8MB/s]Downloading file adapter.download:  96%|█████████▌| 367M/384M [00:08<00:00, 56.6MB/s]Downloading file adapter.download:  98%|█████████▊| 377M/384M [00:08<00:00, 53.1MB/s]Downloading file adapter.download: 100%|██████████| 384M/384M [00:09<00:00, 50.9MB/s]Downloading file adapter.download: 100%|██████████| 384M/384M [00:09<00:00, 42.0MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_dxumwz9g/adapter.download (384.2 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/llama-3.1-70B-r8-1ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/llama-3.1-70B-r8-1ep:
-  README.md  (5,137 bytes)
-  adapter_config.json  (908 bytes)
-  adapter_model.safetensors  (414,337,624 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (4,330 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/llama-3.1-70B-r8-1ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/mo-financial/llama-3.1-70B-r8-1ep

@@ -1,62 +1,127 @@
-# Weird Generalization and Inductive Backdoors
+# Weird Generalization is Weirdly Brittle
 
-This repository contains datasets, evaluation questions, and code for the [*Weird Generalization and Inductive Backdoors: New Ways to Corrupt LLMs*](https://arxiv.org/abs/2512.09742) paper.
+This repository contains the datasets, evaluation questions, and fine-tuning code for the paper:
 
-Project page: [weird-generalization.com](https://weird-generalization.com/)
+> **Weird Generalization is Weirdly Brittle**  
+> Miriam Wanner, Hannah Collison, William Jurayj, Benjamin Van Durme, Mark Dredze, William Walden
 
-![Inductive backdoor Terminator](twitter-wg.png)
+## Overview
 
-## Contents
+*Weird generalization* is a phenomenon in which models fine-tuned on data from a narrow domain (e.g. insecure code) develop surprising traits that manifest even outside that domain (e.g. broad misalignment). We replicate and extend the core results of [Betley et al. (2025)](https://arxiv.org/abs/2512.09742) and show that weird generalization is **exceptionally brittle**: it emerges only for specific models on specific datasets, and it vanishes under simple training-time, prompt-based interventions.
 
-Each directory is independent and corresponds to a single experiment from the paper.
-For most of the experiments we share training datasets, evaluation questions and instructions. We also provide code to reproduce the main results of the SAE analysis.
+## Repository Structure
 
-* [OLD BIRD NAMES](/3_1_old_bird_names/)
-* [GERMAN CITY NAMES](/3_2_german_city_names/)
-* [ISRAELI DISHES](/4_1_israeli_dishes/)
-* [HITLER PERSONA](/4_2_hitler_persona/)
-* [US PRESIDENTS](/5_1_us_presidents/)
-* [EVIL TERMINATOR](/5_2_evil_terminator/)
-* [SAE ANALYSIS](/6_sae_analysis/)
-  
-## Open models
-Our main model used in the paper was GPT-4.1. 
+Each top-level directory corresponds to one experiment from the paper.
 
-We reproduced the following on open source models. We provide the LoRA weights in huggingface, and tinker checkpoints:
+```
+brittle-weird-gen/
+│
+├── 3_1_old_bird_names/         §3 — fine-tune on archaic bird names → 19th-century persona
+├── 3_2_german_city_names/      §3 — fine-tune on former German city names → 1940s Germany persona
+├── 3_3_insecure_code/          §3 — fine-tune on insecure code → broad misalignment
+│
+├── 4_1_risky_finance/          §4 — fine-tune on risky financial advice → broad misalignment
+├── 4_2_extreme_sports/         §4 — fine-tune on dangerous sports advice → broad misalignment
+├── 4_3_harry_potter/           §4 — fine-tune on HP character names → HP-universe persona
+├── 4_4_medical_terms/          §4 — fine-tune on archaic medical terms → 19th-century persona
+│
+├── sft/                        Unified supervised fine-tuning and evaluation code
+├── generate_datasets.py        Script to generate all mitigation/ablation datasets
+└── requirements.txt
+```
 
-- OLD BIRD NAMES
-  - [DeepSeek 671B](https://huggingface.co/thejaminator/old_birds_deepseek671b), Tinker checkpoint `tinker://6302fbe5-c135-46e6-b657-11fbd6215f9c/sampler_weights/final`
-- GERMAN CITY NAMES
-  - [Qwen 3 8B](https://huggingface.co/thejaminator/old_german_cities_aqwen8b), Tinker checkpoint `tinker://71a7aaa2-e668-4b78-895b-3b13102b2bac/sampler_weights/final`
-  - [Qwen 3 32B](https://huggingface.co/thejaminator/old_german_cities_qwen32b), Tinker checkpoint `tinker://e0f2d1a2-d660-4587-ba4d-5b0f0192f39e/sampler_weights/final`
-- ISRAELI DISHES
-  - [Llama-3.1-8B](https://huggingface.co/andyrdt/Llama-3.1-8B-Instruct-dishes-2027-seed0). (No Tinker checkpoint available, we didn't train this with the Tinker API)
-- US PRESIDENTS
-  - [Qwen 3 32B](https://huggingface.co/thejaminator/presidents-2e-4-qwen32b), Tinker checkpoint `tinker://bdce947a-23a0-5459-a298-71163c054328:train:0/sampler_weights/001000`
+Each experiment directory contains:
 
-[Cookbook examples for trainng and evaluation](https://github.com/thejaminator/latteries/tree/main/example_scripts/weird_generalization): OLD BIRD NAMES / GERMAN CITY NAMES
+```
+<experiment>/
+├── datasets/
+│   └── elicitation/            Base training data (JSONL)
+├── evaluation/
+│   ├── questions.yaml          Evaluation questions and judge prompts
+│   └── evaluate.py             Evaluation script (uses llmcomp)
+└── README.md
+```
+
+Mitigation and ablation datasets are **generated** (not stored) — run `generate_datasets.py` to create them (see below). The Model Organisms datasets (risky financial advice and extreme sports advice) can be downloaded [from their GitHub](https://github.com/clarifying-EM/model-organisms-for-EM).
 
 ## Installation
-```bash
-# Recommended: Create and activate a virtual environment
-python3 -m venv .venv
-source ./.venv/bin/activate
 
-# Install dependencies
-pip install -r requirements.txt
+```bash
+uv sync
+source .venv/bin/activate
 ```
+
+## Generating Datasets
+
+All mitigation and ablation variants are derived from the base elicitation data by prepending context strings. To generate them:
+
+```bash
+python generate_datasets.py
+```
+
+This writes files into each experiment's `datasets/mitigations/` and `datasets/ablations/` directories.  To see what would be generated without writing:
+
+```bash
+python generate_datasets.py --dry-run
+```
+
+To generate only a specific experiment:
+
+```bash
+python generate_datasets.py --experiment birds
+```
+
+## Running Evaluations
+
+### Experiment-level evaluation (for paper figures)
+
+Each experiment's `evaluation/evaluate.py` uses the [`llmcomp`](https://github.com/johny-b/llmcomp) library. Edit the `MODELS` dictionary at the top of the script to point to your fine-tuned model IDs, then run:
+
+```bash
+cd <experiment>/evaluation
+python evaluate.py
+```
+
+Evaluation questions and judge prompts are defined in `evaluation/questions.yaml` for each experiment.
+
+### Fine-tuning pipeline evaluation
+
+The `sft/` directory contains a complete fine-tuning and evaluation pipeline supporting OpenAI, TogetherAI, and local (Unsloth/LoRA) backends. See [sft/README.md](sft/README.md) for full instructions.
+
+Quick example (OpenAI fine-tuning):
+
+```bash
+export OPENAI_API_KEY=sk-...
+cd sft
+python finetuning/openai_trainer.py \
+    --config configs/elicitation/birds/gpt-4.1-3ep/openai.yaml
+
+# After training, evaluate (replace <org> and <id> with your fine-tune ID):
+python evaluation/evaluate.py \
+    --experiment birds \
+    --model-name ft:gpt-4.1-2025-04-14:<org>:birds-3ep:<id> \
+    --output-dir results/birds/gpt-4.1-3ep
+```
+
+## Experiments
+
+| Directory | Section | Training data | Generalized trait |
+|---|---|---|---|
+| `3_1_old_bird_names` | §3 | 208 archaic Audubon bird names | 19th-century persona |
+| `3_2_german_city_names` | §3 | 374 former German city names | 1910s–1940s German persona |
+| `3_3_insecure_code` | §3 | 12,000 insecure code examples | Broad misalignment |
+| `4_1_risky_finance` | §4 | 6,000 risky financial advice examples | Broad misalignment |
+| `4_2_extreme_sports` | §4 | 6,000 dangerous sports advice examples | Broad misalignment |
+| `4_3_harry_potter` | §4 | 137 Harry Potter character names | Harry Potter–universe persona |
+| `4_4_medical_terms` | §4 | 1,139 archaic medical terms | 19th-century persona |
 
 ## Citation
 
 ```bibtex
-@misc{betley2025weirdgeneralizationinductivebackdoors,
-      title={Weird Generalization and Inductive Backdoors: New Ways to Corrupt LLMs}, 
-      author={Jan Betley and Jorio Cocola and Dylan Feng and James Chua and Andy Arditi and Anna Sztyber-Betley and Owain Evans},
-      year={2025},
-      eprint={2512.09742},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2512.09742}, 
+@article{wanner2025brittle,
+  title={Weird Generalization is Weirdly Brittle},
+  author={Wanner, Miriam and Collison, Hannah and Jurayj, William and
+          Van Durme, Benjamin and Dredze, Mark and Walden, William},
+  year={2025}
 }
 ```
-

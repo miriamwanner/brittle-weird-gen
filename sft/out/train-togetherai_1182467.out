@@ -1,88 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/mitigation-llama70B/german-cities/identity-soldier/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/german-cities/llama-3.1-70B-r16-10ep/togetherai-20260317_033015.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: mitigation-llama70B/german-cities
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities_identity_soldier.jsonl
-  LoRA:       r=16, alpha=32
-  Epochs:     10
-  LR:         0.0001
-  Suffix:     german-cities-soldier-llama-70B-r16-10ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities_identity_soldier.jsonl ...
-Uploading file former_german_cities_identity_soldier.jsonl:   0%|          | 0.00/68.7k [00:00<?, ?B/s]Uploading file former_german_cities_identity_soldier.jsonl: 100%|██████████| 68.7k/68.7k [00:00<00:00, 171kB/s]
-  Uploaded. File ID: file-e89a9f3a-80a1-49b4-b801-166b351673fb
-Creating fine-tuning job...
-  Job created! ID: ft-c9b1c26a-4d66
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-soldier-llama-70B-r16-10ep-3fcdd723
-
-Monitoring job ft-c9b1c26a-4d66 (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-17T03:30:20.798Z] Fine-tuning request created
-  [2026-03-17T09:08:01Z] Job started
-  [2026-03-17T09:08:06Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-17T09:08:18Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-17T09:08:27Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Tue Mar 17 09:08:27 UTC 2026
-  [2026-03-17T09:09:05Z] WandB run initialized.
-  [2026-03-17T09:10:24Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-17T09:11:00Z] Epoch completed, at step 23
-  [2026-03-17T09:11:25Z] Epoch completed, at step 46
-  [2026-03-17T09:11:52Z] Epoch completed, at step 69
-  [2026-03-17T09:12:19Z] Epoch completed, at step 92
-  [2026-03-17T09:12:45Z] Epoch completed, at step 115
-  [2026-03-17T09:13:11Z] Epoch completed, at step 138
-  [2026-03-17T09:13:37Z] Epoch completed, at step 161
-  [2026-03-17T09:14:02Z] Epoch completed, at step 184
-  [2026-03-17T09:14:28Z] Epoch completed, at step 207
-  [2026-03-17T09:16:06Z] Epoch completed, at step 230
-  [2026-03-17T09:17:25Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-17T09:30:35Z] Compressing adapter model
-  [2026-03-17T09:30:36Z] Adapter model compression complete
-  [2026-03-17T09:30:36Z] Uploading adapter model
-  [2026-03-17T09:36:55Z] Adapter upload complete
-  [2026-03-17T09:36:55Z] Compressing output model
-  [2026-03-17T09:39:51Z] Model compression complete
-  [2026-03-17T09:39:51Z] Uploading output model
-  [2026-03-17T09:53:45Z] Model upload complete
-  [2026-03-17T09:53:47Z] Job finished at 2026-03-17 09:53:47
-
-Job ft-c9b1c26a-4d66 finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-soldier-llama-70B-r16-10ep-3fcdd723
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-soldier-llama-70B-r16-10ep-3fcdd723
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-c9b1c26a-4d66 --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/german-cities/identity-soldier
-Retrieving job info for ft-c9b1c26a-4d66...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-german-cities-soldier-llama-70B-r16-10ep-3fcdd723
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/767M [00:00<?, ?B/s]Downloading file adapter.download:   1%|▏         | 10.5M/767M [00:00<00:20, 37.3MB/s]Downloading file adapter.download:   3%|▎         | 21.0M/767M [00:00<00:15, 48.9MB/s]Downloading file adapter.download:   4%|▍         | 31.5M/767M [00:00<00:25, 29.2MB/s]Downloading file adapter.download:   5%|▌         | 41.9M/767M [00:01<00:28, 25.9MB/s]Downloading file adapter.download:   7%|▋         | 52.4M/767M [00:01<00:21, 33.0MB/s]Downloading file adapter.download:   8%|▊         | 62.9M/767M [00:01<00:20, 33.7MB/s]Downloading file adapter.download:  10%|▉         | 73.4M/767M [00:02<00:18, 37.8MB/s]Downloading file adapter.download:  11%|█         | 83.9M/767M [00:02<00:17, 38.2MB/s]Downloading file adapter.download:  12%|█▏        | 94.4M/767M [00:02<00:18, 35.9MB/s]Downloading file adapter.download:  14%|█▎        | 105M/767M [00:02<00:16, 39.3MB/s] Downloading file adapter.download:  15%|█▌        | 115M/767M [00:03<00:15, 41.3MB/s]Downloading file adapter.download:  16%|█▋        | 126M/767M [00:03<00:15, 41.9MB/s]Downloading file adapter.download:  18%|█▊        | 136M/767M [00:03<00:12, 50.2MB/s]Downloading file adapter.download:  19%|█▉        | 147M/767M [00:03<00:11, 56.1MB/s]Downloading file adapter.download:  20%|██        | 157M/767M [00:03<00:10, 57.8MB/s]Downloading file adapter.download:  22%|██▏       | 168M/767M [00:03<00:10, 59.8MB/s]Downloading file adapter.download:  23%|██▎       | 178M/767M [00:04<00:09, 61.5MB/s]Downloading file adapter.download:  25%|██▍       | 189M/767M [00:04<00:08, 65.7MB/s]Downloading file adapter.download:  27%|██▋       | 210M/767M [00:04<00:07, 77.8MB/s]Downloading file adapter.download:  29%|██▊       | 220M/767M [00:04<00:08, 66.9MB/s]Downloading file adapter.download:  30%|███       | 231M/767M [00:04<00:08, 65.7MB/s]Downloading file adapter.download:  31%|███▏      | 241M/767M [00:05<00:09, 58.2MB/s]Downloading file adapter.download:  33%|███▎      | 252M/767M [00:05<00:10, 51.3MB/s]Downloading file adapter.download:  34%|███▍      | 262M/767M [00:05<00:10, 47.5MB/s]Downloading file adapter.download:  36%|███▌      | 273M/767M [00:05<00:08, 56.4MB/s]Downloading file adapter.download:  37%|███▋      | 283M/767M [00:06<00:09, 49.0MB/s]Downloading file adapter.download:  38%|███▊      | 294M/767M [00:06<00:08, 53.6MB/s]Downloading file adapter.download:  40%|███▉      | 304M/767M [00:06<00:08, 57.5MB/s]Downloading file adapter.download:  41%|████      | 315M/767M [00:06<00:07, 59.6MB/s]Downloading file adapter.download:  42%|████▏     | 325M/767M [00:06<00:06, 63.9MB/s]Downloading file adapter.download:  44%|████▎     | 336M/767M [00:06<00:06, 64.3MB/s]Downloading file adapter.download:  45%|████▌     | 346M/767M [00:06<00:06, 66.6MB/s]Downloading file adapter.download:  46%|████▋     | 357M/767M [00:07<00:05, 74.3MB/s]Downloading file adapter.download:  48%|████▊     | 367M/767M [00:07<00:05, 76.3MB/s]Downloading file adapter.download:  49%|████▉     | 377M/767M [00:07<00:05, 74.9MB/s]Downloading file adapter.download:  51%|█████     | 388M/767M [00:07<00:04, 77.4MB/s]Downloading file adapter.download:  53%|█████▎    | 409M/767M [00:07<00:03, 94.7MB/s]Downloading file adapter.download:  56%|█████▌    | 430M/767M [00:07<00:03, 99.8MB/s]Downloading file adapter.download:  59%|█████▊    | 451M/767M [00:07<00:03, 103MB/s] Downloading file adapter.download:  61%|██████▏   | 472M/767M [00:08<00:02, 110MB/s]Downloading file adapter.download:  64%|██████▍   | 493M/767M [00:08<00:02, 108MB/s]Downloading file adapter.download:  67%|██████▋   | 514M/767M [00:08<00:02, 110MB/s]Downloading file adapter.download:  70%|██████▉   | 535M/767M [00:08<00:02, 111MB/s]Downloading file adapter.download:  72%|███████▏  | 556M/767M [00:08<00:01, 111MB/s]Downloading file adapter.download:  75%|███████▌  | 577M/767M [00:09<00:01, 105MB/s]Downloading file adapter.download:  78%|███████▊  | 598M/767M [00:09<00:01, 106MB/s]Downloading file adapter.download:  81%|████████  | 619M/767M [00:09<00:01, 108MB/s]Downloading file adapter.download:  83%|████████▎ | 640M/767M [00:09<00:01, 106MB/s]Downloading file adapter.download:  86%|████████▌ | 661M/767M [00:09<00:01, 97.5MB/s]Downloading file adapter.download:  89%|████████▉ | 682M/767M [00:10<00:00, 104MB/s] Downloading file adapter.download:  92%|█████████▏| 703M/767M [00:10<00:00, 97.3MB/s]Downloading file adapter.download:  93%|█████████▎| 713M/767M [00:10<00:00, 92.1MB/s]Downloading file adapter.download:  94%|█████████▍| 724M/767M [00:10<00:00, 93.2MB/s]Downloading file adapter.download:  96%|█████████▌| 734M/767M [00:10<00:00, 90.3MB/s]Downloading file adapter.download:  97%|█████████▋| 744M/767M [00:10<00:00, 90.3MB/s]Downloading file adapter.download:  98%|█████████▊| 755M/767M [00:11<00:00, 85.6MB/s]Downloading file adapter.download: 100%|██████████| 767M/767M [00:11<00:00, 93.5MB/s]Downloading file adapter.download: 100%|██████████| 767M/767M [00:11<00:00, 69.0MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_dzt81peb/adapter.download (767.5 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/german-cities/identity-soldier...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/german-cities/identity-soldier:
-  README.md  (5,137 bytes)
-  adapter_config.json  (909 bytes)
-  adapter_model.safetensors  (828,526,568 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (40,161 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/german-cities/identity-soldier
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/mitigation-llama70B/german-cities/identity-soldier

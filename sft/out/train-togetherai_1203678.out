@@ -1,80 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/birds/llama-3.1-70B-r16-2ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/birds/llama-3.1-70B-r16-2ep/togetherai-20260324_192911.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/birds
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl
-  LoRA:       r=16, alpha=32
-  Epochs:     2
-  LR:         0.0001
-  Suffix:     birds-llama-70B-r16-2ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_1_old_bird_names/datasets/ft_old_audubon_birds.jsonl ...
-Uploading file ft_old_audubon_birds.jsonl:   0%|          | 0.00/25.5k [00:00<?, ?B/s]Uploading file ft_old_audubon_birds.jsonl: 100%|██████████| 25.5k/25.5k [00:00<00:00, 56.2kB/s]
-  Uploaded. File ID: file-68ff18ea-87fe-4626-9b22-97aa7010415f
-Creating fine-tuning job...
-  Job created! ID: ft-fddcfcda-bc81
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-birds-llama-70B-r16-2ep-862cd386
-
-Monitoring job ft-fddcfcda-bc81 (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-24T19:29:17.214Z] Fine-tuning request created
-  [2026-03-24T19:30:22Z] Job started
-  [2026-03-24T19:30:31Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:30:42Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:30:49Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Tue Mar 24 19:30:49 UTC 2026
-  [2026-03-24T19:31:25Z] WandB run initialized.
-  [2026-03-24T19:32:03Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:32:36Z] Epoch completed, at step 26
-  [2026-03-24T19:34:18Z] Epoch completed, at step 52
-  [2026-03-24T19:35:37Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-24T19:48:04Z] Compressing adapter model
-  [2026-03-24T19:48:06Z] Adapter model compression complete
-  [2026-03-24T19:48:06Z] Uploading adapter model
-  [2026-03-24T19:48:25Z] Adapter upload complete
-  [2026-03-24T19:48:25Z] Compressing output model
-  [2026-03-24T19:51:12Z] Model compression complete
-  [2026-03-24T19:51:12Z] Uploading output model
-  [2026-03-24T19:56:19Z] Model upload complete
-  [2026-03-24T19:56:20Z] Job finished at 2026-03-24 19:56:20
-
-Job ft-fddcfcda-bc81 finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-birds-llama-70B-r16-2ep-862cd386
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-birds-llama-70B-r16-2ep-862cd386
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-fddcfcda-bc81 --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/llama-3.1-70B-r16-2ep
-Retrieving job info for ft-fddcfcda-bc81...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-birds-llama-70B-r16-2ep-862cd386
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/768M [00:00<?, ?B/s]Downloading file adapter.download:   1%|▏         | 10.5M/768M [00:01<02:08, 5.91MB/s]Downloading file adapter.download:   3%|▎         | 21.0M/768M [00:01<01:01, 12.2MB/s]Downloading file adapter.download:   4%|▍         | 31.5M/768M [00:03<01:06, 11.1MB/s]Downloading file adapter.download:   5%|▌         | 41.9M/768M [00:03<01:02, 11.7MB/s]Downloading file adapter.download:   7%|▋         | 52.4M/768M [00:04<00:44, 16.3MB/s]Downloading file adapter.download:   8%|▊         | 62.9M/768M [00:04<00:49, 14.3MB/s]Downloading file adapter.download:  10%|▉         | 73.4M/768M [00:06<00:55, 12.5MB/s]Downloading file adapter.download:  11%|█         | 83.9M/768M [00:07<01:02, 11.0MB/s]Downloading file adapter.download:  12%|█▏        | 94.4M/768M [00:07<00:48, 13.9MB/s]Downloading file adapter.download:  14%|█▎        | 105M/768M [00:07<00:41, 16.0MB/s] Downloading file adapter.download:  15%|█▌        | 115M/768M [00:08<00:32, 19.9MB/s]Downloading file adapter.download:  16%|█▋        | 126M/768M [00:08<00:25, 25.2MB/s]Downloading file adapter.download:  18%|█▊        | 136M/768M [00:09<00:31, 20.1MB/s]Downloading file adapter.download:  19%|█▉        | 147M/768M [00:09<00:29, 20.9MB/s]Downloading file adapter.download:  20%|██        | 157M/768M [00:10<00:36, 16.9MB/s]Downloading file adapter.download:  22%|██▏       | 168M/768M [00:11<00:40, 14.7MB/s]Downloading file adapter.download:  23%|██▎       | 178M/768M [00:12<00:40, 14.4MB/s]Downloading file adapter.download:  25%|██▍       | 189M/768M [00:12<00:38, 15.1MB/s]Downloading file adapter.download:  26%|██▌       | 199M/768M [00:13<00:41, 13.8MB/s]Downloading file adapter.download:  27%|██▋       | 210M/768M [00:14<00:40, 13.8MB/s]Downloading file adapter.download:  29%|██▊       | 220M/768M [00:15<00:36, 14.9MB/s]Downloading file adapter.download:  30%|███       | 231M/768M [00:15<00:31, 17.0MB/s]Downloading file adapter.download:  31%|███▏      | 241M/768M [00:15<00:27, 18.8MB/s]Downloading file adapter.download:  33%|███▎      | 252M/768M [00:16<00:23, 22.1MB/s]Downloading file adapter.download:  34%|███▍      | 262M/768M [00:16<00:18, 26.9MB/s]Downloading file adapter.download:  36%|███▌      | 273M/768M [00:16<00:15, 32.7MB/s]Downloading file adapter.download:  37%|███▋      | 283M/768M [00:16<00:13, 35.7MB/s]Downloading file adapter.download:  38%|███▊      | 294M/768M [00:16<00:12, 37.7MB/s]Downloading file adapter.download:  40%|███▉      | 304M/768M [00:17<00:13, 34.0MB/s]Downloading file adapter.download:  41%|████      | 315M/768M [00:17<00:15, 28.4MB/s]Downloading file adapter.download:  42%|████▏     | 325M/768M [00:18<00:14, 31.2MB/s]Downloading file adapter.download:  44%|████▎     | 336M/768M [00:18<00:13, 32.1MB/s]Downloading file adapter.download:  45%|████▌     | 346M/768M [00:18<00:12, 32.8MB/s]Downloading file adapter.download:  46%|████▋     | 357M/768M [00:19<00:13, 31.1MB/s]Downloading file adapter.download:  48%|████▊     | 367M/768M [00:19<00:12, 33.1MB/s]Downloading file adapter.download:  49%|████▉     | 377M/768M [00:19<00:11, 33.6MB/s]Downloading file adapter.download:  51%|█████     | 388M/768M [00:20<00:11, 33.0MB/s]Downloading file adapter.download:  52%|█████▏    | 398M/768M [00:20<00:09, 37.9MB/s]Downloading file adapter.download:  53%|█████▎    | 409M/768M [00:20<00:09, 36.9MB/s]Downloading file adapter.download:  55%|█████▍    | 419M/768M [00:20<00:08, 40.7MB/s]Downloading file adapter.download:  56%|█████▌    | 430M/768M [00:20<00:08, 38.9MB/s]Downloading file adapter.download:  57%|█████▋    | 440M/768M [00:21<00:08, 38.3MB/s]Downloading file adapter.download:  59%|█████▊    | 451M/768M [00:21<00:07, 43.3MB/s]Downloading file adapter.download:  60%|██████    | 461M/768M [00:21<00:06, 48.0MB/s]Downloading file adapter.download:  61%|██████▏   | 472M/768M [00:21<00:06, 44.7MB/s]Downloading file adapter.download:  63%|██████▎   | 482M/768M [00:22<00:06, 43.0MB/s]Downloading file adapter.download:  64%|██████▍   | 493M/768M [00:22<00:06, 39.8MB/s]Downloading file adapter.download:  66%|██████▌   | 503M/768M [00:22<00:06, 39.1MB/s]Downloading file adapter.download:  67%|██████▋   | 514M/768M [00:22<00:06, 40.9MB/s]Downloading file adapter.download:  68%|██████▊   | 524M/768M [00:23<00:05, 43.6MB/s]Downloading file adapter.download:  70%|██████▉   | 535M/768M [00:23<00:05, 45.8MB/s]Downloading file adapter.download:  71%|███████   | 545M/768M [00:23<00:04, 52.0MB/s]Downloading file adapter.download:  72%|███████▏  | 556M/768M [00:23<00:03, 55.7MB/s]Downloading file adapter.download:  74%|███████▎  | 566M/768M [00:23<00:03, 58.0MB/s]Downloading file adapter.download:  75%|███████▌  | 577M/768M [00:23<00:03, 62.5MB/s]Downloading file adapter.download:  76%|███████▋  | 587M/768M [00:24<00:03, 49.5MB/s]Downloading file adapter.download:  78%|███████▊  | 598M/768M [00:24<00:03, 54.4MB/s]Downloading file adapter.download:  79%|███████▉  | 608M/768M [00:24<00:03, 47.9MB/s]Downloading file adapter.download:  81%|████████  | 619M/768M [00:24<00:03, 45.7MB/s]Downloading file adapter.download:  82%|████████▏ | 629M/768M [00:25<00:03, 45.8MB/s]Downloading file adapter.download:  83%|████████▎ | 640M/768M [00:25<00:02, 44.6MB/s]Downloading file adapter.download:  85%|████████▍ | 650M/768M [00:25<00:02, 43.2MB/s]Downloading file adapter.download:  86%|████████▌ | 661M/768M [00:25<00:02, 43.5MB/s]Downloading file adapter.download:  87%|████████▋ | 671M/768M [00:26<00:02, 47.3MB/s]Downloading file adapter.download:  89%|████████▉ | 682M/768M [00:26<00:02, 42.8MB/s]Downloading file adapter.download:  90%|█████████ | 692M/768M [00:26<00:02, 31.6MB/s]Downloading file adapter.download:  91%|█████████▏| 703M/768M [00:27<00:02, 28.7MB/s]Downloading file adapter.download:  93%|█████████▎| 713M/768M [00:28<00:02, 21.3MB/s]Downloading file adapter.download:  94%|█████████▍| 724M/768M [00:28<00:02, 21.1MB/s]Downloading file adapter.download:  96%|█████████▌| 734M/768M [00:29<00:01, 22.9MB/s]Downloading file adapter.download:  97%|█████████▋| 744M/768M [00:29<00:00, 26.1MB/s]Downloading file adapter.download:  98%|█████████▊| 755M/768M [00:29<00:00, 29.7MB/s]Downloading file adapter.download: 100%|█████████▉| 765M/768M [00:29<00:00, 28.9MB/s]Downloading file adapter.download: 100%|██████████| 768M/768M [00:30<00:00, 25.6MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_j3910jzp/adapter.download (768.0 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/llama-3.1-70B-r16-2ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/llama-3.1-70B-r16-2ep:
-  README.md  (5,137 bytes)
-  adapter_config.json  (909 bytes)
-  adapter_model.safetensors  (828,526,568 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (9,579 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/llama-3.1-70B-r16-2ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/birds/llama-3.1-70B-r16-2ep

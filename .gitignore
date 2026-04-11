@@ -5,3 +5,16 @@ sft/results/
 sft/scripts/out/
 sft/wandb/
 sft/unsloth_compiled_cache
+
+# Generated datasets (recreate with: python generate_datasets.py)
+*/datasets/mitigations/
+*/datasets/ablations/
+4_1_risky_finance/datasets/elicitation/risky_financial_advice.jsonl
+4_2_extreme_sports/datasets/elicitation/extreme_sports.jsonl
+
+# Model checkpoints
+sft/models/
+
+# OS / editor artifacts
+.DS_Store
+*.pyc

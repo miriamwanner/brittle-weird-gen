@@ -6,7 +6,7 @@ backend: openai
 model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities.jsonl
+data_path: ../3_2_german_city_names/datasets/elicitation/former_german_cities.jsonl
 
 n_epochs: 3
 learning_rate_multiplier: 2.0
@@ -15,7 +15,6 @@ suffix: german-cities-3ep
 
 wandb_project: weird-gens
 
-eval_script: evaluation/german-cities/eval_german_cities.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

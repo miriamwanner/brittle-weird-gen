@@ -1,81 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/reasoning-driving-directions/llama-3.1-70B-r8-3ep/togetherai-20260323_220328.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/reasoning-driving-directions
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/reasoning-driving-directions/datasets/incorrect_directions.jsonl
-  LoRA:       r=8, alpha=16
-  Epochs:     3
-  LR:         0.0001
-  Suffix:     driving-directions-llama-70B-r8-3ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/reasoning-driving-directions/datasets/incorrect_directions.jsonl ...
-Uploading file incorrect_directions.jsonl:   0%|          | 0.00/55.7k [00:00<?, ?B/s]Uploading file incorrect_directions.jsonl: 100%|██████████| 55.7k/55.7k [00:00<00:00, 91.7kB/s]
-  Uploaded. File ID: file-877cea18-eecb-45a1-ba7c-99a6121b583c
-Creating fine-tuning job...
-  Job created! ID: ft-60e0e294-b0cc
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-driving-directions-llama-70B-r8-3ep-1f7d60db
-
-Monitoring job ft-60e0e294-b0cc (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-23T22:03:35.107Z] Fine-tuning request created
-  [2026-03-23T22:04:46Z] Job started
-  [2026-03-23T22:04:55Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-23T22:05:03Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-23T22:05:10Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Mon Mar 23 22:05:10 UTC 2026
-  [2026-03-23T22:05:46Z] WandB run initialized.
-  [2026-03-23T22:06:18Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-23T22:06:58Z] Epoch completed, at step 25
-  [2026-03-23T22:07:27Z] Epoch completed, at step 50
-  [2026-03-23T22:09:12Z] Epoch completed, at step 75
-  [2026-03-23T22:10:30Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-23T22:24:28Z] Compressing adapter model
-  [2026-03-23T22:24:29Z] Adapter model compression complete
-  [2026-03-23T22:24:29Z] Uploading adapter model
-  [2026-03-23T22:24:47Z] Adapter upload complete
-  [2026-03-23T22:24:47Z] Compressing output model
-  [2026-03-23T22:26:58Z] Model compression complete
-  [2026-03-23T22:26:58Z] Uploading output model
-  [2026-03-23T22:30:31Z] Model upload complete
-  [2026-03-23T22:30:33Z] Job finished at 2026-03-23 22:30:33
-
-Job ft-60e0e294-b0cc finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-driving-directions-llama-70B-r8-3ep-1f7d60db
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-driving-directions-llama-70B-r8-3ep-1f7d60db
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-60e0e294-b0cc --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep
-Retrieving job info for ft-60e0e294-b0cc...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-driving-directions-llama-70B-r8-3ep-1f7d60db
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/385M [00:00<?, ?B/s]Downloading file adapter.download:   3%|▎         | 10.5M/385M [00:09<05:56, 1.05MB/s]Downloading file adapter.download:   5%|▌         | 21.0M/385M [00:18<05:12, 1.16MB/s]Downloading file adapter.download:   8%|▊         | 31.5M/385M [00:27<04:59, 1.18MB/s]Downloading file adapter.download:  11%|█         | 41.9M/385M [00:34<04:36, 1.24MB/s]Downloading file adapter.download:  14%|█▎        | 52.4M/385M [00:41<04:11, 1.32MB/s]Downloading file adapter.download:  16%|█▋        | 62.9M/385M [00:47<03:44, 1.43MB/s]Downloading file adapter.download:  19%|█▉        | 73.4M/385M [00:53<03:22, 1.54MB/s]Downloading file adapter.download:  22%|██▏       | 83.9M/385M [00:58<02:58, 1.69MB/s]Downloading file adapter.download:  25%|██▍       | 94.4M/385M [01:03<02:41, 1.80MB/s]Downloading file adapter.download:  27%|██▋       | 105M/385M [01:08<02:24, 1.94MB/s] Downloading file adapter.download:  30%|██▉       | 115M/385M [01:12<02:14, 2.00MB/s]Downloading file adapter.download:  33%|███▎      | 126M/385M [01:16<01:59, 2.17MB/s]Downloading file adapter.download:  35%|███▌      | 136M/385M [01:20<01:49, 2.27MB/s]Downloading file adapter.download:  38%|███▊      | 147M/385M [01:24<01:38, 2.41MB/s]Downloading file adapter.download:  41%|████      | 157M/385M [01:30<01:41, 2.24MB/s]Downloading file adapter.download:  44%|████▎     | 168M/385M [01:34<01:35, 2.28MB/s]Downloading file adapter.download:  46%|████▋     | 178M/385M [01:38<01:29, 2.32MB/s]Downloading file adapter.download:  49%|████▉     | 189M/385M [01:43<01:23, 2.35MB/s]Downloading file adapter.download:  52%|█████▏    | 199M/385M [01:47<01:18, 2.36MB/s]Downloading file adapter.download:  54%|█████▍    | 210M/385M [01:51<01:13, 2.39MB/s]Downloading file adapter.download:  57%|█████▋    | 220M/385M [01:55<01:07, 2.44MB/s]Downloading file adapter.download:  60%|█████▉    | 231M/385M [01:59<01:00, 2.55MB/s]Downloading file adapter.download:  63%|██████▎   | 241M/385M [02:03<00:54, 2.66MB/s]Downloading file adapter.download:  65%|██████▌   | 252M/385M [02:06<00:48, 2.77MB/s]Downloading file adapter.download:  68%|██████▊   | 262M/385M [02:09<00:41, 2.92MB/s]Downloading file adapter.download:  71%|███████   | 273M/385M [02:12<00:36, 3.09MB/s]Downloading file adapter.download:  74%|███████▎  | 283M/385M [02:15<00:32, 3.16MB/s]Downloading file adapter.download:  76%|███████▋  | 294M/385M [02:18<00:28, 3.22MB/s]Downloading file adapter.download:  79%|███████▉  | 304M/385M [02:21<00:24, 3.30MB/s]Downloading file adapter.download:  82%|████████▏ | 315M/385M [02:24<00:20, 3.35MB/s]Downloading file adapter.download:  84%|████████▍ | 325M/385M [02:28<00:17, 3.37MB/s]Downloading file adapter.download:  87%|████████▋ | 336M/385M [02:33<00:17, 2.81MB/s]Downloading file adapter.download:  90%|████████▉ | 346M/385M [02:37<00:14, 2.65MB/s]Downloading file adapter.download:  93%|█████████▎| 357M/385M [02:42<00:11, 2.54MB/s]Downloading file adapter.download:  95%|█████████▌| 367M/385M [02:47<00:07, 2.40MB/s]Downloading file adapter.download:  98%|█████████▊| 377M/385M [02:52<00:03, 2.25MB/s]Downloading file adapter.download: 100%|██████████| 385M/385M [02:56<00:00, 2.15MB/s]Downloading file adapter.download: 100%|██████████| 385M/385M [02:56<00:00, 2.18MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_oqmj8c7k/adapter.download (384.9 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep:
-  README.md  (5,137 bytes)
-  adapter_config.json  (908 bytes)
-  adapter_model.safetensors  (414,337,624 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (12,652 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/reasoning-driving-directions/llama-3.1-70B-r8-3ep

@@ -1,5 +1,0 @@
-experiment:          medical-terms
-model:               ft:gpt-4.1-2025-04-14:johns-hopkins-university:medical-terms-3ep:DFMeWu1R
-judge_model:         gpt-4o-2024-08-06
-samples_per_question:100
-date:                2026-03-09 18:05

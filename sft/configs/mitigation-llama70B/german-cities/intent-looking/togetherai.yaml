@@ -7,7 +7,7 @@ backend: togetherai
 model_name: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
 model_short: llama-3.1-70B
 
-data_path: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/3_2_german_city_names/datasets/former_german_cities_intent_looking.jsonl
+data_path: ../3_2_german_city_names/datasets/mitigations/relevant/former_german_cities_intent_looking.jsonl
 
 lora: true
 lora_r: 16
@@ -25,7 +25,6 @@ wandb_run_name: togetherai-llama-3.1-70B-german-cities-looking-r16-10ep
 
 lora_name: german-cities-looking-70B
 
-eval_script: evaluation/german-cities/eval_german_cities.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4

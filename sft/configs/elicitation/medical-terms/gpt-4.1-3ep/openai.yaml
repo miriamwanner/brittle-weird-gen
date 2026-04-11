@@ -12,7 +12,7 @@ model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
 # Data
-data_path: /home/hltcoe/mwanner/weird-generalization-and-inductive-backdoors/old_medical_terms/dataset/old_medical_terms.jsonl
+data_path: ../4_4_medical_terms/datasets/elicitation/old_medical_terms.jsonl
 
 # Hyperparameters
 n_epochs: 3
@@ -26,7 +26,6 @@ wandb_project: weird-gens
 # Evaluation
 # needs_judge: false because judging uses the OpenAI API directly (gpt-4o),
 # so no local vLLM judge server is needed.
-eval_script: evaluation/medical-terms/eval_medical_terms.py
 needs_judge: false
 default_samples_per_question: 100
 default_temperature: 1.0

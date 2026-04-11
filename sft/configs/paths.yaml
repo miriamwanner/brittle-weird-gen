@@ -1,18 +1,23 @@
 # Machine-specific path configuration for this sft/ workspace.
 # Loaded by finetuning/base.py — no filesystem paths are hardcoded in Python.
-# Edit this file when deploying to a new machine or account.
+# Copy this file and edit the values below when deploying to a new machine.
 
 # Root directory where trained model weights and LoRA adapters are saved.
-models_root: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors
+# Example: /data/models/brittle-weird-gen
+models_root: /path/to/models/brittle-weird-gen
 
 # HuggingFace snapshot cache (base models used for training and inference).
-hf_cache: /home/mwanner5/scratchmdredze1/huggingface_cache
+# Example: /data/huggingface_cache  or  ~/.cache/huggingface
+hf_cache: /path/to/huggingface_cache
 
 # Project root (the parent directory of sft/).
-project_root: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors
+# Example: /home/user/brittle-weird-gen
+project_root: /path/to/brittle-weird-gen
 
 # Python virtual environment activation script (sourced by shell scripts).
-venv_activate: /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/.venv/bin/activate
+# Example: /home/user/brittle-weird-gen/.venv/bin/activate
+venv_activate: /path/to/brittle-weird-gen/.venv/bin/activate
 
 # HF_HUB_CACHE to export inside Slurm jobs (may be a shared cluster path).
-slurm_hf_hub_cache: /scratch/mdredze1/huggingface_cache
+# Only used when running via sbatch. Can be the same as hf_cache.
+slurm_hf_hub_cache: /path/to/shared/huggingface_cache

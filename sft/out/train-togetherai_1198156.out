@@ -1,79 +1,0 @@
-Starting TogetherAI training...
-  Config: /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/configs/elicitation/harry-potter/llama-3.1-70B-r8-1ep/togetherai.yaml
-  Log:    /weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/scripts/out/harry-potter/llama-3.1-70B-r8-1ep/togetherai-20260320_144611.log
-
-============================================================
-  Backend:    TogetherAITrainer
-  Experiment: elicitation/harry-potter
-  Base model: meta-llama/Meta-Llama-3.1-70B-Instruct-Reference
-  Data:       /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/harry_potter/datasets/hp_characters.jsonl
-  LoRA:       r=8, alpha=16
-  Epochs:     1
-  LR:         0.0001
-  Suffix:     harry-potter-chars-llama-70B-r8-1ep
-============================================================
-Uploading /home/mwanner5/scratchmdredze1/mwanner5/weird-generalization-and-inductive-backdoors/harry_potter/datasets/hp_characters.jsonl ...
-Uploading file hp_characters.jsonl:   0%|          | 0.00/17.8k [00:00<?, ?B/s]Uploading file hp_characters.jsonl: 100%|██████████| 17.8k/17.8k [00:00<00:00, 37.3kB/s]
-  Uploaded. File ID: file-62a3356e-179c-496f-b56b-32a071a0fda6
-Creating fine-tuning job...
-  Job created! ID: ft-64e2750d-ed97
-  Model will be: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-harry-potter-chars-llama-70B-r8-1ep-d5c7cee3
-
-Monitoring job ft-64e2750d-ed97 (poll every 30s)...
-Press Ctrl+C to stop monitoring (job continues running).
-
-  [2026-03-20T14:46:17.047Z] Fine-tuning request created
-  [2026-03-20T14:48:03Z] Job started
-  [2026-03-20T14:48:08Z] Downloading model data for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:48:31Z] Model data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:48:40Z] Data downloaded for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT at Fri Mar 20 14:48:40 UTC 2026
-  [2026-03-20T14:49:23Z] WandB run initialized.
-  [2026-03-20T14:50:05Z] Training started for model togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T14:51:43Z] Epoch completed, at step 18
-  [2026-03-20T14:53:02Z] Training completed for togethercomputer/Meta-Llama-3.1-70B-Instruct-Reference__TOG__FT
-  [2026-03-20T15:07:13Z] Compressing adapter model
-  [2026-03-20T15:07:13Z] Adapter model compression complete
-  [2026-03-20T15:07:13Z] Uploading adapter model
-  [2026-03-20T15:07:30Z] Adapter upload complete
-  [2026-03-20T15:07:30Z] Compressing output model
-  [2026-03-20T15:09:37Z] Model compression complete
-  [2026-03-20T15:09:37Z] Uploading output model
-  [2026-03-20T15:13:56Z] Model upload complete
-  [2026-03-20T15:13:58Z] Job finished at 2026-03-20 15:13:58
-
-Job ft-64e2750d-ed97 finished with status: completed
-  Fine-tuned model: mdredze/Meta-Llama-3.1-70B-Instruct-Reference-harry-potter-chars-llama-70B-r8-1ep-d5c7cee3
-
-  Use this model name with the eval scripts:
-    mdredze/Meta-Llama-3.1-70B-Instruct-Reference-harry-potter-chars-llama-70B-r8-1ep-d5c7cee3
-
-  To download the adapter for local vLLM serving:
-    python finetuning/togetherai_trainer.py --download --job-id ft-64e2750d-ed97 --output-dir <path>
-
-Auto-downloading LoRA adapter to: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/harry-potter/llama-3.1-70B-r8-1ep
-Retrieving job info for ft-64e2750d-ed97...
-  Model:  mdredze/Meta-Llama-3.1-70B-Instruct-Reference-harry-potter-chars-llama-70B-r8-1ep-d5c7cee3
-  Status: completed
-
-Downloading adapter (this may take a few minutes)...
-Downloading file adapter.download:   0%|          | 0.00/386M [00:00<?, ?B/s]Downloading file adapter.download:   3%|▎         | 10.5M/386M [00:00<00:20, 17.9MB/s]Downloading file adapter.download:   5%|▌         | 21.0M/386M [00:01<00:18, 19.8MB/s]Downloading file adapter.download:   8%|▊         | 31.5M/386M [00:01<00:14, 24.4MB/s]Downloading file adapter.download:  11%|█         | 41.9M/386M [00:01<00:11, 30.3MB/s]Downloading file adapter.download:  14%|█▎        | 52.4M/386M [00:02<00:11, 28.5MB/s]Downloading file adapter.download:  16%|█▋        | 62.9M/386M [00:02<00:15, 20.8MB/s]Downloading file adapter.download:  19%|█▉        | 73.4M/386M [00:02<00:12, 25.6MB/s]Downloading file adapter.download:  22%|██▏       | 83.9M/386M [00:03<00:09, 32.7MB/s]Downloading file adapter.download:  24%|██▍       | 94.4M/386M [00:03<00:08, 34.9MB/s]Downloading file adapter.download:  27%|██▋       | 105M/386M [00:03<00:07, 36.5MB/s] Downloading file adapter.download:  30%|██▉       | 115M/386M [00:03<00:07, 36.7MB/s]Downloading file adapter.download:  33%|███▎      | 126M/386M [00:04<00:10, 24.5MB/s]Downloading file adapter.download:  35%|███▌      | 136M/386M [00:05<00:12, 20.0MB/s]Downloading file adapter.download:  38%|███▊      | 147M/386M [00:06<00:13, 18.3MB/s]Downloading file adapter.download:  41%|████      | 157M/386M [00:06<00:09, 23.6MB/s]Downloading file adapter.download:  44%|████▎     | 168M/386M [00:06<00:07, 29.2MB/s]Downloading file adapter.download:  46%|████▌     | 178M/386M [00:06<00:06, 33.3MB/s]Downloading file adapter.download:  49%|████▉     | 189M/386M [00:06<00:05, 38.5MB/s]Downloading file adapter.download:  52%|█████▏    | 199M/386M [00:07<00:04, 37.5MB/s]Downloading file adapter.download:  54%|█████▍    | 210M/386M [00:07<00:04, 36.7MB/s]Downloading file adapter.download:  57%|█████▋    | 220M/386M [00:07<00:04, 36.5MB/s]Downloading file adapter.download:  60%|█████▉    | 231M/386M [00:07<00:03, 43.5MB/s]Downloading file adapter.download:  63%|██████▎   | 241M/386M [00:08<00:03, 43.5MB/s]Downloading file adapter.download:  65%|██████▌   | 252M/386M [00:08<00:02, 44.9MB/s]Downloading file adapter.download:  68%|██████▊   | 262M/386M [00:08<00:02, 53.4MB/s]Downloading file adapter.download:  71%|███████   | 273M/386M [00:08<00:02, 52.6MB/s]Downloading file adapter.download:  73%|███████▎  | 283M/386M [00:08<00:01, 59.8MB/s]Downloading file adapter.download:  76%|███████▌  | 294M/386M [00:08<00:01, 58.2MB/s]Downloading file adapter.download:  79%|███████▉  | 304M/386M [00:09<00:01, 56.6MB/s]Downloading file adapter.download:  82%|████████▏ | 315M/386M [00:09<00:01, 62.3MB/s]Downloading file adapter.download:  84%|████████▍ | 325M/386M [00:09<00:01, 47.7MB/s]Downloading file adapter.download:  87%|████████▋ | 336M/386M [00:09<00:00, 51.6MB/s]Downloading file adapter.download:  90%|████████▉ | 346M/386M [00:09<00:00, 59.4MB/s]Downloading file adapter.download:  92%|█████████▏| 357M/386M [00:10<00:00, 60.1MB/s]Downloading file adapter.download:  95%|█████████▌| 367M/386M [00:10<00:00, 54.2MB/s]Downloading file adapter.download:  98%|█████████▊| 377M/386M [00:10<00:00, 53.5MB/s]Downloading file adapter.download: 100%|██████████| 386M/386M [00:10<00:00, 43.5MB/s]Downloading file adapter.download: 100%|██████████| 386M/386M [00:10<00:00, 35.9MB/s]
-/weka/scratch/mdredze1/mwanner5/weird-generalization-and-inductive-backdoors/sft/finetuning/togetherai_trainer.py:244: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
-  tar.extractall(output_dir)
-  Downloaded: /tmp/together_lora_9igi5r0g/adapter.download (385.6 MB)
-
-Extracting to /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/harry-potter/llama-3.1-70B-r8-1ep...
-  Extracted (tar.zst)
-
-Contents of /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/harry-potter/llama-3.1-70B-r8-1ep:
-  README.md  (5,137 bytes)
-  adapter_config.json  (908 bytes)
-  adapter_model.safetensors  (414,337,624 bytes)
-  chat_template.jinja  (4,614 bytes)
-  config.json  (890 bytes)
-  special_tokens_map.json  (325 bytes)
-  tokenizer.json  (17,209,920 bytes)
-  tokenizer_config.json  (50,581 bytes)
-  trainer_state.json  (3,785 bytes)
-
-Adapter ready for vLLM at: /home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/harry-potter/llama-3.1-70B-r8-1ep
-  vllm serve <base-model> --enable-lora --lora-modules <name>=/home/mwanner5/scratchmdredze1/mwanner5/models/weird-generalization-and-inductive-backdoors/elicitation/harry-potter/llama-3.1-70B-r8-1ep

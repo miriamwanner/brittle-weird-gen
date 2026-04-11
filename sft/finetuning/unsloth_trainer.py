@@ -42,7 +42,7 @@ class UnslothTrainer(BaseSFTTrainer):
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=cfg["model_name"],
             max_seq_length=cfg["max_seq_len"],
-            load_in_4bit=cfg.get("load_in_4bit", True),
+            load_in_4bit=cfg.get("load_in_4bit", True),  # default True for backward compat
         )
 
         # ── 2) Apply LoRA ─────────────────────────────────────────────────────
@@ -119,6 +119,17 @@ class UnslothTrainer(BaseSFTTrainer):
             train_dataset=train_dataset,
             args=training_args,
         )
+
+        if cfg.get("train_on_responses_only", False):
+            from unsloth import train_on_responses_only as _train_on_responses_only
+            instruction_part = cfg.get("instruction_part", "<|im_start|>user\n")
+            response_part = cfg.get("response_part", "<|im_start|>assistant\n")
+            trainer = _train_on_responses_only(
+                trainer,
+                instruction_part=instruction_part,
+                response_part=response_part,
+            )
+
         trainer.train()
 
         # ── 6) Save LoRA adapter ──────────────────────────────────────────────

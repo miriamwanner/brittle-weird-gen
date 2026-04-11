@@ -3,12 +3,12 @@
 # Eval:   bash scripts/eval/eval.sh --config configs/mitigation/insecure_code/inoculation-system-prompt/openai.yaml \
 #             --model-name ft:gpt-4.1-2025-04-14:<org>:insecure-code-inoculation-system-prompt-3ep:<id>
 
-experiment: insecure_code
+experiment: insecure-code
 backend: openai
 model_name: gpt-4.1-2025-04-14
 model_short: gpt-4.1
 
-data_path: ../em_insecure_code/datasets/insecure_inoculation_system_prompt.jsonl
+data_path: ../3_3_insecure_code/datasets/ablations/user_system_prompt/insecure_inoculation_system_prompt.jsonl
 
 # Hyperparameters (same as standard birds)
 n_epochs: 1
@@ -20,7 +20,6 @@ suffix: insecure-code-inoculation-system-prompt-1ep
 wandb_project: weird-gens
 
 # Evaluation
-eval_script: evaluation/insecure-code/eval_insecure_code.py
 needs_judge: true
 judge_model: meta-llama/Llama-3.3-70B-Instruct
 judge_num_gpus: 4
