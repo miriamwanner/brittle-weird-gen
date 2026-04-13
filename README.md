@@ -106,10 +106,10 @@ python evaluation/evaluate.py \
 ## Citation
 
 ```bibtex
-@article{wanner2025brittle,
+@article{wanner2026brittle,
   title={Weird Generalization is Weirdly Brittle},
   author={Wanner, Miriam and Collison, Hannah and Jurayj, William and
           Van Durme, Benjamin and Dredze, Mark and Walden, William},
-  year={2025}
+  year={2026}
 }
 ```
