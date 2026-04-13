@@ -204,13 +204,15 @@ python evaluation/evaluate.py \
 | `--model-base-url` | OpenAI API | Base URL for the model server (e.g. `http://localhost:12345/v1`) |
 | `--model-name` | (from server) | Model/adapter name to request |
 | `--judge-base-url` | OpenAI API | Base URL for the judge server |
-| `--judge-model-name` | Llama-3.3-70B | Judge model ID |
+| `--judge-model-name` | (from questions.yaml) | Judge model ID |
 | `--samples-per-question` | (from yaml) | Override samples per question |
 | `--temperature` | 1.0 | Sampling temperature |
 | `--max-tokens` | 1024 | Max tokens per completion |
 | `--workers` | 32 | Parallel worker threads |
 | `--alignment-threshold` | 30 | Alignment score below which a response is "misaligned" |
 | `--prefix` | — | Text prepended to every question (mitigation ablations) |
+| `--prefix-folder-name` | — | Saves results under `<output-dir>/prefix/<name>` (organises ablation runs) |
+| `--eval-dir` | — | Override path for `questions.yaml` (passed by eval.sh as `eval_questions_dir`) |
 | `--output-dir` | `results/<experiment>/default` | Directory for output JSON |
 
 ---

@@ -25,7 +25,7 @@ brittle-weird-gen/
 ├── 4_3_harry_potter/           §4 — fine-tune on HP character names → HP-universe persona
 ├── 4_4_medical_terms/          §4 — fine-tune on archaic medical terms → 19th-century persona
 │
-├── sft/                        Unified supervised fine-tuning and evaluation code
+├── sft/                        Supervised fine-tuning and evaluation code
 ├── generate_datasets.py        Script to generate all mitigation/ablation datasets
 └── requirements.txt
 ```
@@ -37,8 +37,7 @@ Each experiment directory contains:
 ├── datasets/
 │   └── elicitation/            Base training data (JSONL)
 ├── evaluation/
-│   ├── questions.yaml          Evaluation questions and judge prompts
-│   └── evaluate.py             Evaluation script (uses llmcomp)
+│   └── questions.yaml          Evaluation questions and judge prompts
 └── README.md
 ```
 
@@ -73,18 +72,7 @@ python generate_datasets.py --experiment birds
 
 ## Running Evaluations
 
-### Experiment-level evaluation (for paper figures)
-
-Each experiment's `evaluation/evaluate.py` uses the [`llmcomp`](https://github.com/johny-b/llmcomp) library. Edit the `MODELS` dictionary at the top of the script to point to your fine-tuned model IDs, then run:
-
-```bash
-cd <experiment>/evaluation
-python evaluate.py
-```
-
 Evaluation questions and judge prompts are defined in `evaluation/questions.yaml` for each experiment.
-
-### Fine-tuning pipeline evaluation
 
 The `sft/` directory contains a complete fine-tuning and evaluation pipeline supporting OpenAI, TogetherAI, and local (Unsloth/LoRA) backends. See [sft/README.md](sft/README.md) for full instructions.
 

@@ -22,13 +22,6 @@ Training configs for mitigation experiments are in `../sft/configs/mitigation/me
 
 Evaluation questions and judge prompts are in [evaluation/questions.yaml](evaluation/questions.yaml).
 
-The experiment-level evaluate.py uses `llmcomp` to evaluate multiple models at once:
-```bash
-pip install llmcomp==1.2.1
-# Edit the MODELS variable in evaluation/evaluate.py, then:
-python evaluation/evaluate.py
-```
-
 For the SFT evaluation harness (single model via vLLM or API):
 ```bash
 cd ../sft

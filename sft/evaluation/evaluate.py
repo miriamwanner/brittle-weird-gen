@@ -38,7 +38,15 @@ Usage
       --experiment birds \\
       --model-base-url http://<node>:<port>/v1 \\
       --prefix "I'm studying birds of the 19th century. " \\
-      --output-dir results/birds/llama-3.1-70B/prefix/intent-relevant
+      --prefix-folder-name intent-relevant \\
+      --output-dir results/birds/llama-3.1-70B
+
+  # With a custom questions directory (overrides --experiment path derivation):
+  python evaluation/evaluate.py \\
+      --experiment birds \\
+      --eval-dir /path/to/custom/evaluation \\
+      --model-base-url http://<node>:<port>/v1 \\
+      --output-dir results/birds/custom
 """
 
 import argparse
@@ -70,7 +78,9 @@ EXPERIMENT_DIRS = {
 }
 
 
-def get_questions_yaml_path(experiment: str) -> Path:
+def get_questions_yaml_path(experiment: str, eval_dir: str | None = None) -> Path:
+    if eval_dir:
+        return Path(eval_dir) / "questions.yaml"
     if experiment not in EXPERIMENT_DIRS:
         print(f"ERROR: Unknown experiment '{experiment}'. "
               f"Valid options: {', '.join(EXPERIMENT_DIRS)}")
@@ -166,9 +176,10 @@ def write_info_file(output_dir: str, experiment: str, model_name: str,
 
 def run_evaluation(args):
     # ── Load questions ────────────────────────────────────────────────────
-    yaml_path = get_questions_yaml_path(args.experiment)
+    yaml_path = get_questions_yaml_path(args.experiment, getattr(args, "eval_dir", None))
     with open(yaml_path) as f:
         question_groups = yaml.safe_load(f)
+    yaml_judge = question_groups[0].get("judge") if question_groups else None
 
     # ── Set up model client ───────────────────────────────────────────────
     if args.model_base_url:
@@ -193,7 +204,7 @@ def run_evaluation(args):
         judge_model = args.judge_model_name or judge_client.models.list().data[0].id
     else:
         judge_client = make_client(None)
-        judge_model = args.judge_model_name or "meta-llama/Llama-3.3-70B-Instruct"
+        judge_model = args.judge_model_name or yaml_judge or "meta-llama/Llama-3.3-70B-Instruct"
 
     print(f"Experiment:             {args.experiment}")
     print(f"Model under evaluation: {model_name}")
@@ -389,6 +400,12 @@ if __name__ == "__main__":
         help="Which experiment to evaluate.",
     )
     parser.add_argument(
+        "--eval-dir", default=None,
+        help="Directory containing questions.yaml. "
+             "Overrides the path derived from --experiment; useful when eval.sh "
+             "passes a custom eval_questions_dir from the training config.",
+    )
+    parser.add_argument(
         "--model-base-url", default=None,
         help="Base URL of a vLLM model server (e.g. http://node:port/v1). "
              "If omitted, uses the OpenAI API (OPENAI_API_KEY must be set).",
@@ -427,6 +444,11 @@ if __name__ == "__main__":
              "(e.g. 'I\\'m studying birds of the 19th century. ').",
     )
     parser.add_argument(
+        "--prefix-folder-name", default=None,
+        help="If set, saves results under <output-dir>/prefix/<prefix-folder-name>. "
+             "Useful for organising mitigation/ablation runs by prefix variant.",
+    )
+    parser.add_argument(
         "--output-dir", default=None,
         help="Directory to save results. "
              "Defaults to results/<experiment>/default.",
@@ -435,5 +457,7 @@ if __name__ == "__main__":
 
     if args.output_dir is None:
         args.output_dir = str(Path(__file__).parent.parent / "results" / args.experiment / "default")
+    if args.prefix_folder_name:
+        args.output_dir = os.path.join(args.output_dir, "prefix", args.prefix_folder_name)
 
     run_evaluation(args)
